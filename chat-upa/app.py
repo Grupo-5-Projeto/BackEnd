@@ -12,8 +12,8 @@ API_KEY = "AIzaSyBlyuMSTVQT1IQzCQFU6gbC_Gys0KJoABI"
 
 conn = mysql.connector.connect(
     host='localhost',
-    user='root',
-    password='root',
+    user='admin_upa_connect',
+    password='urubu100',
     database='upa_connect'
 )
 
@@ -105,7 +105,7 @@ def pegar_upas_proxima(api_key, lat_user, lon_user):
 
     for upa in upas:
         if upa["latitude"] is not None and upa["longitude"] is not None:
-            upa["distancia_km"] = haversine(lat_user, lon_user, upa["latitude"], upa["longitude"])
+            upa["distancia_km"] = haversine(lat_user, lon_user, float(upa["latitude"]), float(upa["longitude"]))
         else:
             upa["distancia_km"] = float("inf")
 
@@ -119,11 +119,11 @@ def calcular_info_upa(upa, lat_origem, long_origem, api_key):
 
     return {
         "nome": upa["nome"],
-        "endereco": destino_endereco,
-        "distancia": f"{upa['distancia_km']:.2f} km",
+        #"endereco": destino_endereco,
+        #"distancia": f"{upa['distancia_km']:.2f} km",
         "rotas": rotas,
-        "linkMaps": link_maps,
-        "linkImagem": "https://maps.gstatic.com/tactile/pane/default_geocode-2x.png"
+        #"linkMaps": link_maps,
+        #"linkImagem": "https://maps.gstatic.com/tactile/pane/default_geocode-2x.png"
     }
 
 
