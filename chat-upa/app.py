@@ -10,6 +10,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 # ============ CONFIGURAÇÕES ============
 API_KEY = "AIzaSyBlyuMSTVQT1IQzCQFU6gbC_Gys0KJoABI"
 
+json_enderecos_upa = {}
+
 conn = mysql.connector.connect(
     host='localhost',
     user='admin_upa_connect',
@@ -96,7 +98,7 @@ def calcular_rotas(lat_origem, long_origem, destino, api_key):
 def pegar_upas_proxima(api_key, lat_user, lon_user):
     cursor = conn.cursor(dictionary=True)
     cursor.execute("""
-        SELECT u.nome, e.rua, e.numero, e.bairro, e.cidade, e.cep, e.latitude, e.longitude
+        SELECT u.nome, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.cep, e.latitude, e.longitude
         FROM upa u
         JOIN endereco e ON u.fk_endereco = e.id_endereco
     """)
@@ -114,9 +116,15 @@ def pegar_upas_proxima(api_key, lat_user, lon_user):
 
 def calcular_info_upa(upa, lat_origem, long_origem, api_key):
     destino_endereco = f"{upa['rua']}, {upa['numero']}, {upa['bairro']}, {upa['cidade']}, {upa['cep']}"
-    rotas = calcular_rotas(lat_origem, long_origem, destino_endereco, api_key)
-    link_maps = gerar_link_maps(lat_origem, long_origem, upa["latitude"], upa["longitude"], "driving")
-
+    rotas = calcular_rotas(lat_origem, long_origem, destino_endereco, api_key)    
+    
+    json_enderecos_upa = {
+        "nome": upa["nome"],
+        "endereco": destino_endereco,
+        "latitude": upa['latitude'],
+        "longitude": upa['longitude']
+    }
+    
     return {
         "nome": upa["nome"],
         #"endereco": destino_endereco,
@@ -155,13 +163,55 @@ def recomendar_upa():
 
     upas = pegar_upas_proxima(API_KEY, lat_user, lon_user)
 
-    resultado_final = {"upas_proximas": []}
+    resultado_para_dijkstra = {"upas_proximas": []}
     with ThreadPoolExecutor(max_workers=3) as executor:
         futures = [executor.submit(calcular_info_upa, upa, lat_user, lon_user, API_KEY) for upa in upas]
         for future in as_completed(futures):
-            resultado_final["upas_proximas"].append(future.result())
+            resultado_para_dijkstra["upas_proximas"].append(future.result())
 
-    return jsonify(resultado_final)
+
+    json_dijkstra = resultado_para_dijkstra  # Isso é um dicionário, não um objeto Flask Response
+    response_dijkstra = requests.post('http://localhost:8080/menor-caminho', json=json_dijkstra)
+
+    
+    url = "https://maps.googleapis.com/maps/api/directions/json"
+    
+    dados_dijkstra = response_dijkstra.json()
+    nome_upa_retorno_api = dados_dijkstra['nome']
+    destino_upa = json_enderecos_upa.get(nome_upa_retorno_api)
+    print("DESTINO_UPA: ", destino_upa)
+    
+    origem = endereco
+    dados = destino_upa.json()
+    destino = dados['endereco']
+    modo = dados_dijkstra["rotas"]["modo"]
+    params = {
+        "origin": origem,
+        "destination": destino,
+        "mode": modo,  # Pode ser walking, transit, bicycling
+        "key": API_KEY
+    }
+    
+    response = requests.get(url, params=params)
+    data = response.json()
+
+    if data['status'] == 'OK':
+        polyline = data['routes'][0]['overview_polyline']['points']
+        print("Encoded polyline:")
+        print(polyline)
+    else:
+        print("Erro:", data['status'], data.get('error_message'))
+    
+    linkImagem = f"https://maps.googleapis.com/maps/api/staticmap?size=600x400&path=enc:{polyline}&key={API_KEY}"
+    print(linkImagem)
+    
+    print("\n\n\n\n")
+    
+    link_maps = gerar_link_maps(lat_user, lon_user, destino_upa["latitude"], destino_upa["longitude"], response_dijkstra['modo'])
+    print(link_maps)
+
+
+    return response_dijkstra
 
 
 # ============ EXECUTAR APP ============
