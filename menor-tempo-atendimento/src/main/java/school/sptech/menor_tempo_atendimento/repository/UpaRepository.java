@@ -12,6 +12,11 @@ import java.util.List;
 @Repository
 public interface UpaRepository extends JpaRepository<Upa, Integer> {
 
+    @Query(nativeQuery = true, value =
+            "SELECT te.tempo_espera, u.id_upa, u.nome " +
+            "FROM tempo_espera te " +
+            "JOIN upa u ON te.fk_upa = u.id_upa " +
+            "WHERE u.nome IN (:nomes);")
     List<Upa> findByNomeIn(List<String> nomes);
 
     // Método para simular o retorno de dados
