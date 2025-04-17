@@ -1,0 +1,6 @@
+curl --location 'http://127.0.0.1:5000/api/upa' \
+--header 'Content-Type: application/json' \
+--data '{
+  "endereco": "R. Vemag, 668 - Vila Independencia, São Paulo - SP, 04217-050"
+}
+'
