@@ -3,7 +3,6 @@ from flask_cors import CORS
 import requests
 from datetime import datetime, timedelta, timezone
 import mysql.connector
-import json
 import math
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -22,7 +21,6 @@ conn = mysql.connector.connect(
 # ============ APP FLASK ============
 app = Flask(__name__)
 CORS(app)
-
 
 # ============ FUNÇÕES ============
 def pegar_coordenadas(endereco, api_key):
@@ -115,23 +113,20 @@ def pegar_upas_proxima(api_key, lat_user, lon_user):
 
 
 def calcular_info_upa(upa, lat_origem, long_origem, api_key):
+    global json_enderecos_upa
+
     destino_endereco = f"{upa['rua']}, {upa['numero']}, {upa['bairro']}, {upa['cidade']}, {upa['cep']}"
-    rotas = calcular_rotas(lat_origem, long_origem, destino_endereco, api_key)    
-    
-    json_enderecos_upa = {
-        "nome": upa["nome"],
+    rotas = calcular_rotas(lat_origem, long_origem, destino_endereco, api_key)
+
+    json_enderecos_upa[upa["nome"]] = {
         "endereco": destino_endereco,
         "latitude": upa['latitude'],
         "longitude": upa['longitude']
     }
-    
+
     return {
         "nome": upa["nome"],
-        #"endereco": destino_endereco,
-        #"distancia": f"{upa['distancia_km']:.2f} km",
-        "rotas": rotas,
-        #"linkMaps": link_maps,
-        #"linkImagem": "https://maps.gstatic.com/tactile/pane/default_geocode-2x.png"
+        "rotas": rotas
     }
 
 
@@ -148,14 +143,39 @@ def haversine(lat1, lon1, lat2, lon2):
     return R * c
 
 
+def obter_endereco_completo(cep, numero, api_key):
+    endereco_busca = f"{cep}, {numero}, Brasil"
+    url = f"https://maps.googleapis.com/maps/api/geocode/json?address={endereco_busca}&key={api_key}"
+
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        if data['results']:
+            resultado = data['results'][0]
+            endereco_formatado = resultado['formatted_address']
+            return endereco_formatado
+        else:
+            print("Nenhum resultado encontrado.")
+    else:
+        print("Erro na requisição:", response.status_code)
+
+    return None
+
 # ============ ROTA API ============
 @app.route('/api/upa', methods=['POST'])
 def recomendar_upa():
-    data = request.get_json()
-    endereco = data.get('endereco')  # Espera-se: string completa do endereço
+    global json_enderecos_upa
+    json_enderecos_upa = {}
 
-    if not endereco:
-        return jsonify({"erro": "Endereço não fornecido."}), 400
+    data = request.get_json()
+    cep = data.get('cep')
+    numero = data.get('numero')
+
+    endereco = obter_endereco_completo(cep, numero, API_KEY)
+    
+    # endereco = data.get('endereco')
+    # if not endereco:
+    #     return jsonify({"erro": "Endereço não fornecido."}), 400
 
     lat_user, lon_user = pegar_coordenadas(endereco, API_KEY)
     if lat_user is None or lon_user is None:
@@ -169,50 +189,43 @@ def recomendar_upa():
         for future in as_completed(futures):
             resultado_para_dijkstra["upas_proximas"].append(future.result())
 
-
-    json_dijkstra = resultado_para_dijkstra  # Isso é um dicionário, não um objeto Flask Response
-    response_dijkstra = requests.post('http://localhost:8080/menor-caminho', json=json_dijkstra)
-
-    
-    url = "https://maps.googleapis.com/maps/api/directions/json"
-    
+    response_dijkstra = requests.post('http://localhost:8080/menor-caminho', json=resultado_para_dijkstra)
     dados_dijkstra = response_dijkstra.json()
+
     nome_upa_retorno_api = dados_dijkstra['nome']
     destino_upa = json_enderecos_upa.get(nome_upa_retorno_api)
-    print("DESTINO_UPA: ", destino_upa)
-    
+
+    if not destino_upa:
+        return jsonify({"erro": f"UPA '{nome_upa_retorno_api}' não encontrada nos endereços."}), 500
+
     origem = endereco
-    dados = destino_upa.json()
-    destino = dados['endereco']
+    destino = destino_upa['endereco']
     modo = dados_dijkstra["rotas"]["modo"]
+
+    url = "https://maps.googleapis.com/maps/api/directions/json"
     params = {
         "origin": origem,
         "destination": destino,
-        "mode": modo,  # Pode ser walking, transit, bicycling
+        "mode": modo,
         "key": API_KEY
     }
-    
+
     response = requests.get(url, params=params)
     data = response.json()
 
     if data['status'] == 'OK':
         polyline = data['routes'][0]['overview_polyline']['points']
-        print("Encoded polyline:")
-        print(polyline)
+        linkImagem = f"https://maps.googleapis.com/maps/api/staticmap?size=600x400&path=enc:{polyline}&key={API_KEY}"
     else:
-        print("Erro:", data['status'], data.get('error_message'))
-    
-    linkImagem = f"https://maps.googleapis.com/maps/api/staticmap?size=600x400&path=enc:{polyline}&key={API_KEY}"
-    print(linkImagem)
-    
-    print("\n\n\n\n")
-    
-    link_maps = gerar_link_maps(lat_user, lon_user, destino_upa["latitude"], destino_upa["longitude"], response_dijkstra['modo'])
-    print(link_maps)
+        linkImagem = None
 
+    link_maps = gerar_link_maps(lat_user, lon_user, destino_upa["latitude"], destino_upa["longitude"], modo)
 
-    return response_dijkstra
-
+    return jsonify({
+        "upa_recomendada": dados_dijkstra,
+        "linkImagem": linkImagem,
+        "linkMaps": link_maps
+    })
 
 # ============ EXECUTAR APP ============
 if __name__ == "__main__":
