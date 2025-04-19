@@ -178,19 +178,11 @@ def recomendar_upa():
 
     endereco = obter_endereco_completo(cep, numero, API_KEY)
     
-    # endereco = data.get('endereco')
-    # if not endereco:
-    #     return jsonify({"erro": "Endereço não fornecido."}), 400
-
     lat_user, lon_user = pegar_coordenadas(endereco, API_KEY)
     if lat_user is None or lon_user is None:
         return jsonify({"erro": "Erro ao obter coordenadas do endereço informado."}), 500
 
     upas = pegar_upas_proxima(API_KEY, lat_user, lon_user)
-
-    # print("=====================================================")
-    # print(json.dumps(upas, indent=4))
-    # print("=====================================================")
 
     resultado_para_dijkstra = {"upas_proximas": []}
     with ThreadPoolExecutor(max_workers=3) as executor:
@@ -198,14 +190,11 @@ def recomendar_upa():
         for future in as_completed(futures):
             resultado_para_dijkstra["upas_proximas"].append(future.result())
 
-    # print("resultado_para_dijkstra", resultado_para_dijkstra)
-
     print("=====================================================")
     print(json.dumps(resultado_para_dijkstra, indent=4))
     print("=====================================================")
 
     response_dijkstra = requests.get('http://localhost:8081/grafos/melhor-caminho', json=resultado_para_dijkstra)
-    # print("response_dijkstra", response_dijkstra.status_code, response_dijkstra.text)
     dados_dijkstra = response_dijkstra.json()
 
     print("=====================================================")
@@ -214,10 +203,6 @@ def recomendar_upa():
 
     nome_upa_retorno_api = dados_dijkstra['nome']
     destino_upa = json_enderecos_upa.get(nome_upa_retorno_api)
-
-    # print("===================result===========================")
-    # print(json.dumps(destino_upa, indent=4))
-    # print("=====================================================")
 
     if not destino_upa:
         return jsonify({"erro": f"UPA '{nome_upa_retorno_api}' não encontrada nos endereços."}), 500
@@ -245,14 +230,24 @@ def recomendar_upa():
 
     link_maps = gerar_link_maps(lat_user, lon_user, destino_upa["latitude"], destino_upa["longitude"], modo)
 
-    # print("upa_recomendada", dados_dijkstra, "linkImagem", linkImagem, "linkMaps", link_maps)
+    # ===== PEGAR DISTÂNCIA ASSOCIADA =====
+    distancia_upa = None
+    for upa in resultado_para_dijkstra["upas_proximas"]:
+        if upa["nome"] == nome_upa_retorno_api:
+            rotas = upa.get("rotas", {})
+            info_modo = rotas.get(modo)
+            if info_modo:
+                distancia_upa = info_modo.get("Distância")
+            break
 
     return jsonify({
         "upa_recomendada": dados_dijkstra,
         "destino": destino,
         "linkImagem": linkImagem,
-        "linkMaps": link_maps
+        "linkMaps": link_maps,
+        "distancia": distancia_upa
     })
+
 
 # ============ EXECUTAR APP ============
 if __name__ == "__main__":
