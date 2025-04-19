@@ -4,6 +4,7 @@ import requests
 from datetime import datetime, timedelta, timezone
 import mysql.connector
 import math
+import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # ============ CONFIGURAÇÕES ============
@@ -109,6 +110,10 @@ def pegar_upas_proxima(api_key, lat_user, lon_user):
         else:
             upa["distancia_km"] = float("inf")
 
+    # print("=====================================================")
+    # print(json.dumps(upas, indent=4))
+    # print("=====================================================")
+
     return sorted(upas, key=lambda x: x["distancia_km"])[:3]
 
 
@@ -183,17 +188,36 @@ def recomendar_upa():
 
     upas = pegar_upas_proxima(API_KEY, lat_user, lon_user)
 
+    # print("=====================================================")
+    # print(json.dumps(upas, indent=4))
+    # print("=====================================================")
+
     resultado_para_dijkstra = {"upas_proximas": []}
     with ThreadPoolExecutor(max_workers=3) as executor:
         futures = [executor.submit(calcular_info_upa, upa, lat_user, lon_user, API_KEY) for upa in upas]
         for future in as_completed(futures):
             resultado_para_dijkstra["upas_proximas"].append(future.result())
 
-    response_dijkstra = requests.post('http://localhost:8080/menor-caminho', json=resultado_para_dijkstra)
+    # print("resultado_para_dijkstra", resultado_para_dijkstra)
+
+    print("=====================================================")
+    print(json.dumps(resultado_para_dijkstra, indent=4))
+    print("=====================================================")
+
+    response_dijkstra = requests.get('http://localhost:8081/grafos/melhor-caminho', json=resultado_para_dijkstra)
+    # print("response_dijkstra", response_dijkstra.status_code, response_dijkstra.text)
     dados_dijkstra = response_dijkstra.json()
+
+    print("=====================================================")
+    print(json.dumps(dados_dijkstra, indent=4))
+    print("=====================================================")
 
     nome_upa_retorno_api = dados_dijkstra['nome']
     destino_upa = json_enderecos_upa.get(nome_upa_retorno_api)
+
+    # print("===================result===========================")
+    # print(json.dumps(destino_upa, indent=4))
+    # print("=====================================================")
 
     if not destino_upa:
         return jsonify({"erro": f"UPA '{nome_upa_retorno_api}' não encontrada nos endereços."}), 500
@@ -221,8 +245,11 @@ def recomendar_upa():
 
     link_maps = gerar_link_maps(lat_user, lon_user, destino_upa["latitude"], destino_upa["longitude"], modo)
 
+    # print("upa_recomendada", dados_dijkstra, "linkImagem", linkImagem, "linkMaps", link_maps)
+
     return jsonify({
         "upa_recomendada": dados_dijkstra,
+        "destino": destino,
         "linkImagem": linkImagem,
         "linkMaps": link_maps
     })

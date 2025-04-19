@@ -34,12 +34,12 @@ public class GrafoService {
     // chegar no resultado final de um NoGrafo
     //Acredito que não é necessário criar classes para cada UPA e Meio de Transporte
     //pois não utilizariamos para mais nada alem de fazer a conversão para NoGrafo
-    public HashMap<String, List<Par<String, Integer>>> jsonToHashMap(JsonNode upasProximas){
+    public HashMap<String, List<Par<String, Integer>>> jsonToHashMap(JsonNode upasProximas) {
         JsonNode upas = upasProximas.get("upas_proximas");
         for (JsonNode upa : upas) {
             String nome = upa.get("nome").asText();
             valorArestaTransporteUpa.putIfAbsent(nome, new ArrayList<>());
-            JsonNode modos = upa.get("modos_transporte");
+            JsonNode modos = upa.get("rotas");
             modos.fields().forEachRemaining(entry -> {
                 String transporte = entry.getKey();
                 String tempo = entry.getValue().get("Tempo Estimado").asText();
@@ -48,7 +48,7 @@ public class GrafoService {
             });
         }
 
-      //  Mostrando como fica os valores do hashMap valorArestaTransporteUpa
+        //  Mostrando como fica os valores do hashMap valorArestaTransporteUpa
         for (Map.Entry<String, List<Par<String, Integer>>> entry : valorArestaTransporteUpa.entrySet()) {
             String chave = entry.getKey();
             List<Par<String, Integer>> lista = entry.getValue();
@@ -64,7 +64,7 @@ public class GrafoService {
 
     //Metodo para os valores do hashMap e adicionar em uma lista de NoGrafo
     //Para depois apenas adicionar os valores do grafo
-    public List<NoGrafo> hashMapToNografo(){
+    public List<NoGrafo> hashMapToNografo() {
         List<NoGrafo> listaAdicionarValoresGrafo = new ArrayList<>();
         int contador = 0;
         for (Map.Entry<String, List<Par<String, Integer>>> entry : valorArestaTransporteUpa.entrySet()) {
@@ -74,8 +74,8 @@ public class GrafoService {
             //-Criando todos os Nós do meio de transporte
             //-Preciso pegar apenas da primeira vez,
             //pois para os outros valores de upa os meios de transporte se repetem
-            if(contador == 0){
-                for (Par<String, Integer> meioDeTransporteDaVez: transporteTempo) {
+            if (contador == 0) {
+                for (Par<String, Integer> meioDeTransporteDaVez : transporteTempo) {
                     listaAdicionarValoresGrafo.add(new NoGrafo(meioDeTransporteDaVez.chave, Nivel.NIVEL_MEIO_DE_TRANSPORTE, 0));
                 }
             }
@@ -90,23 +90,23 @@ public class GrafoService {
     //MeioDeTransporte: Receber esses valores pela API do Maps
     //Upa: receber valores pela API do Maps (info de tempo do meio de transporte até a UPA)
     //tempo de espera: Receber valores pelo Banco de dados (info fornecida pela Visão computacional que nas UPAs)
-    public void gerarNosGrafo(List<NoGrafo> meioDeTransporteUpas){
+    public void gerarNosGrafo(List<NoGrafo> meioDeTransporteUpas) {
         NoGrafo paciente = new NoGrafo("paciente", Nivel.NIVEL_PACIENTE, 0);
         List<String> nomesUpas = new ArrayList<>();
-        for (NoGrafo meioDeTransporte: meioDeTransporteUpas) {
+        for (NoGrafo meioDeTransporte : meioDeTransporteUpas) {
             if (meioDeTransporte.getNivel() == Nivel.NIVEL_UPA) {
                 nomesUpas.add(meioDeTransporte.getNome());
             }
         }
         List<NoGrafo> temposDeEspera = upaService.getTempoEspera(nomesUpas);
         adicionarNo(paciente);
-        for(NoGrafo meiosDeTranporteUpas: meioDeTransporteUpas) adicionarNo(meiosDeTranporteUpas);
-        for (NoGrafo tempoDeEspera: temposDeEspera) adicionarNo(tempoDeEspera);
+        for (NoGrafo meiosDeTranporteUpas : meioDeTransporteUpas) adicionarNo(meiosDeTranporteUpas);
+        for (NoGrafo tempoDeEspera : temposDeEspera) adicionarNo(tempoDeEspera);
     }
 
     //Gerar as aresta do grafo de maneira automatica
     //para nao ter que criar na main na mao
-    public void gerarArestasGrafo(){
+    public void gerarArestasGrafo() {
         NoGrafo paciente = null;
 
         for (NoGrafo no : adjacencia.keySet()) {
@@ -123,14 +123,14 @@ public class GrafoService {
             //- Achar uma UPA
             if (no.getNivel() == Nivel.NIVEL_UPA) {
                 //- Procurar por meios de transporte
-                for (NoGrafo noDaVez: adjacencia.keySet()) {
+                for (NoGrafo noDaVez : adjacencia.keySet()) {
                     if (noDaVez.getNivel() == Nivel.NIVEL_MEIO_DE_TRANSPORTE) {
                         // Procuro pelo determinado meio de transporte e seu tempo até a determinada upa
                         //OBS: valorArestaTransporteUpa é um HashMap de List<Par<String, Integer>>
                         //Ou seja vou procurar por uma determinada chave (UPA) e irá me retornar
                         //uma lista de pares (meio de transporte, tempo)
                         //Exemplo: UPA 1 -> {Carro, 5}, {Moto, 2}, {Transporte Publico, 10}
-                        for (Par<String, Integer> tempoMeioDeTransporteUpa: valorArestaTransporteUpa.get(no.getNome())) {
+                        for (Par<String, Integer> tempoMeioDeTransporteUpa : valorArestaTransporteUpa.get(no.getNome())) {
                             if (tempoMeioDeTransporteUpa.chave.equals(noDaVez.getNome())) {
                                 adicionarAresta(no, noDaVez, tempoMeioDeTransporteUpa.valor);
                             }
@@ -139,13 +139,13 @@ public class GrafoService {
                 }
             }
             if (no.getNivel() == Nivel.NIVEL_TEMPO_DE_ESPERA) {
-                for (NoGrafo noDaVez: adjacencia.keySet()) {
+                for (NoGrafo noDaVez : adjacencia.keySet()) {
                     if (noDaVez.getNivel() == Nivel.NIVEL_UPA) {
-                            if (no.getNome().equals(noDaVez.getNome() + "-" + "tempoEspera")) {
-                                teste.add(noDaVez);
-                                rotaMedicos.put(noDaVez, no);
-                                adicionarAresta(no, noDaVez, no.getTempo());
-                            }
+                        if (no.getNome().equals(noDaVez.getNome() + "-" + "tempoEspera")) {
+                            teste.add(noDaVez);
+                            rotaMedicos.put(noDaVez, no);
+                            adicionarAresta(no, noDaVez, no.getTempo());
+                        }
                     }
                 }
             }
@@ -199,7 +199,7 @@ public class GrafoService {
         return caminho;
     }
 
-    public MelhorCaminho caminhoOtimizado(Map<NoGrafo, Double> tempos){
+    public MelhorCaminho caminhoOtimizado(Map<NoGrafo, Double> tempos) {
         List<NoGrafo> upas = teste;
         double menorTempo = Double.MAX_VALUE;
         List<NoGrafo> melhorRota = new ArrayList<>();
@@ -261,4 +261,13 @@ public class GrafoService {
             this.valor = valor;
         }
     }
+
+    public void limparDados() {
+        adjacencia.clear();
+        valorArestaTransporteUpa.clear();
+        rotaMedicos.clear();
+        predecessores.clear();
+        teste.clear();
+    }
+
 }

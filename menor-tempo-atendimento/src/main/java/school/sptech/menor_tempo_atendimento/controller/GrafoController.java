@@ -23,6 +23,10 @@ public class GrafoController {
 
     @GetMapping("/melhor-caminho")
     public ResponseEntity<MelhorCaminho> getMelhorCaminho(@RequestBody JsonNode jsonNode) {
+        grafoService.limparDados(); // Limpa tudo antes de começar
+        System.out.println("JSON recebido:");
+        System.out.println(jsonNode.toPrettyString());
+        System.out.println("=============================================");
         grafoService.jsonToHashMap(jsonNode);
         grafoService.gerarNosGrafo(grafoService.hashMapToNografo());
         grafoService.gerarArestasGrafo();
