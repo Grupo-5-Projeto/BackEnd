@@ -1,6 +1,6 @@
-package school.sptech.menor_tempo_atendimento;
+package school.sptech.menor_tempo_atendimento.util;
 
-import java.util.Objects;
+import school.sptech.menor_tempo_atendimento.util.Nivel;
 
 public class NoGrafo {
     private String nome;
@@ -14,19 +14,6 @@ public class NoGrafo {
     }
 
     public NoGrafo() {}
-
-    //    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) return true;
-//        if (!(obj instanceof Grafo.NoGrafo)) return false;
-//        Grafo.NoGrafo outro = (Grafo.NoGrafo) obj;
-//        return Objects.equals(this.nome, outro.nome);
-//    }
-
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(nome);
-//    }
 
     @Override
     public String toString() {

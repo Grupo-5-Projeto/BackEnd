@@ -3,10 +3,11 @@ package school.sptech.menor_tempo_atendimento.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import school.sptech.menor_tempo_atendimento.Nivel;
-import school.sptech.menor_tempo_atendimento.NoGrafo;
+import school.sptech.menor_tempo_atendimento.util.Nivel;
+import school.sptech.menor_tempo_atendimento.util.NoGrafo;
 import school.sptech.menor_tempo_atendimento.domain.MelhorCaminho;
 import school.sptech.menor_tempo_atendimento.domain.Rotas;
+import school.sptech.menor_tempo_atendimento.util.Par;
 
 import java.util.*;
 
@@ -55,7 +56,7 @@ public class GrafoService {
 
             System.out.println("Chave: " + chave);
             for (Par<String, Integer> par : lista) {
-                System.out.println("  -> " + par.chave + " : " + par.valor);
+                System.out.println("  -> " + par.getChave() + " : " + par.getChave());
             }
         }
 
@@ -76,7 +77,7 @@ public class GrafoService {
             //pois para os outros valores de upa os meios de transporte se repetem
             if (contador == 0) {
                 for (Par<String, Integer> meioDeTransporteDaVez : transporteTempo) {
-                    listaAdicionarValoresGrafo.add(new NoGrafo(meioDeTransporteDaVez.chave, Nivel.NIVEL_MEIO_DE_TRANSPORTE, 0));
+                    listaAdicionarValoresGrafo.add(new NoGrafo(meioDeTransporteDaVez.getChave(), Nivel.NIVEL_MEIO_DE_TRANSPORTE, 0));
                 }
             }
             contador++;
@@ -106,7 +107,7 @@ public class GrafoService {
 
     //Gerar as aresta do grafo de maneira automatica
     //para nao ter que criar na main na mao
-    public void gerarArestasGrafo() {
+    public void gerarArestasGrafo(HashMap<String, List<Par<String, Integer>>> valorArestaTransporteUpa) {
         NoGrafo paciente = null;
 
         for (NoGrafo no : adjacencia.keySet()) {
@@ -131,8 +132,8 @@ public class GrafoService {
                         //uma lista de pares (meio de transporte, tempo)
                         //Exemplo: UPA 1 -> {Carro, 5}, {Moto, 2}, {Transporte Publico, 10}
                         for (Par<String, Integer> tempoMeioDeTransporteUpa : valorArestaTransporteUpa.get(no.getNome())) {
-                            if (tempoMeioDeTransporteUpa.chave.equals(noDaVez.getNome())) {
-                                adicionarAresta(no, noDaVez, tempoMeioDeTransporteUpa.valor);
+                            if (tempoMeioDeTransporteUpa.getChave().equals(noDaVez.getNome())) {
+                                adicionarAresta(no, noDaVez, tempoMeioDeTransporteUpa.getValor());
                             }
                         }
                     }
@@ -153,7 +154,6 @@ public class GrafoService {
 
     }
 
-    //algoritmo de Dijkstra
     public Map<NoGrafo, Double> algoritmoDijkstra() {
         NoGrafo inicio = null;
 
@@ -165,7 +165,7 @@ public class GrafoService {
         }
 
         Map<NoGrafo, Double> tempoTotal = new HashMap<>();
-        PriorityQueue<Par<NoGrafo, Double>> fila = new PriorityQueue<>(Comparator.comparingDouble(p -> p.valor));
+        PriorityQueue<Par<NoGrafo, Double>> fila = new PriorityQueue<>(Comparator.comparingDouble(p -> p.getValor()));
 
         for (NoGrafo no : adjacencia.keySet()) tempoTotal.put(no, Double.MAX_VALUE);
         tempoTotal.put(inicio, 0.0);
@@ -174,12 +174,12 @@ public class GrafoService {
         while (!fila.isEmpty()) {
             Par<NoGrafo, Double> atual = fila.poll();
 
-            for (Par<NoGrafo, Double> vizinho : adjacencia.getOrDefault(atual.chave, Collections.emptyList())) {
-                double novoTempo = tempoTotal.get(atual.chave) + vizinho.valor;
-                if (novoTempo < tempoTotal.get(vizinho.chave)) {
-                    tempoTotal.put(vizinho.chave, novoTempo);
-                    predecessores.put(vizinho.chave, atual.chave);
-                    fila.add(new Par<>(vizinho.chave, novoTempo));
+            for (Par<NoGrafo, Double> vizinho : adjacencia.getOrDefault(atual.getChave(), Collections.emptyList())) {
+                double novoTempo = tempoTotal.get(atual.getChave()) + vizinho.getValor();
+                if (novoTempo < tempoTotal.get(vizinho.getChave())) {
+                    tempoTotal.put(vizinho.getChave(), novoTempo);
+                    predecessores.put(vizinho.getChave(), atual.getChave());
+                    fila.add(new Par<>(vizinho.getChave(), novoTempo));
                 }
             }
         }
@@ -187,8 +187,6 @@ public class GrafoService {
         return tempoTotal;
     }
 
-    //Metodo para reconstruir o caminho
-    //com finalidade de monstrar o melhor caminho para o paciente
     private List<NoGrafo> reconstruirCaminho(NoGrafo destino) {
         List<NoGrafo> caminho = new LinkedList<>();
         NoGrafo atual = destino;
@@ -218,9 +216,9 @@ public class GrafoService {
 
             // Tempo da UPA até o médico
             double tempoAteMedico = adjacencia.get(upa).stream()
-                    .filter(p -> p.chave.equals(medico))
+                    .filter(p -> p.getChave().equals(medico))
                     .findFirst()
-                    .map(p -> p.valor)
+                    .map(p -> p.getValor())
                     .orElse(Double.MAX_VALUE);
 
             List<NoGrafo> caminhoAteUpa = reconstruirCaminho(upa);
@@ -252,15 +250,15 @@ public class GrafoService {
     }
 
     //Classe auxiliar para armazenar pares de valores
-    private static class Par<K, V> {
-        K chave;
-        V valor;
-
-        Par(K chave, V valor) {
-            this.chave = chave;
-            this.valor = valor;
-        }
-    }
+//    public static class Par<K, V> {
+//        K chave;
+//        V valor;
+//
+//        Par(K chave, V valor) {
+//            this.chave = chave;
+//            this.valor = valor;
+//        }
+//    }
 
     public void limparDados() {
         adjacencia.clear();

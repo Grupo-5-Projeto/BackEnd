@@ -2,12 +2,7 @@ package school.sptech.menor_tempo_atendimento.domain;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.stereotype.Service;
-import school.sptech.menor_tempo_atendimento.Nivel;
+import school.sptech.menor_tempo_atendimento.util.Nivel;
 
 @Entity
 public class Upa {

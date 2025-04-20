@@ -1,4 +1,4 @@
-package school.sptech.menor_tempo_atendimento;
+package school.sptech.menor_tempo_atendimento.util;
 
 public enum Nivel {
     NIVEL_PACIENTE,

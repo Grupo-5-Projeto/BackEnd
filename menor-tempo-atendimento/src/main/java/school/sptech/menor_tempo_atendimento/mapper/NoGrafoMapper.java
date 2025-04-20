@@ -2,8 +2,8 @@ package school.sptech.menor_tempo_atendimento.mapper;
 
 
 
-import school.sptech.menor_tempo_atendimento.Nivel;
-import school.sptech.menor_tempo_atendimento.NoGrafo;
+import school.sptech.menor_tempo_atendimento.util.Nivel;
+import school.sptech.menor_tempo_atendimento.util.NoGrafo;
 import school.sptech.menor_tempo_atendimento.domain.Upa;
 
 import java.util.ArrayList;
