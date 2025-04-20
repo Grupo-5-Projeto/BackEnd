@@ -1,4 +1,4 @@
-package school.sptech.menor_tempo_atendimento.mapper;
+package school.sptech.menor_tempo_atendimento.mapper.grafo;
 
 
 

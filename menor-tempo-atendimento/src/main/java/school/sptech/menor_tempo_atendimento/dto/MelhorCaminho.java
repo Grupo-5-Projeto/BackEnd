@@ -1,4 +1,6 @@
-package school.sptech.menor_tempo_atendimento.domain;
+package school.sptech.menor_tempo_atendimento.dto;
+
+import school.sptech.menor_tempo_atendimento.domain.Rotas;
 
 public class MelhorCaminho {
     private String nome;

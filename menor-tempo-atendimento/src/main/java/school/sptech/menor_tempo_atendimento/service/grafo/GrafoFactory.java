@@ -1,8 +1,10 @@
-package school.sptech.menor_tempo_atendimento.util.factory;
+package school.sptech.menor_tempo_atendimento.service.grafo;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
-import school.sptech.menor_tempo_atendimento.service.GrafoService;
+import org.springframework.stereotype.Component;
+import school.sptech.menor_tempo_atendimento.service.grafo.GrafoService;
+import school.sptech.menor_tempo_atendimento.service.upa.UpaService;
 import school.sptech.menor_tempo_atendimento.util.Nivel;
 import school.sptech.menor_tempo_atendimento.util.NoGrafo;
 import school.sptech.menor_tempo_atendimento.util.Par;
@@ -12,17 +14,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class GrafoFactory {
 
     @Autowired
     private GrafoService grafoService;
-    private HashMap<String, List<Par<String, Integer>>> valorArestaTransporteUpa;
+    @Autowired
+    private UpaService upaService;
+    private HashMap<String, List<Par<String, Integer>>> valorArestaTransporteUpa = new HashMap<>();
 
-    public GrafoFactory() {
-        this.valorArestaTransporteUpa = new HashMap<>();
-    }
 
-    public HashMap<String, List<Par<String, Integer>>> jsonToHashMap(JsonNode upasProximas) {
+    //Metodo para pegar o JSON (API do Maps) e transformar em um HashMap
+    //Estou utilizando JsonNode pois achei mais facil de manipular e
+    // chegar no resultado final de um NoGrafo
+    //Acredito que não é necessário criar classes para cada UPA e Meio de Transporte
+    //pois não utilizariamos para mais nada alem de fazer a conversão para NoGrafo
+    private HashMap<String, List<Par<String, Integer>>> jsonToHashMap(JsonNode upasProximas) {
+        valorArestaTransporteUpa.clear();
         JsonNode upas = upasProximas.get("upas_proximas");
         for (JsonNode upa : upas) {
             String nome = upa.get("nome").asText();
@@ -39,7 +47,9 @@ public class GrafoFactory {
         return valorArestaTransporteUpa;
     }
 
-    public List<NoGrafo> hashMapToNografo() {
+    //Metodo para os valores do hashMap e adicionar em uma lista de NoGrafo
+    //Para depois apenas adicionar os valores do grafo
+    private List<NoGrafo> hashMapToNografo() {
         List<NoGrafo> listaAdicionarValoresGrafo = new ArrayList<>();
         int contador = 0;
         for (Map.Entry<String, List<Par<String, Integer>>> entry : valorArestaTransporteUpa.entrySet()) {
@@ -53,14 +63,14 @@ public class GrafoFactory {
             }
             contador++;
         }
+
         return listaAdicionarValoresGrafo;
     }
 
-    public void build(JsonNode jsonNode){
-        grafoService.limparDados();
-        grafoService.jsonToHashMap(jsonNode);
-        grafoService.gerarNosGrafo(grafoService.hashMapToNografo());
-        grafoService.gerarArestasGrafo(valorArestaTransporteUpa);
+    public GrafoBuilder factory(JsonNode jsonNode){
+        jsonToHashMap(jsonNode);
+        hashMapToNografo();
+        return new GrafoBuilder(hashMapToNografo(),valorArestaTransporteUpa,grafoService,upaService);
     }
 }
 

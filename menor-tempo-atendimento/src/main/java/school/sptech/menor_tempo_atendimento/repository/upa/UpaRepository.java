@@ -1,4 +1,4 @@
-package school.sptech.menor_tempo_atendimento.repository;
+package school.sptech.menor_tempo_atendimento.repository.upa;
 
 
 

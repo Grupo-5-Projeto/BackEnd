@@ -6,27 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import school.sptech.menor_tempo_atendimento.domain.MelhorCaminho;
-import school.sptech.menor_tempo_atendimento.service.GrafoService;
+import school.sptech.menor_tempo_atendimento.dto.MelhorCaminho;
+import school.sptech.menor_tempo_atendimento.service.grafo.GrafoFactory;
+import school.sptech.menor_tempo_atendimento.service.grafo.GrafoService;
 
 @Controller
 @RequestMapping("/grafos")
 public class GrafoController {
 
     @Autowired
-    private GrafoService grafoService;
+    private GrafoFactory grafoFactory;
 
-    @GetMapping("/melhor-caminho")
+    @PostMapping("/melhor-caminho")
     public ResponseEntity<MelhorCaminho> getMelhorCaminho(@RequestBody JsonNode jsonNode) {
-        grafoService.limparDados();
-        grafoService.jsonToHashMap(jsonNode);
-        grafoService.gerarNosGrafo(grafoService.hashMapToNografo());
-//        grafoService.gerarArestasGrafo();
-        return ResponseEntity.ok(
-                grafoService.caminhoOtimizado(grafoService.algoritmoDijkstra())
-        );
+        return ResponseEntity.ok(grafoFactory.factory(jsonNode).buildOtimizado());
     }
 
 }
