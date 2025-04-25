@@ -2,7 +2,6 @@ package school.sptech.menor_tempo_atendimento.domain;
 
 
 import jakarta.persistence.*;
-import school.sptech.menor_tempo_atendimento.util.Nivel;
 
 @Entity
 public class Upa {

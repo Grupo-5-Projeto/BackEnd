@@ -1,6 +1,4 @@
-package school.sptech.menor_tempo_atendimento.util;
-
-import school.sptech.menor_tempo_atendimento.util.Nivel;
+package school.sptech.menor_tempo_atendimento.domain;
 
 public class NoGrafo {
     private String nome;

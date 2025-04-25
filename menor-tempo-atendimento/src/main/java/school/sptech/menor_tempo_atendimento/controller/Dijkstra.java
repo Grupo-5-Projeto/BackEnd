@@ -1,29 +1,22 @@
-package school.sptech.menor_tempo_atendimento.service.grafo;
+package school.sptech.menor_tempo_atendimento.controller;
 
-import org.springframework.stereotype.Service;
-import school.sptech.menor_tempo_atendimento.util.Nivel;
-import school.sptech.menor_tempo_atendimento.util.NoGrafo;
-import school.sptech.menor_tempo_atendimento.dto.MelhorCaminho;
 import school.sptech.menor_tempo_atendimento.domain.Rotas;
-import school.sptech.menor_tempo_atendimento.util.Par;
+import school.sptech.menor_tempo_atendimento.dto.MelhorCaminho;
+import school.sptech.menor_tempo_atendimento.domain.Nivel;
+import school.sptech.menor_tempo_atendimento.domain.NoGrafo;
+import school.sptech.menor_tempo_atendimento.domain.Par;
 
 import java.util.*;
 
-@Service
-public class GrafoService {
-    Map<NoGrafo, List<Par<NoGrafo, Double>>> adjacencia = new HashMap<>();
-    private Map<NoGrafo, NoGrafo> predecessores = new HashMap<>();
+public class Dijkstra {
 
-    public void adicionarNo(NoGrafo no) {
-        adjacencia.putIfAbsent(no, new ArrayList<>());
+    private Map<NoGrafo, NoGrafo> predecessores;
+
+    public Dijkstra() {
+        this.predecessores = new HashMap<>();
     }
 
-    public void adicionarAresta(NoGrafo origem, NoGrafo destino, double tempoEmMinutos) {
-        adjacencia.get(origem).add(new Par<>(destino, tempoEmMinutos));
-        adjacencia.get(destino).add(new Par<>(origem, tempoEmMinutos));
-    }
-
-    public Map<NoGrafo, Double> algoritmoDijkstra() {
+    public Map<NoGrafo, Double> algoritmoDijkstra(Map<NoGrafo, List<Par<NoGrafo, Double>>> adjacencia) {
         NoGrafo inicio = null;
 
         for (NoGrafo no : adjacencia.keySet()) {
@@ -66,8 +59,7 @@ public class GrafoService {
         return caminho;
     }
 
-    public MelhorCaminho caminhoOtimizado(Map<NoGrafo, Double> tempos, List<NoGrafo> upas, Map<NoGrafo, NoGrafo> rotaMedicos) {
-        //this.upas
+    public MelhorCaminho caminhoOtimizado(Map<NoGrafo, Double> tempos, List<NoGrafo> upas, Map<NoGrafo, NoGrafo> rotaMedicos, Map<NoGrafo, List<Par<NoGrafo, Double>>> adjacencia) {
         double menorTempo = Double.MAX_VALUE;
         List<NoGrafo> melhorRota = new ArrayList<>();
 
@@ -116,11 +108,6 @@ public class GrafoService {
         retorno.setRotas(rotas);
 
         return retorno;
-    }
-
-    public void limparDados() {
-        adjacencia.clear();
-        predecessores.clear();
     }
 
 }

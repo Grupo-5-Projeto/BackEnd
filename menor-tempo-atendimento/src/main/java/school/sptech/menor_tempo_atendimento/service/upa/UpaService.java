@@ -3,7 +3,7 @@ package school.sptech.menor_tempo_atendimento.service.upa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import school.sptech.menor_tempo_atendimento.util.NoGrafo;
+import school.sptech.menor_tempo_atendimento.domain.NoGrafo;
 import school.sptech.menor_tempo_atendimento.mapper.grafo.NoGrafoMapper;
 import school.sptech.menor_tempo_atendimento.repository.upa.UpaRepository;
 

@@ -1,4 +1,4 @@
-package school.sptech.menor_tempo_atendimento.util;
+package school.sptech.menor_tempo_atendimento.domain;
 
 public class Par<K, V> {
     private K chave;
