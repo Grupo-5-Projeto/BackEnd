@@ -26,45 +26,20 @@ public class MenorCaminhoAtendimentoServiceImpl implements MenorCaminhoAtendimen
     public MelhorCaminho getMelhorCaminho(JsonNode jsonNode) {
         Dijkstra dijkstra = new Dijkstra();
         Map<NoGrafo, List<Par<NoGrafo, Double>>> grafo = grafoFactory.factory(jsonNode).build();
-        List<NoGrafo> listaUpas = listarUpas(grafo);
-        Map<NoGrafo, NoGrafo> rotaAtendimento = getRotaAtendimento(grafo);
+        List<NoGrafo> listaUpas = getListUpaTempoDeEspera(grafo);
         Map<NoGrafo, Double> tempos = dijkstra.algoritmoDijkstra(grafo);
-        return dijkstra.caminhoOtimizado(tempos,listaUpas, rotaAtendimento, grafo);
+        return dijkstra.caminhoOtimizado(tempos,listaUpas, grafo);
     }
 
-    private List<NoGrafo> listarUpas(Map<NoGrafo, List<Par<NoGrafo, Double>>> grafo){
+    private List<NoGrafo> getListUpaTempoDeEspera(Map<NoGrafo, List<Par<NoGrafo, Double>>> grafo){
         List<NoGrafo> listaUpas = new ArrayList<>();
-        Map<NoGrafo, NoGrafo> rotaMedicos = new HashMap<>();
         for (NoGrafo noDaVez : grafo.keySet()) {
             if (noDaVez.getNivel() == Nivel.NIVEL_UPA) {
                 listaUpas.add(noDaVez);
-            }
-            if (noDaVez.getNivel() == Nivel.NIVEL_TEMPO_DE_ESPERA) {
-                for (NoGrafo vizinho : grafo.keySet()) {
-                    if (noDaVez.getNivel() == Nivel.NIVEL_UPA) {
-                        rotaMedicos.put(vizinho, noDaVez);
-                    }
-                }
-
             }
         }
         return listaUpas;
     }
 
-    private Map<NoGrafo, NoGrafo> getRotaAtendimento(Map<NoGrafo, List<Par<NoGrafo, Double>>> grafo){
-        Map<NoGrafo, NoGrafo> rotaMedicos = new HashMap<>();
-        for (NoGrafo noDaVez : grafo.keySet()) {
-            if (noDaVez.getNivel() == Nivel.NIVEL_TEMPO_DE_ESPERA) {
-                for (NoGrafo vizinho : grafo.keySet()) {
-                    if (vizinho.getNivel() == Nivel.NIVEL_UPA) {
-                        if (noDaVez.getNome().equals(vizinho.getNome() + "-" + "tempoEspera")) {
-                            rotaMedicos.put(vizinho, noDaVez);
-                        }
-                    }
-                }
 
-            }
-        }
-        return rotaMedicos;
-    }
 }

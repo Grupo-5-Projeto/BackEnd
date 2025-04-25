@@ -59,12 +59,12 @@ public class Dijkstra {
         return caminho;
     }
 
-    public MelhorCaminho caminhoOtimizado(Map<NoGrafo, Double> tempos, List<NoGrafo> upas, Map<NoGrafo, NoGrafo> rotaMedicos, Map<NoGrafo, List<Par<NoGrafo, Double>>> adjacencia) {
+    public MelhorCaminho caminhoOtimizado(Map<NoGrafo, Double> tempos, List<NoGrafo> upas, Map<NoGrafo, List<Par<NoGrafo, Double>>> adjacencia) {
         double menorTempo = Double.MAX_VALUE;
         List<NoGrafo> melhorRota = new ArrayList<>();
-
+        Map<NoGrafo, NoGrafo> mapUpaAtendimento = getMapUpaAtendimento(adjacencia);
         for (NoGrafo upa : upas) {
-            NoGrafo upaAtendimento = rotaMedicos.get(upa);
+            NoGrafo upaAtendimento = mapUpaAtendimento.get(upa);
 
             double tempoAteUpa = tempos.getOrDefault(upa, Double.MAX_VALUE);
 
@@ -108,6 +108,23 @@ public class Dijkstra {
         retorno.setRotas(rotas);
 
         return retorno;
+    }
+
+    private Map<NoGrafo, NoGrafo> getMapUpaAtendimento(Map<NoGrafo, List<Par<NoGrafo, Double>>> grafo){
+        Map<NoGrafo, NoGrafo> rotaMedicos = new HashMap<>();
+        for (NoGrafo noDaVez : grafo.keySet()) {
+            if (noDaVez.getNivel() == Nivel.NIVEL_TEMPO_DE_ESPERA) {
+                for (NoGrafo vizinho : grafo.keySet()) {
+                    if (vizinho.getNivel() == Nivel.NIVEL_UPA) {
+                        if (noDaVez.getNome().equals(vizinho.getNome() + "-" + "tempoEspera")) {
+                            rotaMedicos.put(vizinho, noDaVez);
+                        }
+                    }
+                }
+
+            }
+        }
+        return rotaMedicos;
     }
 
 }
