@@ -51,7 +51,6 @@ public class GrafoBuilder {
     //Gerar as aresta do grafo de maneira automatica
     //para nao ter que criar na main na mao
     private Map<NoGrafo, List<Par<NoGrafo, Double>>> gerarArestasGrafo(Map<NoGrafo, List<Par<NoGrafo, Double>>> nosGrafo) {
-        Map<NoGrafo, List<Par<NoGrafo, Double>>> adjacencia = new HashMap<>();
         NoGrafo paciente = null;
 
         for (NoGrafo no : nosGrafo.keySet()) {
@@ -62,16 +61,16 @@ public class GrafoBuilder {
         }
         for (NoGrafo no : nosGrafo.keySet()) {
             if (no.getNivel() == Nivel.NIVEL_MEIO_DE_TRANSPORTE) {
-                adjacencia.get(paciente).add(new Par<>(no, (double) no.getTempo()));
-                adjacencia.get(no).add(new Par<>(paciente, (double) no.getTempo()));
+                nosGrafo.get(paciente).add(new Par<>(no, (double) no.getTempo()));
+                nosGrafo.get(no).add(new Par<>(paciente, (double) no.getTempo()));
             }
             if (no.getNivel() == Nivel.NIVEL_UPA) {
                 for (NoGrafo noDaVez : nosGrafo.keySet()) {
                     if (noDaVez.getNivel() == Nivel.NIVEL_MEIO_DE_TRANSPORTE) {
                         for (Par<String, Integer> tempoMeioDeTransporteUpa : valorArestaTransporteUpa.get(no.getNome())) {
                             if (tempoMeioDeTransporteUpa.getChave().equals(noDaVez.getNome())) {
-                                adjacencia.get(no).add(new Par<>(noDaVez, (double) tempoMeioDeTransporteUpa.getValor()));
-                                adjacencia.get(noDaVez).add(new Par<>(no, (double) tempoMeioDeTransporteUpa.getValor()));
+                                nosGrafo.get(no).add(new Par<>(noDaVez, (double) tempoMeioDeTransporteUpa.getValor()));
+                                nosGrafo.get(noDaVez).add(new Par<>(no, (double) tempoMeioDeTransporteUpa.getValor()));
                             }
                         }
                     }
@@ -81,8 +80,8 @@ public class GrafoBuilder {
                 for (NoGrafo noDaVez : nosGrafo.keySet()) {
                     if (noDaVez.getNivel() == Nivel.NIVEL_UPA) {
                         if (no.getNome().equals(noDaVez.getNome() + "-" + "tempoEspera")) {
-                            adjacencia.get(no).add(new Par<>(noDaVez, (double) no.getTempo()));
-                            adjacencia.get(noDaVez).add(new Par<>(no, (double) no.getTempo()));
+                            nosGrafo.get(no).add(new Par<>(noDaVez, (double) no.getTempo()));
+                            nosGrafo.get(noDaVez).add(new Par<>(no, (double) no.getTempo()));
                         }
                     }
                 }

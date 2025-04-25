@@ -1,4 +1,4 @@
-package school.sptech.menor_tempo_atendimento.controller;
+package school.sptech.menor_tempo_atendimento.domain;
 
 import school.sptech.menor_tempo_atendimento.domain.Rotas;
 import school.sptech.menor_tempo_atendimento.dto.MelhorCaminho;
@@ -64,7 +64,7 @@ public class Dijkstra {
         List<NoGrafo> melhorRota = new ArrayList<>();
 
         for (NoGrafo upa : upas) {
-            NoGrafo medico = rotaMedicos.get(upa);
+            NoGrafo upaAtendimento = rotaMedicos.get(upa);
 
             double tempoAteUpa = tempos.getOrDefault(upa, Double.MAX_VALUE);
 
@@ -77,13 +77,13 @@ public class Dijkstra {
 
             // Tempo da UPA até o médico
             double tempoAteMedico = adjacencia.get(upa).stream()
-                    .filter(p -> p.getChave().equals(medico))
+                    .filter(p -> p.getChave().equals(upaAtendimento))
                     .findFirst()
                     .map(p -> p.getValor())
                     .orElse(Double.MAX_VALUE);
 
             List<NoGrafo> caminhoAteUpa = reconstruirCaminho(upa);
-            caminhoAteUpa.add(medico); // adiciona o médico no final
+            caminhoAteUpa.add(upaAtendimento); // adiciona o upaAtendimento no final
 
             double total = tempoAteUpa + tempoAteMedico;
 
