@@ -59,7 +59,7 @@ public class Dijkstra {
         return caminho;
     }
 
-    public MelhorCaminho caminhoOtimizado(Map<NoGrafo, Double> tempos, Map<NoGrafo, List<Par<NoGrafo, Double>>> adjacencia) {
+    public MelhorCaminho getMenorCaminho(Map<NoGrafo, Double> tempos, Map<NoGrafo, List<Par<NoGrafo, Double>>> adjacencia) {
         double menorTempo = Double.MAX_VALUE;
         List<NoGrafo> melhorRota = new ArrayList<>();
         Map<NoGrafo, NoGrafo> mapUpaAtendimento = getMapUpaAtendimento(adjacencia);

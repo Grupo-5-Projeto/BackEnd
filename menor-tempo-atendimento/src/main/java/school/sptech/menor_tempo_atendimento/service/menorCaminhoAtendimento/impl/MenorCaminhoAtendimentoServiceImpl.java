@@ -27,7 +27,7 @@ public class MenorCaminhoAtendimentoServiceImpl implements MenorCaminhoAtendimen
         Dijkstra dijkstra = new Dijkstra();
         Map<NoGrafo, List<Par<NoGrafo, Double>>> grafo = grafoFactory.factory(jsonNode).build();
         Map<NoGrafo, Double> tempos = dijkstra.algoritmoDijkstra(grafo);
-        return dijkstra.caminhoOtimizado(tempos, grafo);
+        return dijkstra.getMenorCaminho(tempos, grafo);
     }
 
 

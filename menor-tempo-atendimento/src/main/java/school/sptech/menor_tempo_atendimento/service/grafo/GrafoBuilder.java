@@ -12,44 +12,39 @@ import java.util.Map;
 
 public class GrafoBuilder {
     private UpaService upaService;
-    private List<NoGrafo> meioDeTransporteUpas;
-    private HashMap<String, List<Par<String, Integer>>> valorArestaTransporteUpa;
+    private List<NoGrafo> listUpasETransportes;
+    private HashMap<String, List<Par<String, Integer>>> mapUpaESeusTransportes;
 
-    public GrafoBuilder(List<NoGrafo> meioDeTransporteUpas, HashMap<String, List<Par<String, Integer>>> valorArestaTransporteUpa
+    public GrafoBuilder(List<NoGrafo> listUpasETransportes, HashMap<String, List<Par<String, Integer>>> mapUpaESeusTransportes
     , UpaService upaService) {
-        this.meioDeTransporteUpas = meioDeTransporteUpas;
-        this.valorArestaTransporteUpa = valorArestaTransporteUpa;
+        this.listUpasETransportes = listUpasETransportes;
+        this.mapUpaESeusTransportes = mapUpaESeusTransportes;
         this.upaService = upaService;
     }
 
-    //Metodo para gerar o nos de maneira automatica
-    //e nao precisar criando na mao
-    //Paciente: Padrão -> ponto de inicio, não preciso de nenhuma info
-    //MeioDeTransporte: Receber esses valores pela API do Maps
-    //Upa: receber valores pela API do Maps (info de tempo do meio de transporte até a UPA)
-    //tempo de espera: Receber valores pelo Banco de dados (info fornecida pela Visão computacional que nas UPAs)
     private Map<NoGrafo, List<Par<NoGrafo, Double>>> gerarNosGrafo() {
         Map<NoGrafo, List<Par<NoGrafo, Double>>> nosGrafo = new HashMap<>();
-
+        //Criando Nó paciente
         NoGrafo paciente = new NoGrafo("paciente", Nivel.NIVEL_PACIENTE, 0);
         nosGrafo.putIfAbsent(paciente, new ArrayList<>());
+        //Criando Nós meios de transporte e upas
+        for (NoGrafo meiosDeTranporteUpas : listUpasETransportes)  nosGrafo.putIfAbsent(meiosDeTranporteUpas, new ArrayList<>());
+        //Criando uma lista com os nomes das upas para depois pegar o tempo de espera de cada upa
         List<String> nomesUpas = new ArrayList<>();
-        for (NoGrafo meioDeTransporte : meioDeTransporteUpas) {
+        for (NoGrafo meioDeTransporte : listUpasETransportes) {
             if (meioDeTransporte.getNivel() == Nivel.NIVEL_UPA) {
                 nomesUpas.add(meioDeTransporte.getNome());
             }
         }
-        for (NoGrafo meiosDeTranporteUpas : meioDeTransporteUpas)  nosGrafo.putIfAbsent(meiosDeTranporteUpas, new ArrayList<>());
+        //Criando Nós tempoDeEspera (o tempo de espera dentro da upa também é um nó)
         for (NoGrafo tempoDeEspera : upaService.getTempoEspera(nomesUpas)) nosGrafo.putIfAbsent(tempoDeEspera, new ArrayList<>());
-
+        //Exibindo os nomes de todos os nós
         for (NoGrafo noDaVez: nosGrafo.keySet()){
             System.out.println(noDaVez.getNome());
         }
         return nosGrafo;
     }
 
-    //Gerar as aresta do grafo de maneira automatica
-    //para nao ter que criar na main na mao
     private Map<NoGrafo, List<Par<NoGrafo, Double>>> gerarArestasGrafo(Map<NoGrafo, List<Par<NoGrafo, Double>>> nosGrafo) {
         NoGrafo paciente = null;
 
@@ -59,15 +54,20 @@ public class GrafoBuilder {
                 break;
             }
         }
+        //Criando as conexões das arestas do grafo
+        //Como é um hashMap essas conexões ficam da seguinte maneira: chave (nó) / valor (lista de nós que tem conexão)
         for (NoGrafo no : nosGrafo.keySet()) {
+            //Primeiro nivel de conexão é entre o paciente e os meios de transporte
             if (no.getNivel() == Nivel.NIVEL_MEIO_DE_TRANSPORTE) {
                 nosGrafo.get(paciente).add(new Par<>(no, (double) no.getTempo()));
                 nosGrafo.get(no).add(new Par<>(paciente, (double) no.getTempo()));
             }
+            //Segundo nivel de conexão é entre upa e meios de transporte
             if (no.getNivel() == Nivel.NIVEL_UPA) {
                 for (NoGrafo noDaVez : nosGrafo.keySet()) {
                     if (noDaVez.getNivel() == Nivel.NIVEL_MEIO_DE_TRANSPORTE) {
-                        for (Par<String, Integer> tempoMeioDeTransporteUpa : valorArestaTransporteUpa.get(no.getNome())) {
+                        //Procurando por todos os meios de transporte, preciso do mapUpaESeusTransportes para pegar o valores dos meios de transporte
+                        for (Par<String, Integer> tempoMeioDeTransporteUpa : mapUpaESeusTransportes.get(no.getNome())) {
                             if (tempoMeioDeTransporteUpa.getChave().equals(noDaVez.getNome())) {
                                 nosGrafo.get(no).add(new Par<>(noDaVez, (double) tempoMeioDeTransporteUpa.getValor()));
                                 nosGrafo.get(noDaVez).add(new Par<>(no, (double) tempoMeioDeTransporteUpa.getValor()));
@@ -76,6 +76,7 @@ public class GrafoBuilder {
                     }
                 }
             }
+            //Terceiro nivel de conexão é entre tempoDeEspera e upa
             if (no.getNivel() == Nivel.NIVEL_TEMPO_DE_ESPERA) {
                 for (NoGrafo noDaVez : nosGrafo.keySet()) {
                     if (noDaVez.getNivel() == Nivel.NIVEL_UPA) {
@@ -93,5 +94,4 @@ public class GrafoBuilder {
     public Map<NoGrafo, List<Par<NoGrafo, Double>>> build(){
         return gerarArestasGrafo(gerarNosGrafo());
     }
-
 }
