@@ -59,24 +59,16 @@ public class Dijkstra {
         return caminho;
     }
 
-    public MelhorCaminho caminhoOtimizado(Map<NoGrafo, Double> tempos, List<NoGrafo> upas, Map<NoGrafo, List<Par<NoGrafo, Double>>> adjacencia) {
+    public MelhorCaminho caminhoOtimizado(Map<NoGrafo, Double> tempos, Map<NoGrafo, List<Par<NoGrafo, Double>>> adjacencia) {
         double menorTempo = Double.MAX_VALUE;
         List<NoGrafo> melhorRota = new ArrayList<>();
         Map<NoGrafo, NoGrafo> mapUpaAtendimento = getMapUpaAtendimento(adjacencia);
-        for (NoGrafo upa : upas) {
+        for (NoGrafo upa : getListUpa(adjacencia)) {
             NoGrafo upaAtendimento = mapUpaAtendimento.get(upa);
 
             double tempoAteUpa = tempos.getOrDefault(upa, Double.MAX_VALUE);
 
-            // ⚠️ Otimização: se já for pior que o menor tempo encontrado, pula
-            if (tempoAteUpa >= menorTempo) {
-                System.out.printf("Pulando rota para %s: tempo até UPA (%.2f min) já é pior que atual (%.2f min)%n",
-                        upa, tempoAteUpa, menorTempo);
-                continue;
-            }
-
-            // Tempo da UPA até o médico
-            double tempoAteMedico = adjacencia.get(upa).stream()
+            double tempoAtendimento = adjacencia.get(upa).stream()
                     .filter(p -> p.getChave().equals(upaAtendimento))
                     .findFirst()
                     .map(p -> p.getValor())
@@ -85,7 +77,7 @@ public class Dijkstra {
             List<NoGrafo> caminhoAteUpa = reconstruirCaminho(upa);
             caminhoAteUpa.add(upaAtendimento); // adiciona o upaAtendimento no final
 
-            double total = tempoAteUpa + tempoAteMedico;
+            double total = tempoAteUpa + tempoAtendimento;
 
             if (total < menorTempo) {
                 menorTempo = total;
@@ -102,7 +94,6 @@ public class Dijkstra {
         for (NoGrafo no : melhorRota) {
             if (no.getNivel() == Nivel.NIVEL_UPA) retorno.setNome(no.getNome());
             if (no.getNivel() == Nivel.NIVEL_MEIO_DE_TRANSPORTE) rotas.setModo(no.getNome());
-            if (no.getNivel() == Nivel.NIVEL_TEMPO_DE_ESPERA) ;
         }
         rotas.setTempoEstimado(menorTempo);
         retorno.setRotas(rotas);
@@ -125,6 +116,16 @@ public class Dijkstra {
             }
         }
         return rotaMedicos;
+    }
+
+    private List<NoGrafo> getListUpa(Map<NoGrafo, List<Par<NoGrafo, Double>>> grafo){
+        List<NoGrafo> listaUpas = new ArrayList<>();
+        for (NoGrafo noDaVez : grafo.keySet()) {
+            if (noDaVez.getNivel() == Nivel.NIVEL_UPA) {
+                listaUpas.add(noDaVez);
+            }
+        }
+        return listaUpas;
     }
 
 }

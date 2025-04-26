@@ -26,19 +26,8 @@ public class MenorCaminhoAtendimentoServiceImpl implements MenorCaminhoAtendimen
     public MelhorCaminho getMelhorCaminho(JsonNode jsonNode) {
         Dijkstra dijkstra = new Dijkstra();
         Map<NoGrafo, List<Par<NoGrafo, Double>>> grafo = grafoFactory.factory(jsonNode).build();
-        List<NoGrafo> listaUpas = getListUpaTempoDeEspera(grafo);
         Map<NoGrafo, Double> tempos = dijkstra.algoritmoDijkstra(grafo);
-        return dijkstra.caminhoOtimizado(tempos,listaUpas, grafo);
-    }
-
-    private List<NoGrafo> getListUpaTempoDeEspera(Map<NoGrafo, List<Par<NoGrafo, Double>>> grafo){
-        List<NoGrafo> listaUpas = new ArrayList<>();
-        for (NoGrafo noDaVez : grafo.keySet()) {
-            if (noDaVez.getNivel() == Nivel.NIVEL_UPA) {
-                listaUpas.add(noDaVez);
-            }
-        }
-        return listaUpas;
+        return dijkstra.caminhoOtimizado(tempos, grafo);
     }
 
 
