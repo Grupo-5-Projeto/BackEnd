@@ -66,5 +66,9 @@ plt.xlabel("Horário do Dia")
 plt.ylabel("Número de Atendimentos")
 plt.legend(title="Faixa Etária")
 plt.xticks(rotation=45)
+
+# Adicionar linhas auxiliares no gráfico
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+
 plt.tight_layout()
 plt.show()
