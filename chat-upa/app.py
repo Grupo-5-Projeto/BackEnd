@@ -8,7 +8,7 @@ import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # ============ CONFIGURAÇÕES ============
-API_KEY = "AIzaSyBlyuMSTVQT1IQzCQFU6gbC_Gys0KJoABI"
+API_KEY = "AIzaSyA7ikFFKe-48bj_4LTwn-27FWQjSgqhdnE"
 
 json_enderecos_upa = {}
 
