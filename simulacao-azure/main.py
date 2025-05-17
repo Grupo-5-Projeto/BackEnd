@@ -1,7 +1,6 @@
 from dotenv import load_dotenv
 import os
 import asyncio
-from device_connect import Device
 from dht22 import DHT22
 from visao_computacional import VisaoComputacional
 from paciente import PacienteSensores

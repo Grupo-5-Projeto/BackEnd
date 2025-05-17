@@ -1,5 +1,6 @@
 from datetime import datetime
-from device_connect import Device
+# from device_connect import Device
+from device_mock import Device
 import random
 import math
 
@@ -15,6 +16,7 @@ class VisaoComputacional:
 
     async def handler(self):
         tipo_dado = random.choice(["limpo", "limpo", "sujo", "inesperado"])
+        id_upa = random.randrange(1, 35)
 
         if tipo_dado == "limpo":
             self.dados_limpos()
@@ -22,14 +24,18 @@ class VisaoComputacional:
             self.dados_sujos()
         else:
             self.dados_inesperados()
+        await self.send(id_upa)
 
-        await self.send()
 
-
-    async def send(self):
+    async def send(self, id):
+        data_hora = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")        
         await self.client.send_message({
-            "quantidade_pessoas": self.quantidade_pessoas,
-            "data_hora": datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+            "data_hora": data_hora,
+            "valor": self.quantidade_pessoas,
+            "fk_sensor": 1,
+            "fk_unid_medida": None,
+            "fk_paciente": None,
+            "fk_upa": id
         })
 
 

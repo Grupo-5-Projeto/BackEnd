@@ -1,5 +1,6 @@
 from datetime import datetime
-from device_connect import Device
+from device_mock import Device
+# from device_connect import Device
 import random
 import math
 
@@ -15,6 +16,7 @@ class DHT22:
 
     async def handler(self):
         tipo_dado = random.choice(["limpo", "limpo", "limpo", "limpo", "sujo", "inesperado"])
+        id_upa = random.randrange(1, 35)
 
         if tipo_dado == "limpo":
             self.dados_limpos()
@@ -22,15 +24,23 @@ class DHT22:
             self.dados_sujos()
         else:
             self.dados_inesperados()
+        await self.send(id_upa)
 
-        await self.send()
+    async def send(self, id):
+        data_hora = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+        valores = [self.temperatura, self.umidade]
+        unidades = [1, 2]  # Supondo: 1 = Celsius, 2 = Porcentagem (%)
 
-    async def send(self):
-        await self.client.send_message({
-            "temperatura_ambiente": self.temperatura,
-            "umidade_ambiente": self.umidade,
-            "data_hora": datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
-        })
+        for valor, unidade in zip(valores, unidades):
+            await self.client.send_message({
+                "data_hora": data_hora,
+                "valor": valor,
+                "fk_sensor": 2,
+                "fk_unid_medida": unidade,
+                "fk_paciente": None,
+                "fk_upa": id
+            })
+
 
     def temperatura_ambiente(self):
         A = 1.009249522e-03

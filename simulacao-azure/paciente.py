@@ -1,5 +1,6 @@
 from datetime import datetime
-from device_connect import Device
+# from device_connect import Device
+from device_mock import Device
 import random
 import math
 
@@ -16,37 +17,55 @@ class PacienteSensores:
 
     async def handler(self):
         tipo_dado = random.choice(["limpo", "limpo", "limpo", "sujo", "sujo", "inesperado"])
-        numero_id = random.randrange(1, 100)
+        numero_id = random.randrange(1, 250)
         if tipo_dado == "limpo":
-            for _ in range(10):
+            for _ in range(3):
                 self.dados_limpos()
                 await self.send(numero_id)
         elif tipo_dado == "sujo":
-            for _ in range(10):
+            for _ in range(3):
                 self.dados_sujos()
                 await self.send(numero_id)
         else:
-            for _ in range(10):
+            for _ in range(3):
                 self.dados_inesperados()
                 await self.send(numero_id)
 
 
     async def send(self, id):
-        await self.client.send_message({
-            "temperatura_corporal": self.temperatura,
-            "saturacao_oxigenio": self.oxigenacao,
-            "data_hora": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
-            "paciente_id": id,
-        })
+        data_hora = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+        
+        # Envia 3 valores de oxigenação (unidade 2)
+        for _ in range(3):
+            await self.client.send_message({
+                "data_hora": data_hora,
+                "valor": self.oxigenacao,
+                "fk_sensor": 3,
+                "fk_unid_medida": 2,  # %
+                "fk_paciente": id,
+                "fk_upa": None
+            })
+
+        # Envia 3 valores de temperatura (unidade 1)
+        for _ in range(3):
+            await self.client.send_message({
+                "data_hora": data_hora,
+                "valor": self.temperatura,
+                "fk_sensor": 3,
+                "fk_unid_medida": 1,  # Celsius
+                "fk_paciente": id,
+                "fk_upa": None
+            })
 
 
-    def oximetro():
+
+    def oximetro(self):
         V_sensor = random.uniform(1.6, 2.4)  
         SpO2 = 95 + (V_sensor - 2.0) * (5 / 0.4)
         return round(SpO2, 1)
 
 
-    def temperatura_corporal():     
+    def temperatura_corporal(self):     
         A = 1.009249522e-03
         B = 2.378405444e-04
         C = 2.019202697e-07
