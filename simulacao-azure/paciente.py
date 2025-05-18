@@ -1,6 +1,5 @@
 from datetime import datetime
-# from device_connect import Device
-from device_mock import Device
+from device_connect import Device
 import random
 import math
 
@@ -15,7 +14,7 @@ class PacienteSensores:
         await self.client.connect(connect_string)
 
 
-    async def handler(self, timestamp):
+    async def handler(self):
         tipo_dado = random.choice(["limpo", "limpo", "limpo", "sujo", "sujo", "inesperado"])
         numero_id = random.randrange(1, 250)
         if tipo_dado == "limpo":
@@ -32,7 +31,7 @@ class PacienteSensores:
                 await self.send(numero_id)
 
 
-    async def send(self, id, timestamp):
+    async def send(self, id):
         data_hora = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
         
         # Envia 3 valores de oxigenação (unidade 2)
@@ -56,7 +55,6 @@ class PacienteSensores:
                 "fk_paciente": id,
                 "fk_upa": None
             })
-
 
 
     def oximetro(self):

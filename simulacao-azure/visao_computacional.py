@@ -1,6 +1,6 @@
 from datetime import datetime
-# from device_connect import Device
-from device_mock import Device
+from device_connect import Device
+# from device_mock import Device
 import random
 import math
 import os
@@ -15,7 +15,7 @@ class VisaoComputacional:
         await self.client.connect(connect_string)    
 
 
-    async def handler(self, timestamp):
+    async def handler(self):
         tipo_dado = random.choice(["limpo", "limpo", "sujo", "inesperado"])
         id_upa = random.randrange(1, 35)
 
@@ -28,7 +28,7 @@ class VisaoComputacional:
         await self.send(id_upa)
 
 
-    async def send(self, id, timestamp):
+    async def send(self, id):
         data_hora = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")        
         await self.client.send_message({
             "data_hora": data_hora,
@@ -48,8 +48,7 @@ class VisaoComputacional:
     def dados_limpos(self):
         self.quantidade_pessoas = self.visao_computacional()
         os.environ['QTD_PESSOAS'] = str(self.quantidade_pessoas)
-        # print(f"[INFO] QTD_PESSOAS: {os.environ['QTD_PESSOAS']}")
-
+        
 
     def dados_sujos(self):
         numero = random.randrange(1, 50)
