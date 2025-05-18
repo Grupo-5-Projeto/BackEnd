@@ -50,7 +50,7 @@ class PacienteSensores:
             await self.client.send_message({
                 "data_hora": data_hora,
                 "valor": self.temperatura,
-                "fk_sensor": 3,
+                "fk_sensor": 4,
                 "fk_unid_medida": 1,  # Celsius
                 "fk_paciente": id,
                 "fk_upa": None
