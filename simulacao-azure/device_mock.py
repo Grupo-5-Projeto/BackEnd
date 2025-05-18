@@ -10,6 +10,7 @@ class Device:
 
     async def send_message(self, payload):
         print(f"[MOCK] Payload que seria enviado: {json.dumps(payload)}")
+        # pass
 
     async def shutdown(self):
         print("[MOCK] Shutdown chamado")
