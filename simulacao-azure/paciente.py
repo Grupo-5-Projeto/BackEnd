@@ -1,60 +1,73 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from device_connect import Device
 import random
 import math
+import os
+
+from device_mock import DeviceLocal
 
 class PacienteSensores:
     def __init__(self):
         self.client = None
         self.oxigenacao = None
         self.temperatura = None
+        self.data = None
 
     async def config(self, connect_string):
-        self.client = Device()
-        await self.client.connect(connect_string)
-
-
-    async def handler(self):
-        tipo_dado = random.choice(["limpo", "limpo", "limpo", "sujo", "sujo", "inesperado"])
-        numero_id = random.randrange(1, 250)
-        if tipo_dado == "limpo":
-            for _ in range(3):
-                self.dados_limpos()
-                await self.send(numero_id)
-        elif tipo_dado == "sujo":
-            for _ in range(3):
-                self.dados_sujos()
-                await self.send(numero_id)
+        if os.getenv("ENVIROMENT") == "db":
+            self.client = DeviceLocal()
+            await self.client.connect()
         else:
-            for _ in range(3):
+            self.client = Device()
+            await self.client.connect(connect_string) 
+
+
+    async def handler(self, data_mockada=None):
+        tipo_dado = random.choice(["limpo", "limpo", "limpo", "sujo", "sujo", "inesperado"])
+
+        id_paciente = random.randrange(1, 3)
+        id_upa = random.randrange(1, 3)
+
+        if data_mockada != None:
+            self.data = data_mockada
+        else:
+            self.data = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+
+        if tipo_dado == "limpo":
+            for _ in range(6):
+                self.dados_limpos()
+                await self.send(id_paciente, id_upa)
+        elif tipo_dado == "sujo":
+            for _ in range(6):
+                self.dados_sujos()
+                await self.send(id_paciente, id_upa)
+        else:
+            for _ in range(6):
                 self.dados_inesperados()
-                await self.send(numero_id)
+                await self.send(id_paciente, id_upa)
 
 
-    async def send(self, id):
-        data_hora = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
-        
+    async def send(self, id_paciente, id_upa):
         # Envia 3 valores de oxigenação (unidade 2)
-        for _ in range(3):
-            await self.client.send_message({
-                "data_hora": data_hora,
-                "valor": self.oxigenacao,
-                "fk_sensor": 3,
-                "fk_unid_medida": 2,  # %
-                "fk_paciente": id,
-                "fk_upa": None
-            })
+        self.data -= timedelta(seconds=5)
+        await self.client.send_message({
+            "data_hora": self.data,
+            "valor": self.oxigenacao,
+            "fk_upa": id_upa,
+            "fk_paciente": id_paciente,
+            "fk_sensor": 3,
+            "fk_unid_medida": 2,  # %
+        })
 
         # Envia 3 valores de temperatura (unidade 1)
-        for _ in range(3):
-            await self.client.send_message({
-                "data_hora": data_hora,
-                "valor": self.temperatura,
-                "fk_sensor": 3,
-                "fk_unid_medida": 1,  # Celsius
-                "fk_paciente": id,
-                "fk_upa": None
-            })
+        await self.client.send_message({
+            "data_hora": self.data,
+            "valor": self.temperatura,
+            "fk_upa": id_upa,
+            "fk_paciente": id_paciente,
+            "fk_sensor": 3,
+            "fk_unid_medida": 1,  # Celsius
+        })
 
 
     def oximetro(self):
@@ -102,3 +115,6 @@ class PacienteSensores:
         spike = random.choice([-10, -20, -15, 15, 20])
         self.oxigenacao = round(self.oximetro() + spike, 2)
         self.temperatura = round(self.temperatura_corporal() + spike, 2)
+
+    async def disconnect(self):
+        await self.client.shutdown()

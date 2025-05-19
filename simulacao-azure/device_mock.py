@@ -17,10 +17,9 @@ class DeviceLocal:
 
     async def send_message(self, payload):
         values = (payload['data_hora'], payload['valor'], payload['fk_upa'], payload['fk_paciente'], payload['fk_sensor'], payload['fk_unid_medida'])
-        print(values)
         sql = "INSERT INTO HistoricoSensor (data_hora, valor, fk_upa, fk_paciente, fk_sensor, fk_unid_medida) VALUES (%s, %s, %s, %s, %s, %s);"
         self.cursor.execute(sql, values)
         self.db.commit()
 
     async def shutdown(self):
-        print("[MOCK] Shutdown chamado")
+        self.db.close()

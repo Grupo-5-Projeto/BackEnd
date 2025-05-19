@@ -10,6 +10,7 @@ class DHT22:
         self.client = None
         self.temperatura = None
         self.umidade = None
+        self.data = None
 
     async def config(self, connect_string):
         if os.getenv("ENVIROMENT") == "db":
@@ -19,9 +20,14 @@ class DHT22:
             self.client = Device()
             await self.client.connect(connect_string)    
 
-    async def handler(self):
+    async def handler(self, data_mockada=None):
         tipo_dado = random.choice(["limpo", "limpo", "limpo", "limpo", "sujo", "inesperado"])
         id_upa = random.randrange(1, 3)
+
+        if data_mockada != None:
+            self.data = data_mockada
+        else:
+            self.data = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
         if tipo_dado == "limpo":
             self.dados_limpos()
@@ -33,13 +39,12 @@ class DHT22:
 
 
     async def send(self, id):
-        data_hora = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
         valores = [self.temperatura, self.umidade]
         unidades = [1, 2]  # Supondo: 1 = Celsius, 2 = Porcentagem (%)
 
         for valor, unidade in zip(valores, unidades):
             await self.client.send_message({
-                "data_hora": data_hora,
+                "data_hora": self.data,
                 "valor": valor,
                 "fk_upa": id,
                 "fk_paciente": None,
@@ -107,3 +112,6 @@ class DHT22:
         spike = random.choice([10, -10, 15, -15])
         self.temperatura = round(self.temperatura_ambiente() + spike, 2)
         self.umidade = round(self.umidade_ambiente() + spike, 2)
+    
+    async def disconnect(self):
+        await self.client.shutdown()

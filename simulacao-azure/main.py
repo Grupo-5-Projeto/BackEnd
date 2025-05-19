@@ -6,12 +6,14 @@ from dht22 import DHT22
 from visao_computacional import VisaoComputacional
 from paciente import PacienteSensores
 import schedule
+from dados_mockados import MockDados
 
 # carregando vairaveis de ambiente
 load_dotenv()
 
 def envio_dado(instance):
     asyncio.create_task(instance.handler())
+
 
 async def main():
     os.environ["QTD_PESSOAS"] = "0"
@@ -21,17 +23,26 @@ async def main():
     pacientes = None
 
     if os.getenv("ENVIROMENT") == "db":
-        print("ENTROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOU")
+        mock_dados = MockDados()
+
         dht22 = DHT22()
         await dht22.config("")
+        await mock_dados.gerar_massa(dht22)
 
-        # camera = VisaoComputacional()
-        # await camera.config(client_database)
 
-        # pacientes = PacienteSensores()
-        # await pacientes.config(client_database)
+        camera = VisaoComputacional()
+        await camera.config("")
+        await mock_dados.gerar_massa(camera)
+
+        pacientes = PacienteSensores()
+        await pacientes.config("")
+        await mock_dados.gerar_massa(pacientes)
+
+        # await dht22.disconnect()
+        # await camera.disconnect()
+        await pacientes.disconnect()
+
     else:
-        print("ENTROu")
         dht22 = DHT22()
         await dht22.config(os.getenv("CONNECT_AZURE_AMBIENTE"))
 
@@ -41,14 +52,12 @@ async def main():
         pacientes = PacienteSensores()
         await pacientes.config(os.getenv("CONNECT_AZURE_PACIENTE"))
 
-    print(type(dht22))
+        schedule.every(5).minutes.do(lambda: envio_dado(dht22))
+        schedule.every(5).minutes.do(lambda: envio_dado(camera))
+        schedule.every(5).minutes.do(lambda: envio_dado(pacientes))
 
-    schedule.every(2).seconds.do(lambda: envio_dado(dht22))
-    # schedule.every(20).seconds.do(lambda: envio_dado(camera))
-    # schedule.every(60).seconds.do(lambda: envio_dado(pacientes))
-
-    while True:
-        schedule.run_pending()
-        await asyncio.sleep(1)
+        while True:
+            schedule.run_pending()
+            await asyncio.sleep(1)
 
 asyncio.run(main())
