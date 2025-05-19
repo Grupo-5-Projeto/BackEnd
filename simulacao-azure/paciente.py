@@ -65,7 +65,7 @@ class PacienteSensores:
             "valor": self.temperatura,
             "fk_upa": id_upa,
             "fk_paciente": id_paciente,
-            "fk_sensor": 3,
+            "fk_sensor": 4,
             "fk_unid_medida": 1,  # Celsius
         })
 
