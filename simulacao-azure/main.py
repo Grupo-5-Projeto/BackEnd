@@ -36,7 +36,11 @@ async def main():
 
         pacientes = PacienteSensores()
         await pacientes.config("")
-        await mock_dados.gerar_massa(pacientes)
+        # CHAMA O HANDLER DIRETAMENTE PARA GERAR OS DADOS PARA OS 109 PACIENTES
+        print("Gerando dados de oximetria e temperatura para 109 pacientes...")
+        await pacientes.handler()
+        print("Geração de dados de pacientes concluída para 109 pacientes.")
+        # await mock_dados.gerar_massa(pacientes)
 
         # await dht22.disconnect()
         # await camera.disconnect()

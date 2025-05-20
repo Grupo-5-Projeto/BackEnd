@@ -12,6 +12,7 @@ class PacienteSensores:
         self.oxigenacao = None
         self.temperatura = None
         self.data = None
+        self.total_pacientes = 109
 
     async def config(self, connect_string):
         if os.getenv("ENVIROMENT") == "db":
@@ -23,51 +24,50 @@ class PacienteSensores:
 
 
     async def handler(self, data_mockada=None):
-        tipo_dado = random.choice(["limpo", "limpo", "limpo", "sujo", "sujo", "inesperado"])
-
-        id_paciente = random.randrange(1, 3)
-        id_upa = random.randrange(1, 3)
-
-        if data_mockada != None:
+        if data_mockada is not None:
             self.data = data_mockada
         else:
-            self.data = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+            self.data = datetime.now()
 
-        if tipo_dado == "limpo":
-            for _ in range(6):
-                self.dados_limpos()
-                await self.send(id_paciente, id_upa)
-        elif tipo_dado == "sujo":
-            for _ in range(6):
-                self.dados_sujos()
-                await self.send(id_paciente, id_upa)
-        else:
-            for _ in range(6):
-                self.dados_inesperados()
-                await self.send(id_paciente, id_upa)
+        for id_paciente in range(1, self.total_pacientes + 1):
+            tipo_dado = random.choice(["limpo", "limpo", "limpo", "sujo", "sujo", "inesperado"])
+            id_upa = random.randrange(1, 35) 
+ 
+            base_data_for_patient = self.data # Cria uma base para o tempo de cada paciente
+
+            for _ in range(6): # Envia 6 pares de oximetria e temperatura por paciente
+                if tipo_dado == "limpo":
+                    self.dados_limpos()
+                elif tipo_dado == "sujo":
+                    self.dados_sujos()
+                else:
+                    self.dados_inesperados()
+
+                base_data_for_patient -= timedelta(seconds=5)
+                await self.send(id_paciente, id_upa, base_data_for_patient)
 
 
-    async def send(self, id_paciente, id_upa):
-        # Envia 3 valores de oxigenação (unidade 2)
-        self.data -= timedelta(seconds=5)
+    async def send(self, id_paciente, id_upa, current_timestamp):
+        # Envia valor de oximetria (sensor 3, unidade 2 - %)
         await self.client.send_message({
-            "data_hora": self.data,
+            "data_hora": current_timestamp,
             "valor": self.oxigenacao,
             "fk_upa": id_upa,
             "fk_paciente": id_paciente,
-            "fk_sensor": 3,
-            "fk_unid_medida": 2,  # %
+            "fk_sensor": 3,  # ID do sensor de Oximetria
+            "fk_unid_medida": 2, # %
         })
 
-        # Envia 3 valores de temperatura (unidade 1)
+        # Envia valor de temperatura (sensor 4, unidade 1 - Celsius)
         await self.client.send_message({
-            "data_hora": self.data,
+            "data_hora": current_timestamp,
             "valor": self.temperatura,
             "fk_upa": id_upa,
             "fk_paciente": id_paciente,
-            "fk_sensor": 4,
-            "fk_unid_medida": 1,  # Celsius
+            "fk_sensor": 4,  # ID do sensor de Temperatura
+            "fk_unid_medida": 1, # Celsius
         })
+
 
 
     def oximetro(self):

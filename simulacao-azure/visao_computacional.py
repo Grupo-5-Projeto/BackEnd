@@ -23,7 +23,7 @@ class VisaoComputacional:
 
     async def handler(self, data_mockada=None):
         tipo_dado = random.choice(["limpo", "limpo", "sujo", "inesperado"])
-        id_upa = random.randrange(1, 3)
+        id_upa = random.randrange(1, 35)
 
         if data_mockada != None:
             self.data = data_mockada
