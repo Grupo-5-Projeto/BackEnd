@@ -39,8 +39,8 @@ async def main():
         # CHAMA O HANDLER DIRETAMENTE PARA GERAR OS DADOS PARA OS 109 PACIENTES
         print("Gerando dados de oximetria e temperatura para 109 pacientes...")
         await pacientes.handler()
-        print("Geração de dados de pacientes concluída para 109 pacientes.")
         # await mock_dados.gerar_massa(pacientes)
+        print("Geração de dados de pacientes concluída para 109 pacientes.")
 
         # await dht22.disconnect()
         # await camera.disconnect()
@@ -56,9 +56,9 @@ async def main():
         pacientes = PacienteSensores()
         await pacientes.config(os.getenv("CONNECT_AZURE_PACIENTE"))
 
-        schedule.every(5).minutes.do(lambda: envio_dado(dht22))
-        schedule.every(5).minutes.do(lambda: envio_dado(camera))
-        schedule.every(5).minutes.do(lambda: envio_dado(pacientes))
+        schedule.every(2).seconds.do(lambda: envio_dado(dht22))
+        schedule.every(5).seconds.do(lambda: envio_dado(camera))
+        schedule.every(5).seconds.do(lambda: envio_dado(pacientes))
 
         while True:
             schedule.run_pending()
