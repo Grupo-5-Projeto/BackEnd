@@ -20,9 +20,10 @@ class DHT22:
             self.client = Device()
             await self.client.connect(connect_string)    
 
-    async def handler(self, data_mockada=None):
+    async def handler(self, data_mockada=None, id_upa=None):
         tipo_dado = random.choice(["limpo", "limpo", "limpo", "limpo", "sujo", "inesperado"])
-        id_upa = random.randrange(1, 35)
+        if id_upa is None:
+            id_upa = random.randrange(1, 35)
 
         if data_mockada != None:
             self.data = data_mockada
