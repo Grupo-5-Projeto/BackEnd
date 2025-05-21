@@ -7,6 +7,7 @@ from visao_computacional import VisaoComputacional
 from paciente import PacienteSensores
 import schedule
 from dados_mockados import MockDados
+from datetime import datetime
 
 # carregando vairaveis de ambiente
 load_dotenv()
@@ -36,10 +37,15 @@ async def main():
 
         pacientes = PacienteSensores()
         await pacientes.config("")
-        # CHAMA O HANDLER DIRETAMENTE PARA GERAR OS DADOS PARA OS 109 PACIENTES
+
+        data_geracao_str = os.getenv("DATA_GERACAO")
+        if data_geracao_str:
+            data_geracao_dt = datetime.strptime(data_geracao_str + " 22:00:00", "%Y-%m-%d %H:%M:%S")
+        else:
+            data_geracao_dt = datetime.now()
+            
         print("Gerando dados de oximetria e temperatura para 109 pacientes...")
-        await pacientes.handler()
-        # await mock_dados.gerar_massa(pacientes)
+        await pacientes.handler(data_geracao_dt)
         print("Geração de dados de pacientes concluída para 109 pacientes.")
 
         # await dht22.disconnect()
