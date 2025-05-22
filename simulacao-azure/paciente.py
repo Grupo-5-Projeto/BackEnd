@@ -27,15 +27,34 @@ class PacienteSensores:
         if data_mockada is not None:
             self.data = data_mockada
         else:
+            # self.data = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
             self.data = datetime.now()
+
+        current_base_time = self.data
+
+        total_intervalo_minutos_simulacao = (self.total_pacientes - 1) * 5
+        # O paciente 1 terá seu tempo base recuado em total_intervalo_minutos_simulacao
+        current_base_time_for_oldest_patient = self.data - timedelta(minutes=total_intervalo_minutos_simulacao)
 
         for id_paciente in range(1, self.total_pacientes + 1):
             tipo_dado = random.choice(["limpo", "limpo", "limpo", "sujo", "sujo", "inesperado"])
             id_upa = random.randrange(1, 35) 
  
-            base_data_for_patient = self.data # Cria uma base para o tempo de cada paciente
+            patient_reading_time = current_base_time_for_oldest_patient
+            for _ in range(6):
+                if tipo_dado == "limpo":
+                    self.dados_limpos() # Isso atualiza tanto oximetria quanto temperatura
+                elif tipo_dado == "sujo":
+                    self.dados_sujos()
+                else:
+                    self.dados_inesperados()
 
-            for _ in range(6): # Envia 6 pares de oximetria e temperatura por paciente
+                # Envia apenas o valor de oximetria
+                await self.send_oxigenacao(id_paciente, id_upa, patient_reading_time)
+                patient_reading_time += timedelta(seconds=5) 
+
+            patient_reading_time_temp = current_base_time_for_oldest_patient
+            for _ in range(6):
                 if tipo_dado == "limpo":
                     self.dados_limpos()
                 elif tipo_dado == "sujo":
@@ -43,12 +62,17 @@ class PacienteSensores:
                 else:
                     self.dados_inesperados()
 
-                base_data_for_patient -= timedelta(seconds=5)
-                await self.send(id_paciente, id_upa, base_data_for_patient)
+                # Envia apenas o valor de temperatura
+                await self.send_temperatura(id_paciente, id_upa, patient_reading_time_temp)
+                patient_reading_time_temp += timedelta(seconds=5) # Avança 5 segundos para a próxima leitura de temp
 
 
-    async def send(self, id_paciente, id_upa, current_timestamp):
-        # Envia valor de oximetria (sensor 3, unidade 2 - %)
+            # Após processar as 6 leituras de um paciente,
+            # avança o tempo base em 5 minutos para o próximo paciente (mais recente)
+            current_base_time_for_oldest_patient += timedelta(minutes=5)
+
+
+    async def send_oxigenacao(self, id_paciente, id_upa, current_timestamp):
         await self.client.send_message({
             "data_hora": current_timestamp,
             "valor": self.oxigenacao,
@@ -58,7 +82,7 @@ class PacienteSensores:
             "fk_unid_medida": 2, # %
         })
 
-        # Envia valor de temperatura (sensor 4, unidade 1 - Celsius)
+    async def send_temperatura(self, id_paciente, id_upa, current_timestamp):
         await self.client.send_message({
             "data_hora": current_timestamp,
             "valor": self.temperatura,
