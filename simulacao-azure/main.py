@@ -26,17 +26,17 @@ async def main():
     if os.getenv("ENVIROMENT") == "db":
         mock_dados = MockDados()
 
-        dht22 = DHT22()
-        await dht22.config("")
-        await mock_dados.gerar_massa(dht22)
+        # dht22 = DHT22()
+        # await dht22.config("")
+        # await mock_dados.gerar_massa(dht22)
 
 
         camera = VisaoComputacional()
         await camera.config("")
         await mock_dados.gerar_massa(camera)
 
-        pacientes = PacienteSensores()
-        await pacientes.config("")
+        # pacientes = PacienteSensores()
+        # await pacientes.config("")
 
         data_geracao_str = os.getenv("DATA_GERACAO")
         if data_geracao_str:
@@ -44,13 +44,13 @@ async def main():
         else:
             data_geracao_dt = datetime.now()
             
-        print("Gerando dados de oximetria e temperatura para 109 pacientes...")
-        await pacientes.handler(data_geracao_dt)
-        print("Geração de dados de pacientes concluída para 109 pacientes.")
+        # print("Gerando dados de oximetria e temperatura para 109 pacientes...")
+        # await pacientes.handler(data_geracao_dt)
+        # print("Geração de dados de pacientes concluída para 109 pacientes.")
 
         # await dht22.disconnect()
-        # await camera.disconnect()
-        await pacientes.disconnect()
+        await camera.disconnect()
+        # await pacientes.disconnect()
 
     else:
         dht22 = DHT22()
