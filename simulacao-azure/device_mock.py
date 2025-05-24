@@ -9,7 +9,7 @@ class DeviceLocal:
     async def connect(self):
         self.db = mysql.connector.connect(
             host="localhost",
-            user="admin_upa_connect",
+            user="root",
             password="urubu100",
             database="upa_connect"
         )

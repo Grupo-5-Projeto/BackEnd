@@ -37,32 +37,39 @@ class PacienteSensores:
         current_base_time_for_oldest_patient = self.data - timedelta(minutes=total_intervalo_minutos_simulacao)
 
         for id_paciente in range(1, self.total_pacientes + 1):
-            tipo_dado = random.choice(["limpo", "limpo", "limpo", "sujo", "sujo", "inesperado"])
             id_upa = random.randrange(1, 35) 
  
             patient_reading_time = current_base_time_for_oldest_patient
-            for _ in range(6):
-                if tipo_dado == "limpo":
-                    self.dados_limpos() # Isso atualiza tanto oximetria quanto temperatura
-                elif tipo_dado == "sujo":
+
+            # oximetro
+            qtde_dados_limpos = random.randrange(3, 5) 
+            for _ in range(qtde_dados_limpos):
+                self.dados_limpos() 
+                await self.send_oxigenacao(id_paciente, id_upa, patient_reading_time)
+                patient_reading_time += timedelta(seconds=5) 
+            
+            for _ in range(6-qtde_dados_limpos):
+                tipo_dado = random.choice(["sujo", "sujo", "sujo", "inesperado", "inesperado"])
+                if tipo_dado == "sujo":
                     self.dados_sujos()
                 else:
                     self.dados_inesperados()
-
-                # Envia apenas o valor de oximetria
                 await self.send_oxigenacao(id_paciente, id_upa, patient_reading_time)
                 patient_reading_time += timedelta(seconds=5) 
 
+            # temperatura
             patient_reading_time_temp = current_base_time_for_oldest_patient
-            for _ in range(6):
-                if tipo_dado == "limpo":
-                    self.dados_limpos()
-                elif tipo_dado == "sujo":
+            for _ in range(qtde_dados_limpos):
+                self.dados_limpos()
+                await self.send_temperatura(id_paciente, id_upa, patient_reading_time_temp)
+                patient_reading_time_temp += timedelta(seconds=5) # Avança 5 segundos para a próxima leitura de temp
+            
+            for _ in range(6-qtde_dados_limpos):
+                tipo_dado = random.choice(["sujo", "sujo", "sujo", "inesperado", "inesperado"])
+                if tipo_dado == "sujo":
                     self.dados_sujos()
                 else:
                     self.dados_inesperados()
-
-                # Envia apenas o valor de temperatura
                 await self.send_temperatura(id_paciente, id_upa, patient_reading_time_temp)
                 patient_reading_time_temp += timedelta(seconds=5) # Avança 5 segundos para a próxima leitura de temp
 

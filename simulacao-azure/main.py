@@ -35,8 +35,8 @@ async def main():
         await camera.config("")
         await mock_dados.gerar_massa(camera)
 
-        # pacientes = PacienteSensores()
-        # await pacientes.config("")
+        pacientes = PacienteSensores()
+        await pacientes.config("")
 
         data_geracao_str = os.getenv("DATA_GERACAO")
         if data_geracao_str:
@@ -45,7 +45,7 @@ async def main():
             data_geracao_dt = datetime.now()
             
         # print("Gerando dados de oximetria e temperatura para 109 pacientes...")
-        # await pacientes.handler(data_geracao_dt)
+        await pacientes.handler(data_geracao_dt)
         # print("Geração de dados de pacientes concluída para 109 pacientes.")
 
         # await dht22.disconnect()
