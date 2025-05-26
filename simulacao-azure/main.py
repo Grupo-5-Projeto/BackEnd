@@ -1,12 +1,12 @@
 from dotenv import load_dotenv
 import os
 import asyncio
-from persistence.device_mock import DeviceLocal 
-from sensores.dht22 import DHT22
-from sensores.visao_computacional import VisaoComputacional
-from sensores.paciente import PacienteSensores
+from device_mock import DeviceLocal 
+from dht22 import DHT22
+from visao_computacional import VisaoComputacional
+from paciente import PacienteSensores
 import schedule
-from persistence.dados_mockados import MockDados
+from dados_mockados import MockDados
 from  azure.identity import DefaultAzureCredential
 from datetime import datetime
 from azure.storage.blob import BlobClient

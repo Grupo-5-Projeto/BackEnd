@@ -1,10 +1,10 @@
 from datetime import datetime, timedelta
-from persistence.device_connect import Device
+from device_connect import Device
 import random
 import math
 import os
 
-from persistence.device_mock import DeviceLocal
+from device_mock import DeviceLocal
 
 class PacienteSensores:
     def __init__(self):
@@ -12,7 +12,7 @@ class PacienteSensores:
         self.oxigenacao = None
         self.temperatura = None
         self.data = None
-        self.total_pacientes = 109
+        self.total_pacientes = 159
 
     async def config(self, connect_string):
         if os.getenv("ENVIROMENT") == "mock":
