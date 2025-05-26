@@ -5,3 +5,6 @@ ENVIROMENT == "mock" >> para indicar que voce quer gerar massa mocada
     --- sempre que for gerar
 
 ENVIROMENT == "qualquer coisa" >> vai enviar dados diretamente pra azure, simulando funcionamento padrao
+
+
+o restante das info do .env está no trello, copiar e colar - caso deseje enviar pra nuvem direto e pra gerar arquivo tambem
