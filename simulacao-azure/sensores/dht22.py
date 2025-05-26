@@ -1,6 +1,6 @@
 from datetime import datetime
-from device_connect import Device
-from device_mock import DeviceLocal
+from persistence.device_connect import Device
+from persistence.device_mock import DeviceLocal
 import random
 import math
 import os
@@ -13,7 +13,7 @@ class DHT22:
         self.data = None
 
     async def config(self, connect_string):
-        if os.getenv("ENVIROMENT") == "db":
+        if os.getenv("ENVIROMENT") == "mock":
             self.client = DeviceLocal()
             await self.client.connect()
         else:

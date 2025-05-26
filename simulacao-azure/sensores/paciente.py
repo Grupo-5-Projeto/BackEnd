@@ -1,10 +1,10 @@
 from datetime import datetime, timedelta
-from device_connect import Device
+from persistence.device_connect import Device
 import random
 import math
 import os
 
-from device_mock import DeviceLocal
+from persistence.device_mock import DeviceLocal
 
 class PacienteSensores:
     def __init__(self):
@@ -15,7 +15,7 @@ class PacienteSensores:
         self.total_pacientes = 109
 
     async def config(self, connect_string):
-        if os.getenv("ENVIROMENT") == "db":
+        if os.getenv("ENVIROMENT") == "mock":
             self.client = DeviceLocal()
             await self.client.connect()
         else:
@@ -23,16 +23,10 @@ class PacienteSensores:
             await self.client.connect(connect_string) 
 
 
-    async def handler(self, data_mockada=None):
-        if data_mockada is not None:
-            self.data = data_mockada
-        else:
-            # self.data = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
-            self.data = datetime.now()
-
-        current_base_time = self.data
-
+    async def handler_mockado(self, data_mockada=None):
+        self.data = data_mockada
         total_intervalo_minutos_simulacao = (self.total_pacientes - 1) * 5
+
         # O paciente 1 terá seu tempo base recuado em total_intervalo_minutos_simulacao
         current_base_time_for_oldest_patient = self.data - timedelta(minutes=total_intervalo_minutos_simulacao)
 
@@ -89,6 +83,7 @@ class PacienteSensores:
             "fk_unid_medida": 2, # %
         })
 
+
     async def send_temperatura(self, id_paciente, id_upa, current_timestamp):
         await self.client.send_message({
             "data_hora": current_timestamp,
@@ -100,6 +95,62 @@ class PacienteSensores:
         })
 
 
+    async def handler_azure(self):
+        tipo_dado = random.choice(["limpo", "limpo", "limpo", "sujo", "sujo", "inesperado"])
+
+        last_paciente = 0
+        id_paciente = random.randrange(1, self.total_pacientes)
+        id_upa = random.randrange(1, 35)
+        self.data = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+
+        while id_paciente == last_paciente:
+            id_paciente = random.randrange(1, self.total_pacientes)
+        
+
+        qtde_dados_limpos = random.randrange(3, 5) 
+        patient_reading_time = datetime.strptime(self.data, "%Y-%m-%dT%H:%M:%S")
+        for _ in range(qtde_dados_limpos):
+            self.dados_limpos() 
+            await self.send_oxigenacao(id_paciente, id_upa, patient_reading_time.strftime("%Y-%m-%dT%H:%M:%S"))
+            patient_reading_time += timedelta(seconds=5) 
+        
+        for _ in range(6-qtde_dados_limpos):
+            patient_reading_time
+            tipo_dado = random.choice(["sujo", "sujo", "sujo", "inesperado", "inesperado"])
+            if tipo_dado == "sujo":
+                self.dados_sujos()
+            else:
+                self.dados_inesperados()
+            await self.send_oxigenacao(id_paciente, id_upa, patient_reading_time.strftime("%Y-%m-%dT%H:%M:%S"))
+            patient_reading_time += timedelta(seconds=5) 
+
+        # temperatura
+        for _ in range(qtde_dados_limpos):
+            self.dados_limpos()
+            await self.send_temperatura(id_paciente, id_upa, patient_reading_time.strftime("%Y-%m-%dT%H:%M:%S"))
+            patient_reading_time += timedelta(seconds=5) # Avança 5 segundos para a próxima leitura de temp
+        
+        for _ in range(6-qtde_dados_limpos):
+            tipo_dado = random.choice(["sujo", "sujo", "sujo", "inesperado", "inesperado"])
+            if tipo_dado == "sujo":
+                self.dados_sujos()
+            else:
+                self.dados_inesperados()
+            await self.send_temperatura(id_paciente, id_upa, patient_reading_time.strftime("%Y-%m-%dT%H:%M:%S"))
+            patient_reading_time += timedelta(seconds=5) # Avança 5 segundos para a próxima leitura de temp
+
+        # if tipo_dado == "limpo":
+        #     for _ in range(6):
+        #         self.dados_limpos()
+        #         await self.send(id_paciente, id_upa)
+        # elif tipo_dado == "sujo":
+        #     for _ in range(6):
+        #         self.dados_sujos()
+        #         await self.send(id_paciente, id_upa)
+        # else:
+        #     for _ in range(6):
+        #         self.dados_inesperados()
+        #         await self.send(id_paciente, id_upa)
 
     def oximetro(self):
         V_sensor = random.uniform(1.6, 2.4)  

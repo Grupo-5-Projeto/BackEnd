@@ -1,6 +1,6 @@
 from datetime import datetime
-from device_connect import Device
-from device_mock import DeviceLocal
+from persistence.device_connect import Device
+from persistence.device_mock import DeviceLocal
 import random
 import math
 import os
@@ -14,7 +14,7 @@ class VisaoComputacional:
         self.historico_quantidade_pessoas = [0] * 5 # Média das últimas 5 leituras
 
     async def config(self, connect_string):
-        if os.getenv("ENVIROMENT") == "db":
+        if os.getenv("ENVIROMENT") == "mock":
             self.client = DeviceLocal()
             await self.client.connect()
         else:
