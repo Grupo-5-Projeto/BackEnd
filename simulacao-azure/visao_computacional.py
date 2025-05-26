@@ -1,6 +1,6 @@
 from datetime import datetime
-from persistence.device_connect import Device
-from persistence.device_mock import DeviceLocal
+from device_connect import Device
+from device_mock import DeviceLocal
 import random
 import math
 import os
