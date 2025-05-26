@@ -27,3 +27,6 @@ terraform.tfvars.json
 
 # Lock file (pode ser versionado, mas depende do fluxo de trabalho)
 .terraform.lock.hcl
+
+__pychace__
+.env

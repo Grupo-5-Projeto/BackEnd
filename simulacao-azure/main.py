@@ -7,7 +7,9 @@ from visao_computacional import VisaoComputacional
 from paciente import PacienteSensores
 import schedule
 from dados_mockados import MockDados
+from  azure.identity import DefaultAzureCredential
 from datetime import datetime
+from azure.storage.blob import BlobClient
 
 # carregando vairaveis de ambiente
 load_dotenv()
@@ -15,20 +17,25 @@ load_dotenv()
 def envio_dado(instance):
     asyncio.create_task(instance.handler())
 
+def envio_dado_pacientes(instance):
+    asyncio.create_task(instance.handler_azure())
 
 async def main():
+    DefaultAzureCredential()
     os.environ["QTD_PESSOAS"] = "0"
 
     dht22 = None
     camera = None
     pacientes = None
 
-    if os.getenv("ENVIROMENT") == "db":
+    if os.getenv("ENVIROMENT") == "mock":
+        print("Gerando massa de dados mockados")
+        print(f"Gerando para {os.getenv("SAVE")}")
         mock_dados = MockDados()
 
-        # dht22 = DHT22()
-        # await dht22.config("")
-        # await mock_dados.gerar_massa(dht22)
+        dht22 = DHT22()
+        await dht22.config("")
+        await mock_dados.gerar_massa(dht22)
 
 
         camera = VisaoComputacional()
@@ -39,20 +46,30 @@ async def main():
         await pacientes.config("")
 
         data_geracao_str = os.getenv("DATA_GERACAO")
-        if data_geracao_str:
-            data_geracao_dt = datetime.strptime(data_geracao_str + " 22:00:00", "%Y-%m-%d %H:%M:%S")
-        else:
-            data_geracao_dt = datetime.now()
-            
-        # print("Gerando dados de oximetria e temperatura para 109 pacientes...")
-        await pacientes.handler(data_geracao_dt)
-        # print("Geração de dados de pacientes concluída para 109 pacientes.")
+        data_geracao_dt = datetime.strptime(data_geracao_str + " 22:00:00", "%Y-%m-%d %H:%M:%S")
+        await pacientes.handler_mockado(data_geracao_dt)
 
-        # await dht22.disconnect()
+        await dht22.disconnect()
         await camera.disconnect()
-        # await pacientes.disconnect()
+        await pacientes.disconnect()
 
+        
+        if os.getenv("SAVE") == "archive":
+            print("Gerando arquivos e enviado para o Blob")
+            pasta = "./arquivos"
+            for nome_arquivo in os.listdir(pasta):
+                caminho_arquivo = os.path.join(pasta, nome_arquivo)
+                with open(caminho_arquivo, "rb") as data:
+                    blob_client = BlobClient.from_connection_string(
+                        conn_str=os.getenv("CONNECT_BLOB"),
+                        blob_name=nome_arquivo,
+                        container_name="blob-raw-sensores"
+                    )
+                    blob_client.upload_blob(data, overwrite=True)
+            print("Arquivos enviados para o Blob")
+            
     else:
+        print("Iniciando simulação enviando dados para o IotHub")
         dht22 = DHT22()
         await dht22.config(os.getenv("CONNECT_AZURE_AMBIENTE"))
 
@@ -64,7 +81,7 @@ async def main():
 
         schedule.every(2).seconds.do(lambda: envio_dado(dht22))
         schedule.every(5).seconds.do(lambda: envio_dado(camera))
-        schedule.every(5).seconds.do(lambda: envio_dado(pacientes))
+        schedule.every(5).seconds.do(lambda: envio_dado_pacientes(pacientes))
 
         while True:
             schedule.run_pending()
