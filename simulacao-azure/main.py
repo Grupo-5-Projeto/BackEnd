@@ -59,6 +59,19 @@ async def main():
             pasta = "./arquivos"
             for nome_arquivo in os.listdir(pasta):
                 caminho_arquivo = os.path.join(pasta, nome_arquivo)
+
+                caractere_inicio = '['
+                caractere_fim = ']'
+
+                with open(caminho_arquivo, 'r', encoding='utf-8') as f:
+                    conteudo = f.read()
+
+                novo_conteudo = caractere_inicio + conteudo + caractere_fim
+
+                with open(caminho_arquivo, 'w', encoding='utf-8') as f:
+                    f.write(novo_conteudo)
+
+
                 with open(caminho_arquivo, "rb") as data:
                     blob_client = BlobClient.from_connection_string(
                         conn_str=os.getenv("CONNECT_BLOB"),

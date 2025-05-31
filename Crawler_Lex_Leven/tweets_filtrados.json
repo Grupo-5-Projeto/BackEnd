@@ -1,0 +1,955 @@
+{
+  "tweets_filtrados": [
+    {
+      "tweet_original": "UPA sexta à noite: totalmente vazia.\n\nUPA domingo à noite: lotada.\n\nIsso diz muito sobre o brasileiro.",
+      "tweet_destaque": ">>>UPA<<< sexta à noite: totalmente vazia.\n\n>>>UPA<<< domingo à noite: lotada.\n\nIsso diz muito sobre o brasileiro.",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "upa",
+        "sexta",
+        "noite",
+        "totalmente",
+        "vazia",
+        "upa",
+        "domingo",
+        "noite",
+        "lotada",
+        "diz",
+        "sobre",
+        "brasileiro"
+      ]
+    },
+    {
+      "tweet_original": "22h42 – Avenida Radial Leste, 5254 – Liberdade(viaduto) – Acidente de trânsito - Pelo local, queda de motociclista, condutor da moto (masc. maior) em óbito, constatado pela Drª Carina CRM 19067( que estava no local) e a garupa (femin. maior) socorrida à UPA Mooca. #193R",
+      "tweet_destaque": "22h42 – Avenida Radial Leste, 5254 – Liberdade(viaduto) – Acidente de trânsito - Pelo local, queda de motociclista, condutor da moto (masc. maior) em óbito, constatado pela Drª Carina CRM 19067( que estava no local) e a garupa (femin. maior) socorrida à >>>UPA<<< Mooca. #193R",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "avenida",
+        "radial",
+        "leste",
+        "liberdade",
+        "viaduto",
+        "acidente",
+        "trânsito",
+        "local",
+        "queda",
+        "motociclista",
+        "condutor",
+        "moto",
+        "masc",
+        "maior",
+        "óbito",
+        "constatado",
+        "drª",
+        "carina",
+        "crm",
+        "local",
+        "garupa",
+        "femin",
+        "maior",
+        "socorrida",
+        "upa",
+        "mooca"
+      ]
+    },
+    {
+      "tweet_original": "Não é de universidade, mas esse é o Jaiminho, trabalha na UPA, tem uniforme de segurança e tudo",
+      "tweet_destaque": "Não é de universidade, mas esse é o Jaiminho, trabalha na >>>UPA<<<, tem uniforme de segurança e tudo",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "universidade",
+        "jaiminho",
+        "trabalha",
+        "upa",
+        "uniforme",
+        "segurança",
+        "tudo"
+      ]
+    },
+    {
+      "tweet_original": "A maior UPA de São Paulo já está em funcionamento!\n\nA nova Unidade de Pronto Atendimento Lapa está pronta para atender a comunidade com serviços de urgência e emergência, 24 horas por dia, com estrutura moderna e acessível.",
+      "tweet_destaque": "A maior >>>UPA<<< de São Paulo já está em funcionamento!\n\nA nova Unidade de Pronto >>>Atendimento<<< Lapa está pronta para atender a comunidade com serviços de >>>urgência<<< e >>>emergência<<<, 24 horas por dia, com estrutura moderna e acessível.",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "urgencia",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "emergência",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "emergencia",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "atendimento",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "urgência",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "maior",
+        "upa",
+        "paulo",
+        "funcionamento",
+        "nova",
+        "unidade",
+        "pronto",
+        "atendimento",
+        "lapa",
+        "pronta",
+        "atender",
+        "comunidade",
+        "serviços",
+        "urgência",
+        "emergência",
+        "horas",
+        "dia",
+        "estrutura",
+        "moderna",
+        "acessível"
+      ]
+    },
+    {
+      "tweet_original": "Viva o SUS!\n\nPACIENTE MORRE após dar entrada em UPA do DF com dormência na perna.\n\nLadroes de gravata e terno Sucatearam a saúde e o povo morre na fila de atendimento.",
+      "tweet_destaque": "Viva o SUS!\n\n>>>PACIENTE<<< MORRE após dar entrada em >>>UPA<<< do DF com dormência na perna.\n\nLadroes de gravata e terno Sucatearam a >>>saúde<<< e o povo morre na fila de >>>atendimento<<<.",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "saude",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "pacientes",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "saúde",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "paciente",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "atendimento",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "viva",
+        "sus",
+        "paciente",
+        "morre",
+        "após",
+        "dar",
+        "entrada",
+        "upa",
+        "df",
+        "dormência",
+        "perna",
+        "ladroes",
+        "gravata",
+        "terno",
+        "sucatearam",
+        "saúde",
+        "povo",
+        "morre",
+        "fila",
+        "atendimento"
+      ]
+    },
+    {
+      "tweet_original": "quando eu tive ataque de pânico e fui  na upa, e os meus adversários eram uma grávida com dores na barriga e um velho de 424 anos com metade da alma pra fora do corpo \n\nquase voltei pra casa de vergonha https://x.com/g3ng4r/status//g3ng4r/status/1925230523053445230…",
+      "tweet_destaque": "quando eu tive ataque de pânico e fui  na >>>upa<<<, e os meus adversários eram uma grávida com dores na barriga e um velho de 424 anos com metade da alma pra fora do corpo \n\nquase voltei pra casa de vergonha https://x.com/g3ng4r/status//g3ng4r/status/1925230523053445230…",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "corno",
+          "tipo": "palavrao"
+        }
+      ],
+      "tokens_lexicais": [
+        "ataque",
+        "pânico",
+        "upa",
+        "adversários",
+        "grávida",
+        "dores",
+        "barriga",
+        "velho",
+        "anos",
+        "metade",
+        "alma",
+        "pra",
+        "corpo",
+        "quase",
+        "voltei",
+        "pra",
+        "casa",
+        "vergonha",
+        "https"
+      ]
+    },
+    {
+      "tweet_original": "tem mais de 20 anos e ta em mov estudantil: desocupado",
+      "tweet_destaque": "tem mais de 20 anos e ta em mov estudantil: desocupado",
+      "palavras_detectadas": [],
+      "tokens_lexicais": [
+        "anos",
+        "ta",
+        "mov",
+        "estudantil",
+        "desocupado"
+      ]
+    },
+    {
+      "tweet_original": "fui pegar um atestado na upa e a mentira saiu CARO dessa vez quando a enfermeira veio com um buscopam pra aplicar na bunda eu quis morrer de raiva",
+      "tweet_destaque": "fui pegar um atestado na >>>upa<<< e a mentira saiu CARO dessa vez quando a >>>enfermeira<<< veio com um buscopam pra aplicar na bunda eu quis morrer de raiva",
+      "palavras_detectadas": [
+        {
+          "palavra": "enfermeira",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "enfermeiro",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "pegar",
+        "atestado",
+        "upa",
+        "mentira",
+        "saiu",
+        "caro",
+        "dessa",
+        "vez",
+        "enfermeira",
+        "veio",
+        "buscopam",
+        "pra",
+        "aplicar",
+        "bunda",
+        "quis",
+        "morrer",
+        "raiva"
+      ]
+    },
+    {
+      "tweet_original": "Cinco filhotes são abandonados por caminhonete na UPA de Chapada dos Guimarães, MT",
+      "tweet_destaque": "Cinco filhotes são abandonados por caminhonete na >>>UPA<<< de Chapada dos Guimarães, MT",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "cinco",
+        "filhotes",
+        "abandonados",
+        "caminhonete",
+        "upa",
+        "chapada",
+        "guimarães",
+        "mt"
+      ]
+    },
+    {
+      "tweet_original": "Tenta se matar e reclama de n ser prioridade na upa: desocupado",
+      "tweet_destaque": "Tenta se matar e reclama de n ser prioridade na >>>upa<<<: desocupado",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "tenta",
+        "matar",
+        "reclama",
+        "n",
+        "prioridade",
+        "upa",
+        "desocupado"
+      ]
+    },
+    {
+      "tweet_original": "A PrefSP está investindo R$ 16 milhões na construção da UPA 24 horas em São Mateus. Mais de 250 mil pessoas na região serão beneficiadas!\n+",
+      "tweet_destaque": "A PrefSP está investindo R$ 16 milhões na construção da >>>UPA<<< 24 horas em São Mateus. Mais de 250 mil pessoas na região serão beneficiadas!\n+",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "prefsp",
+        "investindo",
+        "r",
+        "milhões",
+        "construção",
+        "upa",
+        "horas",
+        "mateus",
+        "mil",
+        "pessoas",
+        "região",
+        "beneficiadas"
+      ]
+    },
+    {
+      "tweet_original": "Um homem de 39 anos em surto psicótico gerou confusão na sede do CADE na 515 Norte neste domingo (25). Ele estava armado e agressivo. Testemunhas chamaram a polícia. Após negociar com o BOPE ele se entregou. Foi levado pelos bombeiros pra UPA do Paranoá.",
+      "tweet_destaque": "Um homem de 39 anos em surto psicótico gerou confusão na sede do CADE na 515 Norte neste domingo (25). Ele estava armado e agressivo. Testemunhas chamaram a polícia. Após negociar com o BOPE ele se entregou. Foi levado pelos bombeiros pra >>>UPA<<< do Paranoá.",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "homem",
+        "anos",
+        "surto",
+        "psicótico",
+        "gerou",
+        "confusão",
+        "sede",
+        "cade",
+        "norte",
+        "neste",
+        "domingo",
+        "armado",
+        "agressivo",
+        "testemunhas",
+        "chamaram",
+        "polícia",
+        "após",
+        "negociar",
+        "bope",
+        "entregou",
+        "levado",
+        "bombeiros",
+        "pra",
+        "upa",
+        "paranoá"
+      ]
+    },
+    {
+      "tweet_original": "to indo.pra upa tropa 38 de febre e é a tropa dos quase morre invandindo sua tml\n\nsem brincadeira agora tropa tava tremendo e com as perna doebdo\n\nse pa eu to indo jogar no gigante da colina vasco da gama",
+      "tweet_destaque": "to indo.pra >>>upa<<< tropa 38 de febre e é a tropa dos quase morre invandindo sua tml\n\nsem brincadeira agora tropa tava tremendo e com as perna doebdo\n\nse pa eu to indo jogar no gigante da colina vasco da gama",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "to",
+        "upa",
+        "tropa",
+        "febre",
+        "tropa",
+        "quase",
+        "morre",
+        "invandindo",
+        "tml",
+        "brincadeira",
+        "agora",
+        "tropa",
+        "tava",
+        "tremendo",
+        "perna",
+        "doebdo",
+        "pa",
+        "to",
+        "indo",
+        "jogar",
+        "gigante",
+        "colina",
+        "vasco",
+        "gama"
+      ]
+    },
+    {
+      "tweet_original": "Av. Queiroz Filho, 313, Vila Hamburguesa.\n24h, de segunda a domingo.\nAcesse e conheça: https://tinyurl.com/yck78vcj\n\n#UPALapa #Saude #PrefeituradeSaoPaulo",
+      "tweet_destaque": "Av. Queiroz Filho, 313, Vila Hamburguesa.\n24h, de segunda a domingo.\nAcesse e conheça: https://tinyurl.com/yck78vcj\n\n#UPALapa #>>>Saude<<< #PrefeituradeSaoPaulo",
+      "palavras_detectadas": [
+        {
+          "palavra": "saude",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "saúde",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "queiroz",
+        "filho",
+        "vila",
+        "hamburguesa",
+        "segunda",
+        "domingo",
+        "acesse",
+        "conheça",
+        "https",
+        "upalapa",
+        "saude",
+        "prefeituradesaopaulo"
+      ]
+    },
+    {
+      "tweet_original": "Daí vc bem na UPA da \"melhor cidade do Brasil\"... e vai isso é o q vc tem q esperar pra fazer a ficha",
+      "tweet_destaque": "Daí vc bem na >>>UPA<<< da \"melhor cidade do Brasil\"... e vai isso é o q vc tem q esperar pra fazer a ficha",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "espera",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "bicha",
+          "tipo": "palavrao"
+        }
+      ],
+      "tokens_lexicais": [
+        "daí",
+        "vc",
+        "bem",
+        "upa",
+        "melhor",
+        "cidade",
+        "brasil",
+        "vai",
+        "q",
+        "vc",
+        "q",
+        "esperar",
+        "pra",
+        "fazer",
+        "ficha"
+      ]
+    },
+    {
+      "tweet_original": "EM 2027 PODE FALTAR DINHEIRO PRA HOSPITAL!\n\nO próprio governo Lula admite: não haverá verba pra saúde e educação. Estão enterrando o Brasil em dívidas e jogando o povo na UPA sem médico, sem remédio, sem dignidade.\n\nFalta de planejamento é crime contra a saúde do povo!",
+      "tweet_destaque": "EM 2027 PODE FALTAR DINHEIRO PRA >>>HOSPITAL<<<!\n\nO próprio governo Lula admite: não haverá verba pra >>>saúde<<< e educação. Estão enterrando o Brasil em dívidas e jogando o povo na >>>UPA<<< sem >>>médico<<<, sem >>>remédio<<<, sem dignidade.\n\nFalta de planejamento é crime contra a >>>saúde<<< do povo!",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "médico",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "saude",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "medico",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "remedio",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "saúde",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "remédio",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "hospital",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "pode",
+        "faltar",
+        "dinheiro",
+        "pra",
+        "hospital",
+        "próprio",
+        "governo",
+        "lula",
+        "admite",
+        "haverá",
+        "verba",
+        "pra",
+        "saúde",
+        "educação",
+        "enterrando",
+        "brasil",
+        "dívidas",
+        "jogando",
+        "povo",
+        "upa",
+        "médico",
+        "remédio",
+        "dignidade",
+        "falta",
+        "planejamento",
+        "crime",
+        "contra",
+        "saúde",
+        "povo"
+      ]
+    },
+    {
+      "tweet_original": "como builda e upa ele gente?",
+      "tweet_destaque": "como builda e >>>upa<<< ele gente?",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "builda",
+        "upa",
+        "gente"
+      ]
+    },
+    {
+      "tweet_original": "O Butantã ganhará uma nova UPA 24h com capacidade para 10 mil atendimentos mensais!\n\nA unidade irá compor a rede de urgência e emergência da região, beneficiando + de 460 mil moradores.\n\nSaiba mais:",
+      "tweet_destaque": "O Butantã ganhará uma nova >>>UPA<<< 24h com capacidade para 10 mil atendimentos mensais!\n\nA unidade irá compor a rede de >>>urgência<<< e >>>emergência<<< da região, beneficiando + de 460 mil moradores.\n\nSaiba mais:",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "urgencia",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "emergência",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "emergencia",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "atendimento",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "urgência",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "butantã",
+        "ganhará",
+        "nova",
+        "upa",
+        "capacidade",
+        "mil",
+        "atendimentos",
+        "mensais",
+        "unidade",
+        "irá",
+        "compor",
+        "rede",
+        "urgência",
+        "emergência",
+        "região",
+        "beneficiando",
+        "mil",
+        "moradores",
+        "saiba"
+      ]
+    },
+    {
+      "tweet_original": "Venho aqui, com o coração apertado, pedir sua ajuda. Minha sobrinha, um bebê de apenas 2 meses de vida, está internada na UPA da Tijuca .\nCompartilhem e marquem , até que consigamos esse leito! Essa é a minha última esperança pq já tentamos de todas as formas !",
+      "tweet_destaque": "Venho aqui, com o coração apertado, pedir sua ajuda. Minha sobrinha, um bebê de apenas 2 meses de vida, está >>>internada<<< na >>>UPA<<< da Tijuca .\nCompartilhem e marquem , até que consigamos esse leito! Essa é a minha última esperança pq já tentamos de todas as formas !",
+      "palavras_detectadas": [
+        {
+          "palavra": "internacao",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "internada",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "venho",
+        "aqui",
+        "coração",
+        "apertado",
+        "pedir",
+        "ajuda",
+        "sobrinha",
+        "bebê",
+        "apenas",
+        "meses",
+        "vida",
+        "internada",
+        "upa",
+        "tijuca",
+        "compartilhem",
+        "marquem",
+        "consigamos",
+        "leito",
+        "última",
+        "esperança",
+        "pq",
+        "tentamos",
+        "todas",
+        "formas"
+      ]
+    },
+    {
+      "tweet_original": "o pessoal na UPA esperando pra ser consultado \n\no médico no twitter: \n\n#pqp",
+      "tweet_destaque": "o pessoal na >>>UPA<<< esperando pra ser consultado \n\no >>>médico<<< no twitter: \n\n#>>>pqp<<<",
+      "palavras_detectadas": [
+        {
+          "palavra": "medico",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "médico",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "consulta",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "pqp",
+          "tipo": "palavrao"
+        }
+      ],
+      "tokens_lexicais": [
+        "pessoal",
+        "upa",
+        "esperando",
+        "pra",
+        "consultado",
+        "médico",
+        "twitter",
+        "pqp"
+      ]
+    },
+    {
+      "tweet_original": "Hoje tomei duas injeções de uma vez no upa sai chorando sou fraco",
+      "tweet_destaque": "Hoje tomei duas injeções de uma vez no >>>upa<<< sai chorando sou fraco",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "hoje",
+        "tomei",
+        "duas",
+        "injeções",
+        "vez",
+        "upa",
+        "sai",
+        "chorando",
+        "fraco"
+      ]
+    },
+    {
+      "tweet_original": "A Prefeitura de São Paulo entregou a UPA Sacomã em Heliópolis! \n\nCom 24h de atendimento, mais de 21 mil atendimentos/mês e 490 profissionais, a unidade oferece saúde de qualidade em diversas especialidades. \n\nSaiba mais: https://tinyurl.com/mry3h37v",
+      "tweet_destaque": "A Prefeitura de São Paulo entregou a >>>UPA<<< Sacomã em Heliópolis! \n\nCom 24h de >>>atendimento<<<, mais de 21 mil atendimentos/mês e 490 profissionais, a unidade oferece >>>saúde<<< de qualidade em diversas especialidades. \n\nSaiba mais: https://tinyurl.com/mry3h37v",
+      "palavras_detectadas": [
+        {
+          "palavra": "atendimento",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "saude",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "saúde",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "prefeitura",
+        "paulo",
+        "entregou",
+        "upa",
+        "sacomã",
+        "heliópolis",
+        "atendimento",
+        "mil",
+        "profissionais",
+        "unidade",
+        "oferece",
+        "saúde",
+        "qualidade",
+        "diversas",
+        "especialidades",
+        "saiba",
+        "https"
+      ]
+    },
+    {
+      "tweet_original": "O Prefeitura Presente chegou ao Butantã trazendo uma série de melhorias, incluindo a inauguração da UPA Rio Pequeno, que oferecerá atendimento em diversas especialidades para a população local.\n\nAlém disso, nesta semana, a PrefSP inaugurou mais uma creche, desta vez no bairro do",
+      "tweet_destaque": "O Prefeitura Presente chegou ao Butantã trazendo uma série de melhorias, incluindo a inauguração da >>>UPA<<< Rio Pequeno, que oferecerá >>>atendimento<<< em diversas especialidades para a população local.\n\nAlém disso, nesta semana, a PrefSP inaugurou mais uma creche, desta vez no bairro do",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "atendimento",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "prefeitura",
+        "presente",
+        "chegou",
+        "butantã",
+        "trazendo",
+        "série",
+        "melhorias",
+        "incluindo",
+        "inauguração",
+        "upa",
+        "rio",
+        "pequeno",
+        "oferecerá",
+        "atendimento",
+        "diversas",
+        "especialidades",
+        "população",
+        "local",
+        "além",
+        "disso",
+        "nesta",
+        "semana",
+        "prefsp",
+        "inaugurou",
+        "creche",
+        "desta",
+        "vez",
+        "bairro"
+      ]
+    },
+    {
+      "tweet_original": "A Prefeitura de São Paulo inaugurou hoje a 34ª Unidade de Pronto Atendimento, a UPA Ipiranga. \n\n A unidade funciona 24 horas por dia e tem capacidade para realizar até 21 mil atendimentos por mês, em especialidades como clínica médica, pediatria, ortopedia, odontologia e",
+      "tweet_destaque": "A Prefeitura de São Paulo inaugurou hoje a 34ª Unidade de Pronto >>>Atendimento<<<, a >>>UPA<<< Ipiranga. \n\n A unidade funciona 24 horas por dia e tem capacidade para realizar até 21 mil atendimentos por mês, em especialidades como >>>clínica<<< médica, pediatria, ortopedia, odontologia e",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "médico",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "clinica",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "clínica",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "atendimento",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "prefeitura",
+        "paulo",
+        "inaugurou",
+        "hoje",
+        "unidade",
+        "pronto",
+        "atendimento",
+        "upa",
+        "ipiranga",
+        "unidade",
+        "funciona",
+        "horas",
+        "dia",
+        "capacidade",
+        "realizar",
+        "mil",
+        "atendimentos",
+        "mês",
+        "especialidades",
+        "clínica",
+        "médica",
+        "pediatria",
+        "ortopedia",
+        "odontologia"
+      ]
+    },
+    {
+      "tweet_original": "Essa virose tá com tudo mesmo, ela tem que ir logo na UPA",
+      "tweet_destaque": "Essa virose tá com tudo mesmo, ela tem que ir logo na >>>UPA<<<",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "virose",
+        "tá",
+        "tudo",
+        "ir",
+        "logo",
+        "upa"
+      ]
+    },
+    {
+      "tweet_original": "A nova UPA Sacomã inaugurada pela Prefeitura de São Paulo está linda!\n\nEm Heliópolis, a 1ª unidade 24h na região conta com capacidade pra +de 21 mil atendimentos e equipe multiprofissional nas especialidades de clínica pediátrica, odontológica, ortopédica e cirurgia geral.",
+      "tweet_destaque": "A nova >>>UPA<<< Sacomã inaugurada pela Prefeitura de São Paulo está linda!\n\nEm Heliópolis, a 1ª unidade 24h na região conta com capacidade pra +de 21 mil atendimentos e equipe multiprofissional nas especialidades de >>>clínica<<< pediátrica, odontológica, ortopédica e cirurgia geral.",
+      "palavras_detectadas": [
+        {
+          "palavra": "clínica",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "atendimento",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "clinica",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "nova",
+        "upa",
+        "sacomã",
+        "inaugurada",
+        "prefeitura",
+        "paulo",
+        "linda",
+        "heliópolis",
+        "unidade",
+        "região",
+        "conta",
+        "capacidade",
+        "pra",
+        "mil",
+        "atendimentos",
+        "equipe",
+        "multiprofissional",
+        "especialidades",
+        "clínica",
+        "pediátrica",
+        "odontológica",
+        "ortopédica",
+        "cirurgia",
+        "geral"
+      ]
+    },
+    {
+      "tweet_original": "RECOMENDAÇÃO DE UPA DA CDD\n\n\"Há algum tempo, deixei de frequentar a UPA da Taquara em situações de necessidade e passei a buscar atendimento na UPA da Cidade de Deus. Sempre fui bem atendido nesta unidade e, em especial no dia de hoje, fui acolhido em menos de 30 minutos. [+]",
+      "tweet_destaque": "RECOMENDAÇÃO DE >>>UPA<<< DA CDD\n\n\"Há algum tempo, deixei de frequentar a >>>UPA<<< da Taquara em situações de necessidade e passei a buscar >>>atendimento<<< na >>>UPA<<< da Cidade de Deus. Sempre fui bem atendido nesta unidade e, em especial no dia de hoje, fui acolhido em menos de 30 minutos. [+]",
+      "palavras_detectadas": [
+        {
+          "palavra": "upa",
+          "tipo": "palavra_saude"
+        },
+        {
+          "palavra": "atendimento",
+          "tipo": "palavra_saude"
+        }
+      ],
+      "tokens_lexicais": [
+        "recomendação",
+        "upa",
+        "cdd",
+        "algum",
+        "tempo",
+        "deixei",
+        "frequentar",
+        "upa",
+        "taquara",
+        "situações",
+        "necessidade",
+        "passei",
+        "buscar",
+        "atendimento",
+        "upa",
+        "cidade",
+        "deus",
+        "sempre",
+        "bem",
+        "atendido",
+        "nesta",
+        "unidade",
+        "especial",
+        "dia",
+        "hoje",
+        "acolhido",
+        "menos",
+        "minutos"
+      ]
+    }
+  ]
+}

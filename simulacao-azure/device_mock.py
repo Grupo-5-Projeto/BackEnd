@@ -35,7 +35,7 @@ class DeviceLocal:
                     "fk_sensor": payload['fk_sensor'], 
                     "fk_unid_medida": payload['fk_unid_medida']
                 }
-                arquivo.write(json.dumps(values) + "\n")
+                arquivo.write(json.dumps(values) + ",\n")
 
     async def shutdown(self):
         if os.getenv("SAVE") == "db":
