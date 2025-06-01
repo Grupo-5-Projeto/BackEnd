@@ -155,6 +155,12 @@ for tweet in tweets_coletados:
     for p in pl:
         encontrados.append({"palavra": p, "tipo": "palavrao"})
 
+    # Verificar lexemas não reconhecidos
+    palavras_encontradas = {e["palavra"] for e in encontrados}
+    for token in tokens_lexicos:
+        if token not in palavras_encontradas:
+            print(f"Erro léxico: lexema não reconhecido -> '{token}'")
+
     palavras_para_destacar = list({e["palavra"] for e in encontrados})
 
     texto_destaque = destacar_palavras(tweet, palavras_para_destacar)
@@ -175,6 +181,6 @@ driver.quit()
 
 #Fazer as devidas correções no código
 #Fazer o filtro de sentimentos com levenshtein
-#Fazer Lexema dos tokens léxicos
 #Gerar o json com os tweets filtrados
+#Fazer Lexema dos tokens léxicos ✅
 #Enviar(fazer requisição) o json para a AWS S3 RAW
