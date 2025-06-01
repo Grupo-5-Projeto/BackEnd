@@ -44,10 +44,11 @@ async def main():
 
         pacientes = PacienteSensores()
         await pacientes.config("")
+        await mock_dados.gerar_massa(pacientes)
 
-        data_geracao_str = os.getenv("DATA_GERACAO")
-        data_geracao_dt = datetime.strptime(data_geracao_str + " 22:00:00", "%Y-%m-%d %H:%M:%S")
-        await pacientes.handler_mockado(data_geracao_dt)
+        # data_geracao_str = os.getenv("DATA_GERACAO")
+        # data_geracao_dt = datetime.strptime(data_geracao_str + " 22:00:00", "%Y-%m-%d %H:%M:%S")
+        # await pacientes.handler_mockado(data_geracao_dt)
 
         await dht22.disconnect()
         await camera.disconnect()
