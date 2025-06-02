@@ -115,6 +115,7 @@
         "atendimento rapido",
         "rápido atendimento",
         "rapido atendimento",
+        "rapidez",
         "médicos atenciosos",
         "medicos atenciosos",
         "equipe dedicada",
@@ -133,12 +134,15 @@
         "tratamento humanizado",
         "medicação correta",
         "medicacao correta",
-        "ambiente tranquilo"
+        "ambiente tranquilo",
+        "vazia"
   ],
 
   "sentimentos_negativos": [
         "demora no atendimento",
         "demora",
+        "demorado",
+        "lento",
         "falta de médicos",
         "falta de medicos",
         "atendimento ruim",
@@ -159,7 +163,8 @@
         "sala de espera lotada",
         "mau atendimento",
         "atrasos constantes",
-        "atendimento ineficiente"
+        "atendimento ineficiente",
+        "lotada"
   ],
 
     "palavroes": [
