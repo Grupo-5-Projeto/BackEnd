@@ -3,6 +3,7 @@ import json
 import re
 import nltk
 import Levenshtein
+import boto3
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -21,271 +22,199 @@ try:
     nltk.data.find('corpora/stopwords')
 except nltk.downloader.DownloadError:
     nltk.download('stopwords')
+    
+stop_words = set(stopwords.words("portuguese"))
 
-# configs de acesso e busca - Twitter
-email = "connectupa@gmail.com"
-senha = "UpaConnectTwitter"
-username = "UpaConnect_"
-search_query = "UPA" # The term to search on Twitter
+# ===================== ANÁLISE =====================
+def analisar_lexico(texto):
+    tokens = word_tokenize(texto.lower(), language="portuguese")
+    return [re.sub(r'[^a-záàãâéêíóôõúüç]', '', t) for t in tokens if re.sub(r'[^a-záàãâéêíóôõúüç]', '', t) not in stop_words]
 
-# inicializa o chrome com essas opções
-options = Options()
-options.add_argument("--start-maximized")
-options.add_argument("--disable-notifications")
-driver = webdriver.Chrome(options=options)
-wait = WebDriverWait(driver, 10) # tmp de espera p elementos carregarem
+def extrair_palavras(texto, lista, threshold=0.8):
+    tokens = analisar_lexico(texto)
+    encontrados = set()
+    for palavra_lista in lista:
+        for token in tokens:
+            if token == palavra_lista:
+                encontrados.add(palavra_lista)
+            else:
+                distancia = Levenshtein.distance(token, palavra_lista)
+                similaridade = 1 - (distancia / max(len(token), len(palavra_lista), 1))
+                if similaridade >= threshold:
+                    encontrados.add(palavra_lista)
+    return list(encontrados)
 
-# --- login Twitter ---
-print("Entrando na página de login do Twitter")
-driver.get("https://twitter.com/login")
+def destacar_palavras(texto, palavras):
+    for palavra in palavras:
+        texto = re.sub(rf"\\b({re.escape(palavra)})\\b", r">>>\1<<<", texto, flags=re.IGNORECASE)
+    return texto
 
-try:
-    # email
-    email_input_locator = (By.NAME, "text")
-    wait.until(EC.presence_of_element_located(email_input_locator))
-    input_email = driver.find_element(*email_input_locator)
-    input_email.send_keys(email)
-    input_email.send_keys(Keys.RETURN)
+def calcular_sentimento_geral(palavras_detectadas):
+    positivo = sum(1 for p in palavras_detectadas if p['tipo'] == 'sentimento_positivo')
+    negativo = sum(1 for p in palavras_detectadas if p['tipo'] == 'sentimento_negativo')
+    if positivo > negativo:
+        return "Positivo"
+    elif negativo > positivo:
+        return "Negativo"
+    return "Neutro"
 
-    try:
-        # username 
-        username_input_locator = (By.NAME, "text")
-        wait.until(EC.presence_of_element_located(username_input_locator))
-        username_input = driver.find_element(*username_input_locator)
-        username_input.send_keys(username)
-        username_input.send_keys(Keys.RETURN)
-        # senha
-        password_input_locator = (By.NAME, "password")
-        wait.until(EC.presence_of_element_located(password_input_locator))
-    except Exception:
-        password_input_locator = (By.NAME, "password")
-        wait.until(EC.presence_of_element_located(password_input_locator))
+# ===================== PROCESSAMENTO =====================
+def processar_tweets(tweets, filtros):
+    dados_resultado = {"tweets_filtrados": []}
+    dados_sentimentos = {"sentimentos_detectados": []}
 
-    # enter na senha
-    input_senha = driver.find_element(*password_input_locator)
-    input_senha.send_keys(senha)
-    input_senha.send_keys(Keys.RETURN)
-
-    wait.until(EC.presence_of_element_located((By.XPATH, '//a[@data-testid="AppTabBar_Home_Link"] | //input[@data-testid="SearchBox_Search_Input"]')))
-    print("✅ Login bem-sucedido!")
-
-except Exception as e:
-    print(f"❌ Erro durante o login: {e}")
-    driver.quit()
-    exit()
-
-# navegar para a página de busca
-print(f"Navegando para a página de busca para '{search_query}'...")
-driver.get(f"https://twitter.com/search?q={search_query}&src=typed_query")
-
-try:
-    # esperar o primeiro tweet estar visível na página
-    wait.until(EC.presence_of_element_located((By.XPATH, '//article[@data-testid="tweet"]')))
-    print("✅ Tweets carregados na página de busca!")
-except Exception as e:
-    print(f"❌ Nenhum tweet visível foi encontrado na página de busca: {e}")
-    driver.quit()
-    exit()
-
-time.sleep(3)
-
-# coleta tweets de 30 scrolls
-print("Começando a coleta de tweets...")
-last_height = driver.execute_script("return document.body.scrollHeight")
-tweets_coletados = set()
-scrolls = 0
-max_scrolls = 30 
-
-while scrolls < max_scrolls:
-    # achar tweets que estão em português
-    tweets = driver.find_elements(By.XPATH, '//div[@lang="pt"]')
-    for t in tweets:
-        txt = t.text.strip()
-        if search_query.lower() in txt.lower():
-            tweets_coletados.add(txt)
-
-    # scroll
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    time.sleep(3) 
-
-    # cálculo do tamanho do novo scroll
-    new_height = driver.execute_script("return document.body.scrollHeight")
-    if new_height == last_height:
-        print("Final do scroll.")
-        break
-    last_height = new_height
-    scrolls += 1
-    print(f"Scroll {scrolls}/{max_scrolls} completo. Foram coletados {len(tweets_coletados)} tweets.")
-
-print(f"Término da coleta. Total de tweets coletados: {len(tweets_coletados)}")
-
-# carregar dicionario de dados
-print("Carregando dicionário de dados...")
-try:
-    with open("dicionario_dados.json", "r", encoding="utf-8") as f:
-        filtros = json.load(f)
-
-    # convertendo todas palavras do dicionario para lowercase 
     palavras_saude = [p.lower() for p in filtros.get("palavras_saude", [])]
     nomes_upa = [n.lower() for n in filtros.get("nomes_upa", [])]
     sentimentos_positivos = [s.lower() for s in filtros.get("sentimentos_positivos", [])]
     sentimentos_negativos = [s.lower() for s in filtros.get("sentimentos_negativos", [])]
     palavroes = [p.lower() for p in filtros.get("palavroes", [])]
 
-except FileNotFoundError:
-    print("❌ Erro: 'dicionario_dados.json' não encontrado. Certifique-se de que o arquivo existe.")
-    driver.quit()
-    exit()
-except json.JSONDecodeError:
-    print("❌ Erro: 'dicionario_dados.json' está mal formatado. Verifique a sintaxe JSON.")
-    driver.quit()
-    exit()
-except Exception as e:
-    print(f"❌ Erro ao carregar filtros JSON: {e}")
-    driver.quit()
-    exit()
+    for tweet in tweets:
+        tokens_lexicos = analisar_lexico(tweet)
+        encontrados, sentimentos, lex_nao_reconhecidos = [], [], []
 
-stop_words = set(stopwords.words("portuguese"))
+        for tipo, lista in [
+            ("palavra_saude", palavras_saude),
+            ("nome_upa", nomes_upa),
+            ("sentimento_positivo", sentimentos_positivos),
+            ("sentimento_negativo", sentimentos_negativos),
+            ("palavrao", palavroes)
+        ]:
+            palavras = extrair_palavras(tweet, lista)
+            for p in palavras:
+                encontrados.append({"palavra": p, "tipo": tipo})
+                if "sentimento" in tipo:
+                    sentimentos.append({"palavra": p, "tipo": tipo})
 
+        detectadas_set = {e["palavra"] for e in encontrados}
+        for token in tokens_lexicos:
+            if token not in detectadas_set:
+                lex_nao_reconhecidos.append(token)
 
-# ANALISADOR LÉXICO
-def analisar_lexico(texto):
-    """
-    Divide o texto em tokens
-    e remove stop words e caracteres não alfabéticos.
+        texto_destaque = destacar_palavras(tweet, detectadas_set)
+        sentimento_geral = calcular_sentimento_geral(encontrados)
 
-    Retornando uma lista de tokens limpos
-    """
-    tokens = word_tokenize(texto.lower(), language="portuguese")
-    clean_tokens = []
-    for t in tokens:
-        cleaned_t = re.sub(r'[^a-záàãâéêíóôõúüç]', '', t) 
-        if cleaned_t and cleaned_t not in stop_words: 
-            clean_tokens.append(cleaned_t)
-    return clean_tokens
+        dados_resultado["tweets_filtrados"].append({
+            "tweet_original": tweet,
+            "tweet_destaque": texto_destaque,
+            "palavras_detectadas": encontrados,
+            "tokens_lexicais": tokens_lexicos,
+            "lexemas_nao_reconhecidos": lex_nao_reconhecidos,
+            "sentimento_geral": sentimento_geral
+        })
 
-def extrair_palavras(texto, lista, threshold=0.8):
-    """
-    Extrai palavras do texto que correspondem a uma lista de palavras
-    Utiliza Levenshtein para encontrar palavras semelhantes
-    Retorna uma lista de palavras encontradas.
-    """
-    texto_lower = texto.lower()
-    tokens = word_tokenize(texto_lower, language="portuguese")
-    encontrados = set() # evitar duplicatas
+        dados_sentimentos["sentimentos_detectados"].append({
+            "sentimentos_detectados": sentimentos
+        })
 
-    processed_tokens = []
-    for t in tokens:
-        cleaned_t = re.sub(r'[^a-záàãâéêíóôõúüç]', '', t)
-        if cleaned_t:
-            processed_tokens.append(cleaned_t)
+    return dados_resultado, dados_sentimentos
 
-    for palavra_lista in lista:
-        for token in processed_tokens:
-            if token == palavra_lista:
-                encontrados.add(palavra_lista)
-            else:
-                distancia = Levenshtein.distance(token, palavra_lista)
-                similaridade = 1 - (distancia / max(len(token), len(palavra_lista), 1)) # evitando divisão por zero
-                if similaridade >= threshold:
-                    encontrados.add(palavra_lista)
-    return list(encontrados)
+# ===================== COLETA =====================
+def coletar_tweets(driver, search_queries, max_scrolls=30):
+    tweets_coletados = set()
+    for query in search_queries:
+        url = f"https://twitter.com/search?q={query}&src=typed_query&lang=pt"
+        driver.get(url)
+        try:
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//article[@data-testid="tweet"]')))
+            print(f"\n✅ Página carregada para busca: {query}")
+        except:
+            print(f"\n❌ Nenhum tweet visível encontrado para: {query}")
+            continue
 
-def destacar_palavras(texto, palavras):
-    """
-    Destaca palavras no texto, colocando '>>>' e '<<<'.
-    """
-    for palavra in palavras:
-        texto = re.sub(rf"\b({re.escape(palavra)})\b", r">>>\1<<<", texto, flags=re.IGNORECASE)
-    return texto
-
-def calcular_sentimento_geral(palavras_detectadas):
-    """
-    Calcula o sentimento geral de um tweet com base nas palavras positivas e negativas detectadas.
-    Conta o número de palavras positivas e negativas
-    e retorna "Positivo", "Negativo" ou "Neutro".
-    """
-    contagem_positivo = 0
-    contagem_negativo = 0
-
-    for palavra_info in palavras_detectadas:
-        if palavra_info["tipo"] == "sentimento_positivo":
-            contagem_positivo += 1
-        elif palavra_info["tipo"] == "sentimento_negativo":
-            contagem_negativo += 1
-
-    if contagem_positivo > contagem_negativo:
-        return "Positivo"
-    elif contagem_negativo > contagem_positivo:
-        return "Negativo"
-    else:
-        return "Neutro"
+        last_height = driver.execute_script("return document.body.scrollHeight")
+        scrolls = 0
+        while scrolls < max_scrolls:
+            tweets = driver.find_elements(By.XPATH, '//div[@lang="pt"]')
+            for t in tweets:
+                txt = t.text.strip()
+                tweets_coletados.add(txt)
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(2)
+            new_height = driver.execute_script("return document.body.scrollHeight")
+            if new_height == last_height:
+                break
+            last_height = new_height
+            scrolls += 1
+    print(f"\n✅ Total de tweets coletados: {len(tweets_coletados)}")
+    return tweets_coletados
     
+# ===================== LOGIN =====================
+def login_twitter(driver, email, senha, username):
+    wait = WebDriverWait(driver, 10)
+    driver.get("https://twitter.com/login")
+    try:
+        wait.until(EC.presence_of_element_located((By.NAME, "text"))).send_keys(email + Keys.RETURN)
+        try:
+            wait.until(EC.presence_of_element_located((By.NAME, "text"))).send_keys(username + Keys.RETURN)
+        except:
+            pass
+        wait.until(EC.presence_of_element_located((By.NAME, "password"))).send_keys(senha + Keys.RETURN)
+        wait.until(EC.presence_of_element_located((By.XPATH, '//a[@data-testid="AppTabBar_Home_Link"]')))
+        print("\n✅ Login bem-sucedido!")
+    except Exception as e:
+        print(f"\n❌ Erro no login: {e}")
+        driver.quit()
+        exit()
+    
+# ===================== PRINCIPAL =====================
+def main():
+    email = "connectupa@gmail.com"
+    senha = "UpaConnectTwitter"
+    username = "UpaConnect_"
+    search_query = ["UPA", "UPA Frio", "UPA Calor", "UPA Fila"]
 
-# processamento dos tweets coletados
-print("Processando tweets coletados...")
-dados_resultado = {
-    "tweets_filtrados": []
-}
+    options = Options()
+    options.add_argument("--start-maximized")
+    options.add_argument("--disable-notifications")
+    driver = webdriver.Chrome(options=options)
 
-for tweet in tweets_coletados:
-    tokens_lexicos = analisar_lexico(tweet) 
+    login_twitter(driver, email, senha, username)
+    tweets = coletar_tweets(driver, search_query)
 
-    encontrados = []
-    unrecognized_lexemes = [] 
+    try:
+        with open("dicionario_dados.json", "r", encoding="utf-8") as f:
+            filtros = json.load(f)
+    except Exception as e:
+        print(f"\n❌ Erro carregando dicionário: {e}")
+        driver.quit()
+        return
 
-    # extração de palavras para cada categoria
-    ps = extrair_palavras(tweet, palavras_saude)
-    for p in ps:
-        encontrados.append({"palavra": p, "tipo": "palavra_saude"})
+    dados_resultado, dados_sentimentos = processar_tweets(tweets, filtros)
 
-    nu = extrair_palavras(tweet, nomes_upa)
-    for n in nu:
-        encontrados.append({"palavra": n, "tipo": "nome_upa"})
+    # salvar resultados em um arquivo JSON
+    output_filename = "tweets_filtrados.json"
+    print(f"Salvando resultados em '{output_filename}'...")
+    output_filename_sentimentos = "sentimentos_detectados.json"
+    print(f"Salvando sentimentos detectados em '{output_filename_sentimentos}'...")
 
-    sp = extrair_palavras(tweet, sentimentos_positivos)
-    for s in sp:
-        encontrados.append({"palavra": s, "tipo": "sentimento_positivo"})
+    json_conteudo = json.dumps(dados_resultado, ensure_ascii=False, indent=2)
+    json_sentimentos = json.dumps(dados_sentimentos, ensure_ascii=False, indent=2)
 
-    sn = extrair_palavras(tweet, sentimentos_negativos)
-    for s in sn:
-        encontrados.append({"palavra": s, "tipo": "sentimento_negativo"})
+    with open(output_filename, "w", encoding="utf-8") as f:
+        f.write(json_conteudo)
 
-    pl = extrair_palavras(tweet, palavroes)
-    for p in pl:
-        encontrados.append({"palavra": p, "tipo": "palavrao"})
+    print(f"\n✅ Tweets filtrados e tokens lexicais salvos em '{output_filename}'")
 
-    # lexemas não reconhecidos
-    palavras_detectadas_set = {e["palavra"].lower() for e in encontrados}
-    for token in tokens_lexicos: # Usando os tokens limpos para esta verificação
-        if token not in palavras_detectadas_set:
-            unrecognized_lexemes.append(token)
+    with open(output_filename_sentimentos, "w", encoding="utf-8") as f:
+        f.write(json_sentimentos)
 
-    # destacar palavras encontradas no tweet
-    palavras_para_destacar = list({e["palavra"] for e in encontrados})
-    texto_destaque = destacar_palavras(tweet, palavras_para_destacar)
+    print(f"✅ Sentimentos detectados salvos em '{output_filename_sentimentos}'")
 
-    # calcular o sentimento geral do tweet
-    sentimento_geral = calcular_sentimento_geral(encontrados)
+    s3 = boto3.client('s3')
+    try:
+        s3.put_object(
+            Bucket='bucket-raw-upa-connect',
+            Key='sentimentos_encontrados.json',
+            Body=json_sentimentos.encode('utf-8'),
+            ContentType='application/json'
+        )
+        print("✅ Arquivo enviado para o S3 com sucesso!")
+    except Exception as e:
+        print(f"Erro ao enviar para o S3: {e}")
 
-    # armazenar os resultados
-    dados_resultado["tweets_filtrados"].append({
-        "tweet_original": tweet,
-        "tweet_destaque": texto_destaque,
-        "palavras_detectadas": encontrados, 
-        "tokens_lexicais": tokens_lexicos,
-        "lexemas_nao_reconhecidos": unrecognized_lexemes, 
-        "sentimento_geral": sentimento_geral 
-    })
-
-# salvar resultados em um arquivo JSON
-output_filename = "tweets_filtrados.json"
-print(f"Salvando resultados em '{output_filename}'...")
-with open(output_filename, "w", encoding="utf-8") as f:
-    json.dump(dados_resultado, f, ensure_ascii=False, indent=2)
-
-print(f"\n✅ Tweets filtrados e tokens lexicais salvos em '{output_filename}'")
-
-
-driver.quit()
-print("Browser fechado.")
+    print("\n✅ Arquivos salvos com sucesso!")
+    driver.quit()
+    
+if __name__ == "__main__":
+    main()

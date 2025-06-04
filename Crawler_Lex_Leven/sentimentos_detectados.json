@@ -1,0 +1,1341 @@
+{
+  "sentimentos_detectados": [
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "falta",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "morreu",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "morrer",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "morreu",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "morrer",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "piora",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "pior",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "mal",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "vazia",
+          "tipo": "sentimento_positivo"
+        },
+        {
+          "palavra": "lotada",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "raiva",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "morreu",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "morrer",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "descaso",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "chora",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "lento",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "mal",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "morrendo",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "falta",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "morreu",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "morrer",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "falta",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "mal",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "mal",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "quente",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "dor",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "chorando",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "esperando",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "espera",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "mal",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "esperou",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "fria",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "falta",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "fria",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "quente",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "demorar",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "demora",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "espera",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "morrendo",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "esperou",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "falta",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "problemas",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "problema",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "mal",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "piora",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "pior",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "dor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "raiva",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "atrasos",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "atraso",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "atrasou",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "mal",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "mal",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "mal",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "mal",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "espera",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "esperar",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "falta",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "horrivel",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "horrível",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "problemas",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "problema",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "dor",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "dor",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "chora",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "chora",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "piora",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "pior",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "lotada",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "mal",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "fria",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "esperando",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "morrendo",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "espera",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "esperou",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "morrendo",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "dor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "demorou",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "calor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": [
+        {
+          "palavra": "frio",
+          "tipo": "sentimento_negativo"
+        },
+        {
+          "palavra": "dor",
+          "tipo": "sentimento_negativo"
+        }
+      ]
+    },
+    {
+      "sentimentos_detectados": []
+    }
+  ]
+}
