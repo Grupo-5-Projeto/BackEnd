@@ -12,7 +12,7 @@ class PacienteSensores:
         self.oxigenacao = None
         self.temperatura = None
         self.data = None
-        self.total_pacientes = 109
+        self.total_pacientes = 159
 
     async def config(self, connect_string):
         if os.getenv("ENVIROMENT") == "mock":
