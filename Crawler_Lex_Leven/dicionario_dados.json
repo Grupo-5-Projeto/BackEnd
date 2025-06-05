@@ -136,7 +136,19 @@
         "medicacao correta",
         "ambiente tranquilo",
         "vazia",
-        "inaugurada"
+        "inaugurada",
+        "otimiza",
+        "otimiza o atendimento",
+        "otimiza atendimento",
+        "reduz o tempo",
+        "reduz o tempo de espera",
+        "reduz tempo",
+        "me sinto bem melhor",
+        "me sinto bem",
+        "melhorou",
+        "melhorou muito",
+        "melhorou bastante",
+        "bem melhor"
   ],
 
   "sentimentos_negativos": [
@@ -234,7 +246,11 @@
         "grossos",
         "grossas",
         "grosso",
-        "descaso"
+        "descaso",
+        "quebrado",
+        "horrorosa",
+        "agoniado",
+        "desumano"
   ],
 
     "palavroes": [

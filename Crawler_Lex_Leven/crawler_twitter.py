@@ -273,7 +273,7 @@ def main():
             csv_content = f.read()
         
         s3.put_object(
-            Bucket='bucket-raw-upa-connect',
+            Bucket='bucket-raw-upa-connect-mateus',
             Key='sentimentos_encontrados.csv', # Nome da chave no S3 para o CSV
             Body=csv_content, # O conteúdo do arquivo CSV
             ContentType='text/csv' # Tipo de conteúdo para arquivos CSV
