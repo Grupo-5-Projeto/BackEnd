@@ -1,6 +1,5 @@
 ENVIROMENT == "mock" >> para indicar que voce quer gerar massa mocada
-    SAVE == "db"     >> indica que vai salvar no banco os dados
-    SAAVE == "archive" >> indica que vai gerar arquivos e enivar pro blob da azure
+    SAVE == "archive" >> indica que vai gerar arquivos e enivar pro blob da azure
     --- caso queira arquivos, eu recomendo apagar os arquivos que existir na pasta /arquivos
     --- sempre que for gerar
 
