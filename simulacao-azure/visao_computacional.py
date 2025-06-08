@@ -16,13 +16,12 @@ class VisaoComputacional:
     async def config(self, connect_string):
         if os.getenv("ENVIROMENT") == "mock":
             self.client = DeviceLocal()
-            await self.client.connect()
         else:
             self.client = Device()
             await self.client.connect(connect_string)   
 
 
-    async def handler(self, data_mockada=None, id_upa=None):
+    async def handler(self, data_mockada=None, id_upa=None, intervalo_pacientes=None):
         tipo_dado = random.choice(["limpo", "limpo", "limpo", "limpo", "sujo", "inesperado"])
 
         if id_upa is None:
