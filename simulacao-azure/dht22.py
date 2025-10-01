@@ -12,12 +12,10 @@ class DHT22:
         self.umidade = None
         self.data = None
 
-    async def config(self, connect_string):
         if os.getenv("ENVIROMENT") == "mock":
             self.client = DeviceLocal()
         else:
             self.client = Device()
-            await self.client.connect(connect_string)    
 
     async def handler(self, data_mockada=None, id_upa=None, intervalo_pacientes=None):
         tipo_dado = random.choice(["limpo", "limpo", "limpo", "limpo", "sujo", "inesperado"])
@@ -112,6 +110,3 @@ class DHT22:
         spike = random.choice([10, -10, 15, -15])
         self.temperatura = round(self.temperatura_ambiente() + spike, 2)
         self.umidade = round(self.umidade_ambiente() + spike, 2)
-    
-    async def disconnect(self):
-        await self.client.shutdown()
