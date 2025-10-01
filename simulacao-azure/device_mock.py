@@ -5,7 +5,7 @@ from datetime import datetime
 
 class DeviceLocal:
     async def send_message(self, payload):
-        archive_name = f"dados_{payload['data_hora'].strftime("%Y_%m_%d")}.csv"
+        archive_name = f"{payload['data_hora'].strftime("%Y_%m_%d")}.csv"
 
         all_archives = os.listdir("./arquivos")
         if not archive_name in all_archives:

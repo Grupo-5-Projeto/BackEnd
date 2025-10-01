@@ -16,12 +16,10 @@ class PacienteSensores:
         self.total_pacientes = 700
         self.historico_pacientes = [0]
 
-    async def config(self, connect_string):
         if os.getenv("ENVIROMENT") == "mock":
             self.client = DeviceLocal()
         else:
             self.client = Device()
-            await self.client.connect(connect_string) 
 
 
     async def handler(self, data_mockada, id_upa, intervalo_pacientes):
@@ -82,7 +80,6 @@ class PacienteSensores:
             "fk_unid_medida": 2, # %
         })
 
-
     async def send_temperatura(self, id_paciente, id_upa, current_timestamp):
         await self.client.send_message({
             "data_hora": current_timestamp,
@@ -96,7 +93,8 @@ class PacienteSensores:
     async def send_biometria(self, biometria, id_paciente, id_upa, current_timestamp):
         await self.client.send_message({
             "data_hora": current_timestamp,
-            "valor": biometria,
+            "valor": 0,
+            "biometria": biometria,
             "fk_upa": id_upa,
             "fk_paciente": id_paciente,
             "fk_sensor": 5,  # ID do sensor de Temperatura
@@ -200,6 +198,3 @@ class PacienteSensores:
         spike = random.choice([-10, -20, -15, 15, 20])
         self.oxigenacao = round(self.oximetro() + spike, 2)
         self.temperatura = round(self.temperatura_corporal() + spike, 2)
-
-    async def disconnect(self):
-        await self.client.shutdown()
