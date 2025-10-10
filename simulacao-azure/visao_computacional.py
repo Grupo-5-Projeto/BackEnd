@@ -2,7 +2,6 @@ from datetime import datetime
 from device_connect import Device
 from device_mock import DeviceLocal
 import random
-import math
 import os
 
 
@@ -13,16 +12,12 @@ class VisaoComputacional:
         self.data = None
         self.historico_quantidade_pessoas = [0] * 5 # Média das últimas 5 leituras
 
-    async def config(self, connect_string):
         if os.getenv("ENVIROMENT") == "mock":
             self.client = DeviceLocal()
-            await self.client.connect()
         else:
             self.client = Device()
-            await self.client.connect(connect_string)   
 
-
-    async def handler(self, data_mockada=None, id_upa=None):
+    async def handler(self, data_mockada=None, id_upa=None, intervalo_pacientes=None):
         tipo_dado = random.choice(["limpo", "limpo", "limpo", "limpo", "sujo", "inesperado"])
 
         if id_upa is None:
@@ -97,13 +92,12 @@ class VisaoComputacional:
         })
 
 
-    def visao_computacional(self):
+    def gerar_quantidade_pessoas(self):
         valor = int(random.gauss(50, 30))
         return max(0, valor)
 
 
     def dados_limpos(self):
-        # self.quantidade_pessoas = self.visao_computacional()
         os.environ['QTD_PESSOAS'] = str(self.quantidade_pessoas)
         
 
@@ -119,7 +113,4 @@ class VisaoComputacional:
 
     def dados_inesperados(self):
         spike = random.choice([100, -10, 200, -15])
-        self.quantidade_pessoas = round(self.visao_computacional() + spike, 2)
-
-    async def disconnect(self):
-        await self.client.shutdown()
+        self.quantidade_pessoas = round(self.gerar_quantidade_pessoas() + spike, 2)

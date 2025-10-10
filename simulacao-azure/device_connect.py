@@ -1,20 +1,14 @@
-from  azure.identity import DefaultAzureCredential
-from azure.iot.device.aio import IoTHubDeviceClient
-import asyncio
 import json
+import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 class Device:
-    def __init__(self):
-        self.__client = None
-        DefaultAzureCredential()
-
-    async def connect(self, connect_string):
-       self.__client = IoTHubDeviceClient.create_from_connection_string(connect_string)
-       await self.__client.connect()
-    
     async def send_message(self, payload):
-        print(f"[INFO] Enviando payload: {payload}")
-        await self.__client.send_message(json.dumps(payload))
-
-    async def disconnect(self):
-        await self.__client.shutdown()
+        url = os.environ["URL_API"]
+        response = requests.post(url, data=json.dumps(payload))
+        print(response)
+        if response.status_code != 200:
+            print("erro ao fazer requisicao para api")

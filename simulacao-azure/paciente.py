@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import json
 from device_connect import Device
 import random
 import math
@@ -12,30 +13,30 @@ class PacienteSensores:
         self.oxigenacao = None
         self.temperatura = None
         self.data = None
-        self.total_pacientes = 159
+        self.total_pacientes = 700
+        self.historico_pacientes = [0]
 
-    async def config(self, connect_string):
         if os.getenv("ENVIROMENT") == "mock":
             self.client = DeviceLocal()
-            await self.client.connect()
         else:
             self.client = Device()
-            await self.client.connect(connect_string) 
 
 
-    async def handler(self, data_mockada, id_upa):
+    async def handler(self, data_mockada, id_upa, intervalo_pacientes):
         self.data = data_mockada
-        total_intervalo_minutos_simulacao = (self.total_pacientes - 1) * 5
 
-        # O paciente 1 terá seu tempo base recuado em total_intervalo_minutos_simulacao
-        current_base_time_for_oldest_patient = self.data - timedelta(minutes=total_intervalo_minutos_simulacao)
+        id_paciente = random.randrange(intervalo_pacientes[0], intervalo_pacientes[1])
+        while id_paciente == self.historico_pacientes[len(self.historico_pacientes)-1]:
+            id_paciente = random.randrange(intervalo_pacientes[0], intervalo_pacientes[1])
+        self.historico_pacientes.append(id_paciente)
 
-        last_id_paciente = 0
-        id_paciente = random.randrange(1, self.total_pacientes)
-        while id_paciente == last_id_paciente:
-            id_paciente = random.randrange(1, self.total_pacientes)
+        patient_reading_time = self.data
 
-        patient_reading_time = current_base_time_for_oldest_patient
+        with open("./biometrias_unicas.json", mode="r") as json_file:
+            data = json_file.read()
+            data = json.loads(data)
+            biometria = data["biometrias"][id_paciente-1]
+            await self.send_biometria(biometria, id_paciente, id_upa, patient_reading_time)
 
         # oximetro
         qtde_dados_limpos = random.randrange(3, 5) 
@@ -54,11 +55,10 @@ class PacienteSensores:
             patient_reading_time += timedelta(seconds=5) 
 
         # temperatura
-        patient_reading_time_temp = current_base_time_for_oldest_patient
         for _ in range(qtde_dados_limpos):
             self.dados_limpos()
-            await self.send_temperatura(id_paciente, id_upa, patient_reading_time_temp)
-            patient_reading_time_temp += timedelta(seconds=5) # Avança 5 segundos para a próxima leitura de temp
+            await self.send_temperatura(id_paciente, id_upa, patient_reading_time)
+            patient_reading_time += timedelta(seconds=5) # Avança 5 segundos para a próxima leitura de temp
         
         for _ in range(6-qtde_dados_limpos):
             tipo_dado = random.choice(["sujo", "sujo", "sujo", "inesperado", "inesperado"])
@@ -66,13 +66,8 @@ class PacienteSensores:
                 self.dados_sujos()
             else:
                 self.dados_inesperados()
-            await self.send_temperatura(id_paciente, id_upa, patient_reading_time_temp)
-            patient_reading_time_temp += timedelta(seconds=5) # Avança 5 segundos para a próxima leitura de temp
-
-
-        # Após processar as 6 leituras de um paciente,
-        # avança o tempo base em 5 minutos para o próximo paciente (mais recente)
-        current_base_time_for_oldest_patient += timedelta(minutes=5)
+            await self.send_temperatura(id_paciente, id_upa, patient_reading_time)
+            patient_reading_time += timedelta(seconds=5) # Avança 5 segundos para a próxima leitura de temp
 
 
     async def send_oxigenacao(self, id_paciente, id_upa, current_timestamp):
@@ -85,7 +80,6 @@ class PacienteSensores:
             "fk_unid_medida": 2, # %
         })
 
-
     async def send_temperatura(self, id_paciente, id_upa, current_timestamp):
         await self.client.send_message({
             "data_hora": current_timestamp,
@@ -94,6 +88,17 @@ class PacienteSensores:
             "fk_paciente": id_paciente,
             "fk_sensor": 4,  # ID do sensor de Temperatura
             "fk_unid_medida": 1, # Celsius
+        })
+
+    async def send_biometria(self, biometria, id_paciente, id_upa, current_timestamp):
+        await self.client.send_message({
+            "data_hora": current_timestamp,
+            "valor": 0,
+            "biometria": biometria,
+            "fk_upa": id_upa,
+            "fk_paciente": id_paciente,
+            "fk_sensor": 5,  # ID do sensor de Temperatura
+            "fk_unid_medida": None, 
         })
 
 
@@ -108,9 +113,15 @@ class PacienteSensores:
         while id_paciente == last_paciente:
             id_paciente = random.randrange(1, self.total_pacientes)
         
-
-        qtde_dados_limpos = random.randrange(3, 5) 
         patient_reading_time = datetime.strptime(self.data, "%Y-%m-%dT%H:%M:%S")
+        qtde_dados_limpos = random.randrange(3, 5) 
+
+        with open("./biometrias_unicas.json", mode="r") as json_file:
+            data = json_file.read()
+            data = json.loads(data)
+            biometria = data["biometrias"][id_paciente-1]
+            await self.send_biometria(biometria, id_paciente, id_upa, patient_reading_time.strftime("%Y-%m-%dT%H:%M:%S"))
+
         for _ in range(qtde_dados_limpos):
             self.dados_limpos() 
             await self.send_oxigenacao(id_paciente, id_upa, patient_reading_time.strftime("%Y-%m-%dT%H:%M:%S"))
@@ -141,18 +152,6 @@ class PacienteSensores:
             await self.send_temperatura(id_paciente, id_upa, patient_reading_time.strftime("%Y-%m-%dT%H:%M:%S"))
             patient_reading_time += timedelta(seconds=5) # Avança 5 segundos para a próxima leitura de temp
 
-        # if tipo_dado == "limpo":
-        #     for _ in range(6):
-        #         self.dados_limpos()
-        #         await self.send(id_paciente, id_upa)
-        # elif tipo_dado == "sujo":
-        #     for _ in range(6):
-        #         self.dados_sujos()
-        #         await self.send(id_paciente, id_upa)
-        # else:
-        #     for _ in range(6):
-        #         self.dados_inesperados()
-        #         await self.send(id_paciente, id_upa)
 
     def oximetro(self):
         V_sensor = random.uniform(1.6, 2.4)  
@@ -199,6 +198,3 @@ class PacienteSensores:
         spike = random.choice([-10, -20, -15, 15, 20])
         self.oxigenacao = round(self.oximetro() + spike, 2)
         self.temperatura = round(self.temperatura_corporal() + spike, 2)
-
-    async def disconnect(self):
-        await self.client.shutdown()
