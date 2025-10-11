@@ -22,7 +22,7 @@ class Pessoa:
         self.tempo_saida = None
         self.TEMPERATURA_PACIENTE = None
         self.OXIMETRIA_PACIENTE = None
-        self.DATA = datetime.today().strftime("%Y-%m-%d")  # Data atual do dia
+        self.DATA = datetime.today().strftime("%Y-%m-%d")
 
 def gerar_temperatura():
     chance = random.random()
@@ -42,18 +42,18 @@ def gerar_oximetria():
     else:
         return random.randint(101, 103)
 
-def minutos_para_hora(base, minutos):
-    return (base + timedelta(minutes=minutos)).strftime("%H:%M")
+def minutos_para_hora_completa(base, minutos):
+    return (base + timedelta(minutes=minutos)).strftime("%H:%M:%S")
 
-def simular_fluxo(qtd_pessoas=20, fk_upa=1):
+def simular_fluxo(qtd_pessoas=20, fk_upa=1, id_inicial=1):
     pessoas = []
     triagem_livre = [0, 0]
     consultorio_livre = [0, 0, 0, 0, 0]
     tempo_atual = 0
 
     for i in range(qtd_pessoas):
-        chegada = tempo_atual + random.randint(1, 3)
-        p = Pessoa(i + 1, chegada, fk_upa)
+        chegada = tempo_atual + random.randint(1, 5)
+        p = Pessoa(id_inicial + i, chegada, fk_upa)
 
         p.TEMPERATURA_PACIENTE = gerar_temperatura()
         p.OXIMETRIA_PACIENTE = gerar_oximetria()
@@ -64,7 +64,7 @@ def simular_fluxo(qtd_pessoas=20, fk_upa=1):
         p.sala_espera_1_fim = inicio_triagem
         p.sala_triagem = f"TRIAGEM_{idx_triagem + 1}"
 
-        duracao_triagem = random.randint(3, 6)
+        duracao_triagem = random.randint(5, 15)
         fim_triagem = inicio_triagem + duracao_triagem
         triagem_livre[idx_triagem] = fim_triagem
 
@@ -77,7 +77,7 @@ def simular_fluxo(qtd_pessoas=20, fk_upa=1):
         p.sala_espera_2_fim = inicio_atendimento
         p.sala_consultorio = f"CONSULTORIO_{idx_consultorio + 1}"
 
-        duracao_atendimento = random.randint(8, 15)
+        duracao_atendimento = random.randint(15, 30)
         fim_atendimento = inicio_atendimento + duracao_atendimento
         consultorio_livre[idx_consultorio] = fim_atendimento
 
@@ -88,7 +88,7 @@ def simular_fluxo(qtd_pessoas=20, fk_upa=1):
         pessoas.append(p)
         tempo_atual = chegada
 
-    return pessoas
+    return pessoas, id_inicial + qtd_pessoas
 
 def estatisticas(pessoas):
     tempos_espera_triagem = [p.tempo_triagem_inicio - p.tempo_chegada for p in pessoas]
@@ -104,7 +104,7 @@ def estatisticas(pessoas):
     print(f"Média tempo total no fluxo: {statistics.mean(tempos_totais):.2f} min")
 
 def simular_varias_upas(qtd_upas=3):
-    base_horario = datetime.strptime("08:00", "%H:%M")
+    base_horario = datetime.strptime("08:00:00", "%H:%M:%S")
     data_hoje = datetime.today().strftime("%Y-%m-%d")
     nome_arquivo = f"ATENDIMENTOS-{data_hoje}.csv"
 
@@ -124,6 +124,8 @@ def simular_varias_upas(qtd_upas=3):
         "FK_UPA"
     ]
 
+    id_atendimento_global = 1
+
     with open(nome_arquivo, mode='w', newline='', encoding='utf-8') as arquivo_csv:
         escritor = csv.DictWriter(arquivo_csv, fieldnames=campos_csv)
         escritor.writeheader()
@@ -131,20 +133,20 @@ def simular_varias_upas(qtd_upas=3):
         for fk_upa in range(1, qtd_upas + 1):
             pessoas_por_upa = random.randint(25, 70)
             print(f"\n{'='*20}\nUPA {fk_upa} - {pessoas_por_upa} atendimentos\n{'='*20}")
-            pessoas = simular_fluxo(pessoas_por_upa, fk_upa)
+            pessoas, id_atendimento_global = simular_fluxo(pessoas_por_upa, fk_upa, id_atendimento_global)
             estatisticas(pessoas)
             for p in pessoas:
                 dados_linha = {
                     "ID_ATENDIMENTO": p.id_atendimento,
                     "FK_PESSOA": p.FK_PESSOA,
                     "DATA": p.DATA,
-                    "chegou": f"{minutos_para_hora(base_horario, p.sala_espera_1_inicio)} min",
-                    "TRIAGEM_HORARIO": f"{minutos_para_hora(base_horario, p.tempo_triagem_inicio)} min",
+                    "chegou": minutos_para_hora_completa(base_horario, p.sala_espera_1_inicio),
+                    "TRIAGEM_HORARIO": minutos_para_hora_completa(base_horario, p.tempo_triagem_inicio),
                     "TRIAGEM_SALA": p.sala_triagem,
-                    "SALA_DE_ESPERA": f"{minutos_para_hora(base_horario, p.sala_espera_2_inicio)} min",
-                    "CONSULTORIO_HORARIO": f"{minutos_para_hora(base_horario, p.tempo_atendimento_inicio)} min",
+                    "SALA_DE_ESPERA": minutos_para_hora_completa(base_horario, p.sala_espera_2_inicio),
+                    "CONSULTORIO_HORARIO": minutos_para_hora_completa(base_horario, p.tempo_atendimento_inicio),
                     "CONSULTORIO_SALA": p.sala_consultorio,
-                    "Saida": f"{minutos_para_hora(base_horario, p.tempo_saida)} min",
+                    "Saida": minutos_para_hora_completa(base_horario, p.tempo_saida),
                     "TEMPERATURA_PACIENTE": p.TEMPERATURA_PACIENTE,
                     "OXIMETRIA_PACIENTE": p.OXIMETRIA_PACIENTE,
                     "FK_UPA": p.FK_UPA
@@ -154,4 +156,4 @@ def simular_varias_upas(qtd_upas=3):
     print(f"\nArquivo CSV gerado: {nome_arquivo}")
 
 # Exemplo de uso
-simular_varias_upas(qtd_upas=2)
+simular_varias_upas(qtd_upas=3)
