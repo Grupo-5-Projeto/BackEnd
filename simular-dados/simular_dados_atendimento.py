@@ -1,5 +1,6 @@
 import random
 import statistics
+import csv
 from datetime import datetime, timedelta
 
 class Pessoa:
@@ -21,6 +22,7 @@ class Pessoa:
         self.tempo_saida = None
         self.TEMPERATURA_PACIENTE = None
         self.OXIMETRIA_PACIENTE = None
+        self.DATA = datetime.today().strftime("%Y-%m-%d")  # Data atual do dia
 
 def gerar_temperatura():
     chance = random.random()
@@ -101,23 +103,55 @@ def estatisticas(pessoas):
     print(f"Média duração atendimento: {statistics.mean(tempos_atendimento):.2f} min")
     print(f"Média tempo total no fluxo: {statistics.mean(tempos_totais):.2f} min")
 
-def simular_varias_upas(qtd_upas=3, pessoas_por_upa=10):
+def simular_varias_upas(qtd_upas=3):
     base_horario = datetime.strptime("08:00", "%H:%M")
-    for fk_upa in range(1, qtd_upas + 1):
-        print(f"\n{'='*20}\nUPA {fk_upa}\n{'='*20}")
-        pessoas = simular_fluxo(pessoas_por_upa, fk_upa)
-        estatisticas(pessoas)
-        for p in pessoas:
-            print(f"\nID_ATENDIMENTO: {p.id_atendimento}")
-            print(f"FK_PESSOA: {p.FK_PESSOA}")
-            print(f"chegou: {minutos_para_hora(base_horario, p.sala_espera_1_inicio)} min")
-            print(f"{p.sala_triagem}: {minutos_para_hora(base_horario, p.tempo_triagem_inicio)} min")
-            print(f"SALA_DE_ESPERA: {minutos_para_hora(base_horario, p.sala_espera_2_inicio)} min")
-            print(f"{p.sala_consultorio}: {minutos_para_hora(base_horario, p.tempo_atendimento_inicio)} min")
-            print(f"Saida: {minutos_para_hora(base_horario, p.tempo_saida)} min")
-            print(f"TEMPERATURA_PACIENTE: {p.TEMPERATURA_PACIENTE} °C")
-            print(f"OXIMETRIA_PACIENTE: {p.OXIMETRIA_PACIENTE}%")
-            print(f"FK_UPA = {p.FK_UPA}")
+    data_hoje = datetime.today().strftime("%Y-%m-%d")
+    nome_arquivo = f"ATENDIMENTOS-{data_hoje}.csv"
+
+    campos_csv = [
+        "ID_ATENDIMENTO",
+        "FK_PESSOA",
+        "DATA",
+        "chegou",
+        "TRIAGEM_HORARIO",
+        "TRIAGEM_SALA",
+        "SALA_DE_ESPERA",
+        "CONSULTORIO_HORARIO",
+        "CONSULTORIO_SALA",
+        "Saida",
+        "TEMPERATURA_PACIENTE",
+        "OXIMETRIA_PACIENTE",
+        "FK_UPA"
+    ]
+
+    with open(nome_arquivo, mode='w', newline='', encoding='utf-8') as arquivo_csv:
+        escritor = csv.DictWriter(arquivo_csv, fieldnames=campos_csv)
+        escritor.writeheader()
+
+        for fk_upa in range(1, qtd_upas + 1):
+            pessoas_por_upa = random.randint(25, 70)
+            print(f"\n{'='*20}\nUPA {fk_upa} - {pessoas_por_upa} atendimentos\n{'='*20}")
+            pessoas = simular_fluxo(pessoas_por_upa, fk_upa)
+            estatisticas(pessoas)
+            for p in pessoas:
+                dados_linha = {
+                    "ID_ATENDIMENTO": p.id_atendimento,
+                    "FK_PESSOA": p.FK_PESSOA,
+                    "DATA": p.DATA,
+                    "chegou": f"{minutos_para_hora(base_horario, p.sala_espera_1_inicio)} min",
+                    "TRIAGEM_HORARIO": f"{minutos_para_hora(base_horario, p.tempo_triagem_inicio)} min",
+                    "TRIAGEM_SALA": p.sala_triagem,
+                    "SALA_DE_ESPERA": f"{minutos_para_hora(base_horario, p.sala_espera_2_inicio)} min",
+                    "CONSULTORIO_HORARIO": f"{minutos_para_hora(base_horario, p.tempo_atendimento_inicio)} min",
+                    "CONSULTORIO_SALA": p.sala_consultorio,
+                    "Saida": f"{minutos_para_hora(base_horario, p.tempo_saida)} min",
+                    "TEMPERATURA_PACIENTE": p.TEMPERATURA_PACIENTE,
+                    "OXIMETRIA_PACIENTE": p.OXIMETRIA_PACIENTE,
+                    "FK_UPA": p.FK_UPA
+                }
+                escritor.writerow(dados_linha)
+
+    print(f"\nArquivo CSV gerado: {nome_arquivo}")
 
 # Exemplo de uso
-simular_varias_upas(qtd_upas=2, pessoas_por_upa=5)
+simular_varias_upas(qtd_upas=2)
