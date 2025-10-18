@@ -23,7 +23,7 @@ class Pessoa:
         self.tempo_saida = None
         self.TEMPERATURA_PACIENTE = None
         self.OXIMETRIA_PACIENTE = None
-        self.DATA = datetime.today().strftime("%Y-%m-%d")
+        self.DATA = (datetime.today() - timedelta(days=9)).strftime("%Y-%m-%d")
 
 def gerar_temperatura():
     chance = random.random()
@@ -109,34 +109,22 @@ def sujar_dados(linhas, percentual=0.1):
     qtd_sujos = int(total * percentual)
     linhas_sujas = copy.deepcopy(linhas)
     campos = list(linhas[0].keys())
+    # Agora sujamos apenas TEMPERATURA_PACIENTE e OXIMETRIA_PACIENTE.
+    # Para cada linha aleatória selecionada, escolhemos entre None ou um valor aberrante (999999)
+    campos_para_sujar = ["TEMPERATURA_PACIENTE", "OXIMETRIA_PACIENTE"]
 
     for i in random.sample(range(total), qtd_sujos):
-        campo = random.choice(campos)
-        valor = linhas_sujas[i][campo]
-
-        if campo in ["TEMPERATURA_PACIENTE", "OXIMETRIA_PACIENTE", "FK_PESSOA", "FK_UPA"]:
+        for campo in campos_para_sujar:
             if random.random() < 0.5:
                 linhas_sujas[i][campo] = None
             else:
                 linhas_sujas[i][campo] = 999999
-        elif campo in ["TRIAGEM_SALA", "CONSULTORIO_SALA"]:
-            if random.random() < 0.5:
-                linhas_sujas[i][campo] = None
-            else:
-                linhas_sujas[i][campo] = valor.lower() if random.random() < 0.5 else valor.upper()
-        elif campo in ["chegou", "TRIAGEM_HORARIO", "SALA_DE_ESPERA", "CONSULTORIO_HORARIO", "Saida"]:
-            linhas_sujas[i][campo] = None
-        elif campo == "DATA":
-            if random.random() < 0.5:
-                linhas_sujas[i][campo] = None
-            else:
-                linhas_sujas[i][campo] = linhas_sujas[i][campo].lower()
 
     return linhas_sujas
 
-def simular_varias_upas(qtd_upas=3):
+def simular_varias_upas(qtd_upas=34):
     base_horario = datetime.strptime("08:00:00", "%H:%M:%S")
-    data_hoje = datetime.today().strftime("%Y-%m-%d")
+    data_hoje = (datetime.today() - timedelta(days=9)).strftime("%Y-%m-%d")
     nome_limpo = f"ATENDIMENTOS_LIMPOS_{data_hoje}.csv"
     nome_sujo = f"ATENDIMENTOS_SUJOS_{data_hoje}.csv"
 
