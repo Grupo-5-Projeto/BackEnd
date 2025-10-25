@@ -49,7 +49,7 @@ def minutos_para_hora_completa(base, minutos):
 def simular_fluxo(qtd_pessoas=20, fk_upa=1, id_inicial=1):
     pessoas = []
     triagem_livre = [0, 0]
-    consultorio_livre = [0, 0, 0, 0, 0]
+    consultorio_livre = [0, 0, 0, 0]
     tempo_atual = 0
 
     for i in range(qtd_pessoas):
@@ -148,7 +148,7 @@ def simular_varias_upas(qtd_upas=34):
     todas_linhas = []
 
     for fk_upa in range(1, qtd_upas + 1):
-        pessoas_por_upa = random.randint(25, 70)
+        pessoas_por_upa = random.randint(90, 250)
         print(f"\n{'='*20}\nUPA {fk_upa} - {pessoas_por_upa} atendimentos\n{'='*20}")
         pessoas, id_atendimento_global = simular_fluxo(pessoas_por_upa, fk_upa, id_atendimento_global)
         estatisticas(pessoas)
