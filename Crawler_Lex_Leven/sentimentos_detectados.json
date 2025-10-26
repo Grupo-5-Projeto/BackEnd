@@ -1,79 +1,11 @@
 {
   "sentimentos_detectados": [
     {
-      "palavra": "calor",
+      "palavra": "problema",
       "tipo": "sentimento_negativo"
     },
     {
       "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "piora",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "chora",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "pior",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "calor",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "calor",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "morrer",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "morreu",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "falta",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "calor",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "mal",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "mal",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "morrendo",
       "tipo": "sentimento_negativo"
     },
     {
@@ -90,86 +22,6 @@
     },
     {
       "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "fria",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "chora",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "mal",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "morrendo",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "morrer",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "morreu",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "longo",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "falta",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "calor",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "desconfortavel",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "desconfortável",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "chora",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "horrorosa",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "agoniado",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "morrendo",
       "tipo": "sentimento_negativo"
     },
     {
@@ -205,138 +57,6 @@
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "calor",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "descaso",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "chora",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "calor",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "dor",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "inaugurada",
-      "tipo": "sentimento_positivo"
-    },
-    {
-      "palavra": "otimiza",
-      "tipo": "sentimento_positivo"
-    },
-    {
-      "palavra": "espera",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "esperar",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "chora",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "calor",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "morrendo",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "esperando",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "morrendo",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "quebrado",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "calor",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
       "palavra": "fria",
       "tipo": "sentimento_negativo"
     },
@@ -349,139 +69,15 @@
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "morrendo",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "calor",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "lotada",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "dor",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "morrendo",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
       "palavra": "esperando",
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "calor",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "chorou",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "quente",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "piora",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "mal",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "pior",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "morrer",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "morreu",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "esperando",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "calor",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "demorou",
-      "tipo": "sentimento_negativo"
-    },
-    {
       "palavra": "frio",
       "tipo": "sentimento_negativo"
     },
     {
       "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "calor",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "calor",
       "tipo": "sentimento_negativo"
     },
     {
@@ -505,18 +101,6 @@
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "morrer",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "morreu",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "falta",
-      "tipo": "sentimento_negativo"
-    },
-    {
       "palavra": "frio",
       "tipo": "sentimento_negativo"
     },
@@ -535,58 +119,6 @@
     {
       "palavra": "frio",
       "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "falta",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "morrer",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "morreu",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "calor",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "desumano",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "inaugurada",
-      "tipo": "sentimento_positivo"
     },
     {
       "palavra": "frio",
@@ -613,6 +145,158 @@
       "tipo": "sentimento_negativo"
     },
     {
+      "palavra": "piora",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "pior",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "falta",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "falta",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "morreu",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "morrer",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "horrível",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "horrivel",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "dor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "ruim",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "falta",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "morreu",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "morrer",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "morrendo",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "mal",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
       "palavra": "frio",
       "tipo": "sentimento_negativo"
     },
@@ -637,23 +321,43 @@
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "frio",
+      "palavra": "mal",
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "falta",
+      "palavra": "piora",
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "frio",
-      "tipo": "sentimento_negativo"
-    },
-    {
-      "palavra": "frio",
+      "palavra": "pior",
       "tipo": "sentimento_negativo"
     },
     {
       "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "fria",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "longo",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "fria",
       "tipo": "sentimento_negativo"
     },
     {
@@ -662,6 +366,14 @@
     },
     {
       "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "mal",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
       "tipo": "sentimento_negativo"
     },
     {
@@ -677,6 +389,54 @@
       "tipo": "sentimento_negativo"
     },
     {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "chora",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "chora",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "dor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "chora",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "fria",
+      "tipo": "sentimento_negativo"
+    },
+    {
       "palavra": "calor",
       "tipo": "sentimento_negativo"
     },
@@ -693,7 +453,23 @@
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "falta",
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "frio",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "dor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "problemas",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "problema",
       "tipo": "sentimento_negativo"
     },
     {
@@ -709,7 +485,7 @@
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "frio",
+      "palavra": "esperando",
       "tipo": "sentimento_negativo"
     },
     {
@@ -717,39 +493,39 @@
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "frio",
+      "palavra": "calor",
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "falta",
+      "palavra": "descaso",
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "frio",
+      "palavra": "calor",
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "mal",
+      "palavra": "chora",
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "frio",
+      "palavra": "calor",
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "frio",
+      "palavra": "calor",
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "frio",
+      "palavra": "calor",
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "frio",
+      "palavra": "calor",
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "frio",
+      "palavra": "esperando",
       "tipo": "sentimento_negativo"
     },
     {
@@ -761,7 +537,627 @@
       "tipo": "sentimento_negativo"
     },
     {
-      "palavra": "fria",
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "espera",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "esperou",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "morrendo",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "esperando",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "falta",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "longo",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "lotada",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "piora",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "pior",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "esperando",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "morrer",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "morreu",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "demorar",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "demora",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "mal",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "mal",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "lotada",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "quebrado",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "quebrado",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "dor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "morrendo",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "dor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "chora",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "piora",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "esperar",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "espera",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "pior",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "espera",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "esperar",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "falta",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "problemas",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "problema",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "chora",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "mal",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "chora",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "lotada",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "descaso",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "quebrado",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "longo",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "longa",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "chora",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "problemas",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "problema",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "lotada",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "mal",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "falta",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "mal",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "chora",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "chora",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "chora",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "quente",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "espera",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "piora",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "esperar",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "falta",
+      "tipo": "sentimento_negativo"
+    },
+    {
+      "palavra": "calor",
       "tipo": "sentimento_negativo"
     },
     {
