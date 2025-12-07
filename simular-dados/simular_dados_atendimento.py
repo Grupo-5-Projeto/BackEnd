@@ -14,9 +14,7 @@ from aws_encryption_sdk.key_providers.kms import StrictAwsKmsMasterKeyProvider
 # CONFIGURAÇÃO KMS / CRIPTO
 # ==========================
 
-KMS_KEY_ARN = "arn:aws:kms:us-east-1:987467222103:key/fdb7414c-db8d-48a1-8bb6-5a6ec455d42a"
-#                ^^^^^^^^^^^^^^^^  ESTE TEM QUE SER O ID DA SUA CONTA, IGUAL AO DO CONSOLE
-
+KMS_KEY_ARN = "arn:aws:kms:us-east-1:987467222103:key/SEU-KEY-ID"
 
 # Client do AWS Encryption SDK
 encryption_client = EncryptionSDKClient(
@@ -28,8 +26,16 @@ kms_key_provider = StrictAwsKmsMasterKeyProvider(
     key_ids=[KMS_KEY_ARN],
 )
 
-# (Opcional) cliente S3 se você já quiser fazer upload direto
+# ==========================
+# CONFIGURAÇÃO S3
+# ==========================
+
+# Cliente S3
 s3 = boto3.client("s3")
+
+# Nome do bucket e "pasta" (prefixo) onde os arquivos vão ficar
+S3_BUCKET_NAME = "bucket-raw-upa-connect-teste"   # <<< TROCAR AQUI
+S3_PREFIX = ""                # pode ser "" se não quiser pasta
 
 
 class Pessoa:
@@ -189,7 +195,7 @@ def salvar_arquivo_criptografado(nome_arquivo, ciphertext):
 
 def upload_para_s3_criptografado(bucket, key, ciphertext):
     """
-    (Opcional) Faz upload do conteúdo criptografado para um bucket S3.
+    Faz upload do conteúdo criptografado para um bucket S3.
     """
     s3.put_object(
         Bucket=bucket,
@@ -260,7 +266,7 @@ def simular_varias_upas(qtd_upas=34):
     ciphertext_limpo = criptografar_conteudo_csv(conteudo_csv_limpo)
     salvar_arquivo_criptografado(nome_limpo_enc, ciphertext_limpo)
 
-    # (Opcional) se quiser também o CSV em texto puro local:
+    # CSV limpo em texto puro local (opcional)
     with open(nome_limpo, 'w', newline='', encoding='utf-8') as arq:
         escritor = csv.DictWriter(arq, fieldnames=campos_csv)
         escritor.writeheader()
@@ -271,7 +277,7 @@ def simular_varias_upas(qtd_upas=34):
     ciphertext_sujo = criptografar_conteudo_csv(conteudo_csv_sujo)
     salvar_arquivo_criptografado(nome_sujo_enc, ciphertext_sujo)
 
-    # (Opcional) CSV sujo em texto puro local:
+    # CSV sujo em texto puro local (opcional)
     with open(nome_sujo, 'w', newline='', encoding='utf-8') as arq:
         escritor = csv.DictWriter(arq, fieldnames=campos_csv)
         escritor.writeheader()
@@ -283,9 +289,16 @@ def simular_varias_upas(qtd_upas=34):
     print(f"- Criptografado: {nome_limpo_enc}")
     print(f"- Criptografado: {nome_sujo_enc}")
 
-    # ----------------- (Opcional) Upload para S3 -----------------
-    # upload_para_s3_criptografado("meu-bucket", f"caminho/{nome_limpo_enc}", ciphertext_limpo)
-    # upload_para_s3_criptografado("meu-bucket", f"caminho/{nome_sujo_enc}", ciphertext_sujo)
+    # ----------------- Upload para S3 (CRIPTOGRAFADOS) -----------------
+    s3_key_limpo = f"{S3_PREFIX}{nome_limpo_enc}"
+    s3_key_sujo = f"{S3_PREFIX}{nome_sujo_enc}"
+
+    upload_para_s3_criptografado(S3_BUCKET_NAME, s3_key_limpo, ciphertext_limpo)
+    upload_para_s3_criptografado(S3_BUCKET_NAME, s3_key_sujo, ciphertext_sujo)
+
+    print(f"\nArquivos enviados para o S3:")
+    print(f"- s3://{S3_BUCKET_NAME}/{s3_key_limpo}")
+    print(f"- s3://{S3_BUCKET_NAME}/{s3_key_sujo}")
 
 
 # Executa a simulação
