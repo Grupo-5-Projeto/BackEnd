@@ -3,6 +3,34 @@ import statistics
 import csv
 from datetime import datetime, timedelta
 import copy
+import io
+
+import boto3
+import aws_encryption_sdk
+from aws_encryption_sdk import CommitmentPolicy, EncryptionSDKClient
+from aws_encryption_sdk.key_providers.kms import StrictAwsKmsMasterKeyProvider
+
+# ==========================
+# CONFIGURAÇÃO KMS / CRIPTO
+# ==========================
+
+KMS_KEY_ARN = "arn:aws:kms:us-east-1:987467222103:key/fdb7414c-db8d-48a1-8bb6-5a6ec455d42a"
+#                ^^^^^^^^^^^^^^^^  ESTE TEM QUE SER O ID DA SUA CONTA, IGUAL AO DO CONSOLE
+
+
+# Client do AWS Encryption SDK
+encryption_client = EncryptionSDKClient(
+    commitment_policy=CommitmentPolicy.REQUIRE_ENCRYPT_REQUIRE_DECRYPT
+)
+
+# Master Key Provider do KMS (strict)
+kms_key_provider = StrictAwsKmsMasterKeyProvider(
+    key_ids=[KMS_KEY_ARN],
+)
+
+# (Opcional) cliente S3 se você já quiser fazer upload direto
+s3 = boto3.client("s3")
+
 
 class Pessoa:
     def __init__(self, id_atendimento, chegada, fk_upa):
@@ -25,6 +53,7 @@ class Pessoa:
         self.OXIMETRIA_PACIENTE = None
         self.DATA = (datetime.today() - timedelta(days=9)).strftime("%Y-%m-%d")
 
+
 def gerar_temperatura():
     chance = random.random()
     if chance < 0.05:
@@ -33,6 +62,7 @@ def gerar_temperatura():
         return round(random.uniform(36.0, 37.4), 1)
     else:
         return round(random.uniform(37.5, 40.0), 1)
+
 
 def gerar_oximetria():
     chance = random.random()
@@ -43,8 +73,10 @@ def gerar_oximetria():
     else:
         return random.randint(101, 103)
 
+
 def minutos_para_hora_completa(base, minutos):
     return (base + timedelta(minutes=minutos)).strftime("%H:%M:%S")
+
 
 def simular_fluxo(qtd_pessoas=20, fk_upa=1, id_inicial=1):
     pessoas = []
@@ -91,6 +123,7 @@ def simular_fluxo(qtd_pessoas=20, fk_upa=1, id_inicial=1):
 
     return pessoas, id_inicial + qtd_pessoas
 
+
 def estatisticas(pessoas):
     tempos_espera_triagem = [p.tempo_triagem_inicio - p.tempo_chegada for p in pessoas]
     tempos_triagem = [p.tempo_triagem_fim - p.tempo_triagem_inicio for p in pessoas]
@@ -104,13 +137,11 @@ def estatisticas(pessoas):
     print(f"Média duração atendimento: {statistics.mean(tempos_atendimento):.2f} min")
     print(f"Média tempo total no fluxo: {statistics.mean(tempos_totais):.2f} min")
 
+
 def sujar_dados(linhas, percentual=0.1):
     total = len(linhas)
     qtd_sujos = int(total * percentual)
     linhas_sujas = copy.deepcopy(linhas)
-    campos = list(linhas[0].keys())
-    # Agora sujamos apenas TEMPERATURA_PACIENTE e OXIMETRIA_PACIENTE.
-    # Para cada linha aleatória selecionada, escolhemos entre None ou um valor aberrante (999999)
     campos_para_sujar = ["TEMPERATURA_PACIENTE", "OXIMETRIA_PACIENTE"]
 
     for i in random.sample(range(total), qtd_sujos):
@@ -122,11 +153,61 @@ def sujar_dados(linhas, percentual=0.1):
 
     return linhas_sujas
 
+
+def gerar_csv_em_memoria(linhas, campos_csv):
+    """
+    Gera o conteúdo CSV em memória como string.
+    """
+    buffer = io.StringIO()
+    escritor = csv.DictWriter(buffer, fieldnames=campos_csv)
+    escritor.writeheader()
+    escritor.writerows(linhas)
+    return buffer.getvalue()  # string
+
+
+def criptografar_conteudo_csv(conteudo_csv_str):
+    """
+    Recebe o conteúdo CSV como string, criptografa com KMS e retorna bytes.
+    """
+    plaintext_bytes = conteudo_csv_str.encode("utf-8")
+
+    ciphertext, header = encryption_client.encrypt(
+        source=plaintext_bytes,
+        key_provider=kms_key_provider
+    )
+
+    return ciphertext
+
+
+def salvar_arquivo_criptografado(nome_arquivo, ciphertext):
+    """
+    Salva bytes criptografados em disco.
+    """
+    with open(nome_arquivo, "wb") as f:
+        f.write(ciphertext)
+
+
+def upload_para_s3_criptografado(bucket, key, ciphertext):
+    """
+    (Opcional) Faz upload do conteúdo criptografado para um bucket S3.
+    """
+    s3.put_object(
+        Bucket=bucket,
+        Key=key,
+        Body=ciphertext
+    )
+
+
 def simular_varias_upas(qtd_upas=34):
     base_horario = datetime.strptime("08:00:00", "%H:%M:%S")
     data_hoje = (datetime.today() - timedelta(days=9)).strftime("%Y-%m-%d")
+
     nome_limpo = f"ATENDIMENTOS_LIMPOS_{data_hoje}.csv"
     nome_sujo = f"ATENDIMENTOS_SUJOS_{data_hoje}.csv"
+
+    # nomes dos arquivos criptografados
+    nome_limpo_enc = f"{nome_limpo}.enc"
+    nome_sujo_enc = f"{nome_sujo}.enc"
 
     campos_csv = [
         "ID_ATENDIMENTO",
@@ -171,19 +252,41 @@ def simular_varias_upas(qtd_upas=34):
             }
             todas_linhas.append(dados_linha)
 
+    # gera versão suja
     sujas = sujar_dados(todas_linhas)
 
+    # ----------- CSV LIMPO: gera em memória, criptografa e salva -----------
+    conteudo_csv_limpo = gerar_csv_em_memoria(todas_linhas, campos_csv)
+    ciphertext_limpo = criptografar_conteudo_csv(conteudo_csv_limpo)
+    salvar_arquivo_criptografado(nome_limpo_enc, ciphertext_limpo)
+
+    # (Opcional) se quiser também o CSV em texto puro local:
     with open(nome_limpo, 'w', newline='', encoding='utf-8') as arq:
         escritor = csv.DictWriter(arq, fieldnames=campos_csv)
         escritor.writeheader()
         escritor.writerows(todas_linhas)
 
+    # ----------- CSV SUJO: gera em memória, criptografa e salva -----------
+    conteudo_csv_sujo = gerar_csv_em_memoria(sujas, campos_csv)
+    ciphertext_sujo = criptografar_conteudo_csv(conteudo_csv_sujo)
+    salvar_arquivo_criptografado(nome_sujo_enc, ciphertext_sujo)
+
+    # (Opcional) CSV sujo em texto puro local:
     with open(nome_sujo, 'w', newline='', encoding='utf-8') as arq:
         escritor = csv.DictWriter(arq, fieldnames=campos_csv)
         escritor.writeheader()
         escritor.writerows(sujas)
 
-    print(f"\nArquivos gerados:\n- {nome_limpo}\n- {nome_sujo}")
+    print(f"\nArquivos gerados:")
+    print(f"- Texto puro: {nome_limpo}")
+    print(f"- Texto puro: {nome_sujo}")
+    print(f"- Criptografado: {nome_limpo_enc}")
+    print(f"- Criptografado: {nome_sujo_enc}")
+
+    # ----------------- (Opcional) Upload para S3 -----------------
+    # upload_para_s3_criptografado("meu-bucket", f"caminho/{nome_limpo_enc}", ciphertext_limpo)
+    # upload_para_s3_criptografado("meu-bucket", f"caminho/{nome_sujo_enc}", ciphertext_sujo)
+
 
 # Executa a simulação
 simular_varias_upas(qtd_upas=34)
